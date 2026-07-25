@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roteiro de Férias 2027 - Alemanha, Dinamarca & Polônia</title>
+    <title>Roteiro de Férias 2027 - Calendário</title>
     <style>
         :root {
             --primary: #1a365d;
@@ -13,7 +13,7 @@
             --card-bg: #ffffff;
             --text: #2d3748;
             --text-light: #718096;
-            --border: #e2e8f0;
+            --border: #cbd5e0;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,133 +22,116 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg);
             color: var(--text);
-            line-height: 1.5;
-            padding: 15px;
-            max-width: 600px;
+            line-height: 1.4;
+            padding: 10px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-
-        header h1 {
-            font-size: 18pt;
-            margin-bottom: 5px;
-        }
-
-        header p {
-            font-size: 9.5pt;
-            opacity: 0.9;
-        }
-
-        .meta-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
+            padding: 15px;
             border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-around;
+            margin-bottom: 15px;
             text-align: center;
         }
 
-        .meta-item .label {
-            font-size: 7.5pt;
-            color: var(--text-light);
-            text-transform: uppercase;
-            font-weight: bold;
-        }
+        header h1 { font-size: 16pt; margin-bottom: 3px; }
+        header p { font-size: 9pt; opacity: 0.9; }
 
-        .meta-item .val {
-            font-size: 9.5pt;
-            font-weight: bold;
-            color: var(--primary);
-            margin-top: 2px;
-        }
-
-        h2 {
-            font-size: 12pt;
-            color: var(--primary);
-            border-left: 4px solid var(--accent);
-            padding-left: 8px;
-            margin: 25px 0 12px 0;
-        }
-
-        .day-card {
-            background: var(--card-bg);
+        .calendar-container {
+            overflow-x: auto;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 8px;
             border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 12px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
-        .day-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 6px;
+        .cal-week-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+            table-layout: fixed;
         }
 
-        .day-date {
+        .cal-week-table th {
+            background-color: #d69e2e; /* tom alaranjado semelhante ao da imagem */
+            color: white;
+            font-size: 8pt;
+            text-transform: uppercase;
+            padding: 6px 4px;
+            text-align: center;
+            border: 1px solid #b7791f;
+        }
+
+        .cal-week-table td {
+            height: 95px;
+            border: 1px solid var(--border);
+            vertical-align: top;
+            padding: 4px;
+            font-size: 7.5pt;
+            width: 14.28%;
+            background-color: #ffffff;
+        }
+
+        .cal-week-table td.empty {
+            background-color: #edf2f7;
+        }
+
+        .day-num {
             font-weight: bold;
             color: var(--primary);
-            font-size: 10pt;
-        }
-
-        .badge {
-            font-size: 7.5pt;
-            padding: 3px 8px;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-        .b-voo { background: #fffaf0; color: #dd6b20; border: 1px solid #feebc8; }
-        .b-treino { background: #ebf8ff; color: #3182ce; border: 1px solid #bee3f8; }
-        .b-viagem { background: #f0fff4; color: #38a169; border: 1px solid #c6f6d5; }
-        .b-turismo { background: #faf5ff; color: #805ad5; border: 1px solid #e9d8fd; }
-
-        .day-content {
-            font-size: 9.5pt;
-            color: var(--text);
-        }
-
-        .action-links {
-            margin-top: 8px;
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .btn-link {
             font-size: 8pt;
-            text-decoration: none;
-            background: #edf2f7;
-            color: var(--secondary);
-            padding: 4px 10px;
-            border-radius: 6px;
+            margin-bottom: 3px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 2px;
+            text-align: center;
+        }
+
+        .event-chip {
+            padding: 2px 4px;
+            border-radius: 3px;
+            margin-bottom: 2px;
+            font-size: 7pt;
             font-weight: 600;
-            display: inline-flex;
+            line-height: 1.1;
+        }
+
+        .c-voo { background-color: #feebc8; color: #9c4221; border-left: 2px solid #dd6b20; }
+        .c-treino-pink { background-color: #fed7e2; color: #97266d; border-left: 2px solid #d53f8c; }
+        .c-treino-blue { background-color: #bee3f8; color: #2b6cb0; border-left: 2px solid #3182ce; }
+        .c-treino-yellow { background-color: #feebc8; color: #744210; border-left: 2px solid #d69e2e; }
+        .c-treino-green { background-color: #c6f6d5; color: #22543d; border-left: 2px solid #38a169; }
+        .c-viagem { background-color: #e6fffa; color: #234e52; border-left: 2px solid #319795; }
+
+        .legend {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 8pt;
+        }
+
+        .legend-item {
+            display: flex;
             align-items: center;
             gap: 4px;
         }
 
-        .btn-link:hover {
-            background: #e2e8f0;
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
         }
 
         footer {
             text-align: center;
             font-size: 8pt;
             color: var(--text-light);
-            margin-top: 30px;
+            margin-top: 20px;
             padding-bottom: 20px;
         }
     </style>
@@ -157,213 +140,184 @@
 
     <header>
         <h1>Roteiro de Férias 2027</h1>
-        <p>Erick, Mônica e Milena | Alemanha, Dinamarca & Polônia</p>
+        <p>Visão em Calendário • Família Nogueira</p>
     </header>
 
-    <div class="meta-card">
-        <div class="meta-item">
-            <div class="label">Partida (GRU)</div>
-            <div class="val">25/01/2027</div>
-        </div>
-        <div class="meta-item">
-            <div class="label">Base</div>
-            <div class="val">Berlim, DE</div>
-        </div>
-        <div class="meta-item">
-            <div class="label">Retorno (GRU)</div>
-            <div class="val">14/02/2027</div>
-        </div>
+    <div class="legend">
+        <div class="legend-item"><div class="legend-color" style="background:#feebc8;"></div> Voo</div>
+        <div class="legend-item"><div class="legend-color" style="background:#fed7e2;"></div> Fuchse</div>
+        <div class="legend-item"><div class="legend-color" style="background:#bee3f8;"></div> SG - OSF</div>
+        <div class="legend-item"><div class="legend-color" style="background:#c6f6d5;"></div> Fuchse 2</div>
+        <div class="legend-item"><div class="legend-color" style="background:#e6fffa;"></div> Viagem / Airbnb</div>
     </div>
 
-    <h2>Cronograma Detalhado</h2>
-
-    <div class="day-card">
-        <div class="day-header">
-            <span class="day-date">Seg, 25/01/2027</span>
-            <span class="badge b-voo">Voo</span>
-        </div>
-        <div class="day-content">
-            Voo de ida GRU → BER (Saída às 23:40).
-        </div>
+    <!-- Semana 1: 24/01 a 30/01 -->
+    <div class="calendar-container">
+        <table class="cal-week-table">
+            <thead>
+                <tr>
+                    <th>Domingo</th>
+                    <th>Segunda</th>
+                    <th>Terça</th>
+                    <th>Quarta</th>
+                    <th>Quinta</th>
+                    <th>Sexta</th>
+                    <th>Sábado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><div class="day-num">24/01</div></td>
+                    <td>
+                        <div class="day-num">25/01</div>
+                        <div class="event-chip c-voo">Voo ida GRU<br>23h40</div>
+                    </td>
+                    <td>
+                        <div class="day-num">26/01</div>
+                        <div class="event-chip c-viagem">Chegada BER: 21h3h<br>Checkin Airbnb</div>
+                    </td>
+                    <td>
+                        <div class="day-num">27/01</div>
+                        <div class="event-chip c-treino-blue">SG - OSF<br>18:45 - 20:15</div>
+                    </td>
+                    <td>
+                        <div class="day-num">28/01</div>
+                        <div class="event-chip c-treino-pink">Fuchse 1<br>17:00 - 18:30</div>
+                    </td>
+                    <td>
+                        <div class="day-num">29/01</div>
+                        <div class="event-chip c-treino-green">Fuchse 2<br>18:30 - 20:00</div>
+                    </td>
+                    <td><div class="day-num">30/01</div></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
-    <div class="day-card">
-        <div class="day-header">
-            <span class="day-date">Ter, 26/01/2027</span>
-            <span class="badge b-viagem">Chegada</span>
-        </div>
-        <div class="day-content">
-            Chegada em Berlim às 21:30 | Check-in Airbnb.
-        </div>
+    <!-- Semana 2: 31/01 a 06/02 -->
+    <div class="calendar-container">
+        <table class="cal-week-table">
+            <thead>
+                <tr>
+                    <th>Domingo</th>
+                    <th>Segunda</th>
+                    <th>Terça</th>
+                    <th>Quarta</th>
+                    <th>Quinta</th>
+                    <th>Sexta</th>
+                    <th>Sábado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><div class="day-num">31/01</div></td>
+                    <td>
+                        <div class="day-num">01/02</div>
+                        <div class="event-chip c-treino-pink">Fuchse 1<br>17:00 - 18:30</div>
+                        <div class="event-chip c-treino-yellow">SG - OSF Goleira<br>18:30 - 20:00</div>
+                    </td>
+                    <td>
+                        <div class="day-num">02/02</div>
+                        <div class="event-chip c-treino-blue">SG - OSF<br>18:30 - 20:00</div>
+                    </td>
+                    <td>
+                        <div class="day-num">03/02</div>
+                        <div class="event-chip c-treino-pink">Fuchse 1<br>17:00 - 18:30</div>
+                        <div class="event-chip c-treino-blue">SG - OSF<br>18:45 - 20:15</div>
+                    </td>
+                    <td>
+                        <div class="day-num">04/02</div>
+                        <div class="event-chip c-viagem">Checkout Airbnb<br>Ida Copenhagen<br>Checkin Airbnb</div>
+                    </td>
+                    <td><div class="day-num">05/02</div></td>
+                    <td><div class="day-num">06/02</div></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
-    <div class="day-card">
-        <div class="day-header">
-            <span class="day-date">Qua, 27/01/2027</span>
-            <span class="badge b-treino">Treino</span>
-        </div>
-        <div class="day-content">
-            Treino: SG - OSF (18:45 - 20:15).
-        </div>
+    <!-- Semana 3: 07/02 a 13/02 -->
+    <div class="calendar-container">
+        <table class="cal-week-table">
+            <thead>
+                <tr>
+                    <th>Domingo</th>
+                    <th>Segunda</th>
+                    <th>Terça</th>
+                    <th>Quarta</th>
+                    <th>Quinta</th>
+                    <th>Sexta</th>
+                    <th>Sábado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="day-num">07/02</div>
+                        <div class="event-chip c-viagem">Checkout CPH<br>Ida Berlim<br>Checkin Airbnb</div>
+                    </td>
+                    <td>
+                        <div class="day-num">08/02</div>
+                        <div class="event-chip c-treino-pink">Fuchse 1<br>17:00 - 18:30</div>
+                        <div class="event-chip c-treino-yellow">SG - OSF Goleira<br>18:30 - 20:00</div>
+                    </td>
+                    <td>
+                        <div class="day-num">09/02</div>
+                        <div class="event-chip c-treino-blue">SG - OSF<br>18:30 - 20:00</div>
+                        <div style="font-size: 6.5pt; color: #4a5568;">Sachsendamm 12</div>
+                    </td>
+                    <td>
+                        <div class="day-num">10/02</div>
+                        <div class="event-chip c-treino-pink">Fuchse 1<br>17:00 - 18:30</div>
+                        <div class="event-chip c-treino-blue">SG - OSF<br>18:45 - 20:15</div>
+                        <div class="event-chip c-viagem">Checkout Airbnb<br>Ida Wroclaw</div>
+                    </td>
+                    <td>
+                        <div class="day-num">11/02</div>
+                        <div class="event-chip c-treino-green">Fuchse 2<br>18:30 - 20:00</div>
+                    </td>
+                    <td>
+                        <div class="day-num">12/02</div>
+                        <div class="event-chip c-viagem">Checkout Wroclaw<br>Retorno Berlim</div>
+                    </td>
+                    <td>
+                        <div class="day-num">13/02</div>
+                        <div class="event-chip c-voo">Checkout Airbnb<br>Aero 14h40<br>Voo BER 17h40</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
-    <div class="day-card">
-        <div class="day-header">
-            <span class="day-date">Qui, 28/01/2027</span>
-            <span class="badge b-treino">Treino</span>
-        </div>
-        <div class="day-content">
-            Treino: Fuchse 1 (17:00 - 18:30).
-        </div>
-    </div>
-
-    <div class="day-card">
-        <div class="day-header">
-            <span class="day-date">Sex, 29/01/2027</span>
-            <span class="badge b-treino">Treino</span>
-        </div>
-        <div class="day-content">
-            Treino: Fuchse 2 (18:30 - 20:00).
-        </div>
-    </div>
-
-    <div class="day-card">
-        <div class="day-header">
-            <span class="day-date">Seg, 01/02/2027</span>
-            <span class="badge b-treino">Treino</span>
-        </div>
-        <div class="day-content">
-            Treinos: Fuchse 1 (17:00) & SG - OSF Goleira (18:30).
-        </div>
-    </div>
-
-    <div class="day-card">
-        <div class="day-header">
-            <span class="day-date">Ter, 02/02/2027</span>
-            <span class="badge b-treino">Treino</span>
-        </div>
-        <div class="day-content">
-            Treino: SG - OSF (18:30 - 20:00).
-        </div>
-    </div>
-
-    <div class="day-card">
-        <div class="day-header">
-            <span class="day-date">Qua, 03/02/2027</span>
-            <span class="badge b-treino">Treino</span>
-        </div>
-        <div class="day-content">
-            Treinos: Fuchse 1 (17:00) & SG - OSF (18:45).
-        </div>
-    </div>
-
-    <div class="day-card">
-        <div class="day-header">
-            <span class="day-date">Qui, 04/02/2027</span>
-            <span class="badge b-viagem">Viagem</span>
-        </div>
-        <div class="day-content">
-            Checkout Airbnb Berlim → Ida para <b>Copenhague</b> → Check-in Airbnb Copenhague.
-        </div>
-    </div>
-
-    <div class="day-card">
-        <div class="day-header">
-            <span class="day-date">Sex, 05/02 a Sáb, 06/02/2027</span>
-            <span class="badge b-turismo">Turismo</span>
-        </div>
-        <div class="day-content">
-            Exploração de Copenhague (Hygge, canais, Tivoli e chocolaterias como Summerbird).
-            <div class="action-links">
-                <a href="https://maps.google.com/?q=Tivoli+Gardens+Copenhagen" target="_blank" class="btn-link">📍 Tivoli Gardens</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="day-card">
-        <div class="day-header">
-            <span class="day-date">Dom, 07/02/2027</span>
-            <span class="badge b-viagem">Retorno</span>
-        </div>
-        <div class="day-content">
-            Checkout Copenhague → Retorno para <b>Berlim</b> → Check-in Airbnb Berlim.
-        </div>
-    </div>
-
-    <div class="day-card">
-        <div class="day-header">
-            <span class="day-date">Seg, 08/02/2027</span>
-            <span class="badge b-treino">Treino</span>
-        </div>
-        <div class="day-content">
-            Treinos: Fuchse 1 (17:00) & SG - OSF Goleira (18:30).
-        </div>
-    </div>
-
-    <div class="day-card">
-        <div class="day-header">
-            <span class="day-date">Ter, 09/02/2027</span>
-            <span class="badge b-treino">Treino</span>
-        </div>
-        <div class="day-content">
-            Treino: SG - OSF (18:30 - 20:00).
-            <div class="action-links">
-                <a href="https://maps.google.com/?q=Sachsendamm+12+10829+Berlin" target="_blank" class="btn-link">📍 Ver Endereço (Sachsendamm 12)</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="day-card">
-        <div class="day-header">
-            <span class="day-date">Qua, 10/02/2027</span>
-            <span class="badge b-viagem">Viagem</span>
-        </div>
-        <div class="day-content">
-            Treinos e Checkout Airbnb Berlim → Ida para <b>Wroclaw (Polônia)</b> → Check-in Airbnb.
-        </div>
-    </div>
-
-    <div class="day-card">
-        <div class="day-header">
-            <span class="day-date">Qui, 11/02/2027</span>
-            <span class="badge b-treino">Treino</span>
-        </div>
-        <div class="day-content">
-            Treino: Fuchse 2 (18:30 - 20:00) <i>[Ajustar com Wroclaw]</i>.
-        </div>
-    </div>
-
-    <div class="day-card">
-        <div class="day-header">
-            <span class="day-date">Sex, 12/02/2027</span>
-            <span class="badge b-viagem">Retorno</span>
-        </div>
-        <div class="day-content">
-            Checkout Airbnb Wroclaw → Retorno para <b>Berlim</b> → Check-in Airbnb Berlim.
-        </div>
-    </div>
-
-    <div class="day-card">
-        <div class="day-header">
-            <span class="day-date">Sáb, 13/02/2027</span>
-            <span class="badge b-voo">Retorno</span>
-        </div>
-        <div class="day-content">
-            Checkout Airbnb Berlim | Chegada aeroporto BER 14h40 | Voo BER → GRU (17:40).
-            <div class="action-links">
-                <a href="https://maps.google.com/?q=Berlin+Brandenburg+Airport" target="_blank" class="btn-link">✈️ Aeroporto BER</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="day-card">
-        <div class="day-header">
-            <span class="day-date">Dom, 14/02/2027</span>
-            <span class="badge b-voo">Fim</span>
-        </div>
-        <div class="day-content">
-            Chegada em São Paulo (GRU) às 05:05.
-        </div>
+    <!-- Semana 4: 14/02 a 20/02 -->
+    <div class="calendar-container">
+        <table class="cal-week-table">
+            <thead>
+                <tr>
+                    <th>Domingo</th>
+                    <th>Segunda</th>
+                    <th>Terça</th>
+                    <th>Quarta</th>
+                    <th>Quinta</th>
+                    <th>Sexta</th>
+                    <th>Sábado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="day-num">14/02</div>
+                        <div class="event-chip c-voo">Chegada GRU<br>05h05</div>
+                    </td>
+                    <td><div class="day-num">15/02</div></td>
+                    <td><div class="day-num">16/02</div></td>
+                    <td><div class="day-num">17/02</div></td>
+                    <td><div class="day-num">18/02</div></td>
+                    <td><div class="day-num">19/02</div></td>
+                    <td><div class="day-num">20/02</div></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <footer>
@@ -372,3 +326,6 @@
 
 </body>
 </html>
+"""
+
+print("Calendário em grade atualizado com sucesso!")
