@@ -324,6 +324,24 @@
         .address-item strong { color: var(--primary); display: block; }
         .tag-pending { background: #feebc8; color: #9c4221; padding: 2px 6px; border-radius: 4px; font-size: 7pt; font-weight: bold; }
 
+        .flight-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 8px;
+            font-size: 8.5pt;
+        }
+        .flight-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 4px;
+            margin-bottom: 6px;
+        }
+
         .add-custom-box {
             background: var(--card-bg);
             border: 1px solid var(--border);
@@ -667,7 +685,7 @@
             <p style="font-size: 8.5pt; margin-bottom: 8px;">Berlim será a nossa principal base operacional e de treinos de handebol da Milena (SG - OSF e Fuchse Berlim).</p>
             <ul style="font-size: 8.5pt; margin-left: 18px; margin-bottom: 10px;">
                 <li><strong>Foco principal:</strong> Rotina de treinos intensivos e adaptação ao inverno europeu.</li>
-                <li><strong>Hospedagem:</strong> <span class="tag-pending">A definir (Em aberto)</span></li>
+                <li><strong>Hospedagem:</strong> Heinrich-Heine-Straße 7, 10179 Berlin</li>
             </ul>
             <button class="btn-link" onclick="switchTab('tab-enderecos')">📍 Ver Endereços de Treino em Berlim</button>
         </div>
@@ -705,7 +723,7 @@
         <div class="card-box">
             <h3>🏡 Hospedagens (Airbnb)</h3>
             <div class="address-item">
-                <strong>Berlim, Alemanha (Base):</strong> <span class="tag-pending">Pendente de definição</span>
+                <strong>Berlim, Alemanha (Base):</strong> Heinrich-Heine-Straße 7, 10179 Berlin
             </div>
             <div class="address-item" style="margin-top: 8px;">
                 <strong>Copenhague, Dinamarca:</strong> <span class="tag-pending">Pendente de definição</span>
@@ -793,7 +811,7 @@
                 <div id="custom-monica"></div>
             </div>
 
-            <!-- 5. Milena (Sem Handebol) -->
+            <!-- 5. Milena -->
             <div class="card-box" id="card-milena">
                 <h3>🤾‍♀️ Milena</h3>
                 <label class="check-item"><input type="checkbox" data-id="milena-esporte"> <span>Tênis e material de handebol</span></label>
@@ -819,14 +837,40 @@
         </div>
     </div>
 
-    <!-- ABA 7: VOOS (NOVA) -->
+    <!-- ABA 7: VOOS -->
     <div id="tab-voos" class="tab-content">
-        <h2>Informações de Voos</h2>
-        <div class="card-box">
-            <h3>✈️ Detalhes das Passagens & Conexões</h3>
-            <p style="font-size: 8.5pt; color: var(--text-light); margin-bottom: 12px;">Esta seção armazenará os aeroportos, números de voo, horários e assentos da família.</p>
-            <div class="address-item">
-                <strong>Status:</strong> <span class="tag-pending">Aguardando dados dos voos para preenchimento</span>
+        <h2>Informações de Voos (Localizador: GJECNQ)</h2>
+        
+        <div class="card-box" style="margin-bottom: 12px; border-left: 4px solid #dd6b20;">
+            <h3>🛫 Trecho de Ida (25/01/2027 a 26/01/2027)</h3>
+            <p style="font-size: 8.5pt; margin-bottom: 8px; font-weight: bold; color: var(--secondary);">Apresentação / Check-in: Guarulhos - Balcão TAM - 25/01/2027 às 20:40</p>
+            
+            <div class="flight-card">
+                <div class="flight-header"><span>Voo 1: TAM 8084</span><span>25/01/2027</span></div>
+                <div><strong>De:</strong> Guarulhos (GRU) — 23:40</div>
+                <div><strong>Para:</strong> London Heathrow (LHR) — 26/01/2027 às 14:05</div>
+            </div>
+
+            <div class="flight-card">
+                <div class="flight-header"><span>Voo 2: Eurowings Luftverkehrs 8465</span><span>26/01/2027</span></div>
+                <div><strong>De:</strong> London Heathrow (LHR) — 18:35</div>
+                <div><strong>Para:</strong> Berlim (BER) — 21:30</div>
+            </div>
+        </div>
+
+        <div class="card-box" style="border-left: 4px solid #38a169;">
+            <h3>🛬 Trecho de Volta (13/02/2027 a 14/02/2027)</h3>
+            
+            <div class="flight-card">
+                <div class="flight-header"><span>Voo 3: Lufthansa 193</span><span>13/02/2027</span></div>
+                <div><strong>De:</strong> Berlim (BER) — 17:40</div>
+                <div><strong>Para:</strong> Frankfurt (FRA) — 18:50</div>
+            </div>
+
+            <div class="flight-card">
+                <div class="flight-header"><span>Voo 4: TAM 8071</span><span>13/02/2027 a 14/02/2027</span></div>
+                <div><strong>De:</strong> Frankfurt (FRA) — 20:50</div>
+                <div><strong>Para:</strong> Guarulhos (GRU) — 14/02/2027 às 05:05</div>
             </div>
         </div>
     </div>
@@ -895,12 +939,12 @@
 
         <div id="d-25-01" class="day-card">
             <div class="day-header"><span class="day-date">Seg, 25/01/2027</span><span class="badge b-voo">Voo</span></div>
-            <div class="day-content">Voo de ida GRU → BER (Saída às 23:40).</div>
+            <div class="day-content">Apresentação balcão TAM (GRU) 20:40 | Voo TAM 8084 para Londres (23:40).</div>
         </div>
 
         <div id="d-26-01" class="day-card">
             <div class="day-header"><span class="day-date">Ter, 26/01/2027</span><span class="badge b-viagem">Chegada</span></div>
-            <div class="day-content">Chegada em Berlim às 21:30 | Check-in Airbnb.</div>
+            <div class="day-content">Conexão em Heathrow (LHR) → Voo Eurowings para Berlim (Chegada 21:30) | Check-in Airbnb Heinrich-Heine-Straße.</div>
         </div>
 
         <div id="d-27-01" class="day-card">
@@ -1035,7 +1079,7 @@
         <div id="d-13-02" class="day-card">
             <div class="day-header"><span class="day-date">Sáb, 13/02/2027</span><span class="badge b-voo">Retorno</span></div>
             <div class="day-content">
-                Checkout Airbnb Berlim | Chegada aeroporto BER 14h40 | Voo BER → GRU (17:40).
+                Checkout Airbnb Berlim | Voo Lufthansa BER→FRA (17:40) e Voo TAM 8071 FRA→GRU (20:50).
                 <div class="action-links">
                     <a href="https://maps.google.com/?q=Berlin+Brandenburg+Airport" target="_blank" class="btn-link">✈️ Aeroporto BER</a>
                 </div>
@@ -1113,7 +1157,6 @@
                 const parts = id.replace(/^custom-/, '').split('-');
                 const category = parts[0];
                 
-                // Pega o texto original salvo (ou reconstrói do ID se não houver)
                 let labelText = serverData[id + '_text'] || parts.slice(1).join(' ');
                 
                 const targetContainer = document.getElementById(`custom-${category}`);
@@ -1195,7 +1238,6 @@
             const cleanText = text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '-');
             const cleanId = `custom-${category}-${cleanText}`;
             
-            // Salva o estado e o texto EXATO digitado pelo usuário (sem perder maiúsculas)
             await saveChecklistState(cleanId, false);
             await saveChecklistState(cleanId + '_text', text);
             
