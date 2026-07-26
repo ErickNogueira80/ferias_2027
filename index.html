@@ -1048,6 +1048,7 @@
         }
 
         function renderCustomItems(serverData) {
+            // Limpa containers customizados antes de popular
             ['hospedagem', 'documentos', 'erick', 'monica', 'milena'].forEach(cat => {
                 const container = document.getElementById(`custom-${cat}`);
                 if (container) container.innerHTML = '';
@@ -1057,9 +1058,15 @@
             const customKeys = allKeys.filter(key => !fixedIds.includes(key));
 
             customKeys.forEach(id => {
+                // O ID técnico continua limpo para a nuvem, mas agora guardamos o texto original
                 const parts = id.replace(/^custom-/, '').split('-');
                 const category = parts[0];
-                const labelText = parts.slice(1).join(' ');
+                
+                // Pega o texto original salvo ou reconstrói mantendo o formato amigável
+                let labelText = serverData[id + '_text']; 
+                if (!labelText) {
+                    labelText = parts.slice(1).join(' ');
+                }
                 
                 const targetContainer = document.getElementById(`custom-${category}`);
                 if (targetContainer) {
@@ -1140,7 +1147,9 @@
             const cleanText = text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '-');
             const cleanId = `custom-${category}-${cleanText}`;
             
+            // Salva o estado do checkbox e também o texto original com acentos/maiúsculas
             await saveChecklistState(cleanId, false);
+            await saveChecklistState(cleanId + '_text', text);
             
             input.value = '';
             loadChecklistState();
