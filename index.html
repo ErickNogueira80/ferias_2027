@@ -293,6 +293,26 @@
         .address-item strong { color: var(--primary); display: block; }
         .tag-pending { background: #feebc8; color: #9c4221; padding: 2px 6px; border-radius: 4px; font-size: 7pt; font-weight: bold; }
 
+        /* Adicionar Item Customizado */
+        .add-custom-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 14px;
+            box-shadow: var(--shadow);
+            margin-bottom: 15px;
+        }
+        .add-custom-box input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 9pt;
+            margin-bottom: 8px;
+        }
+
         /* Estilos do Tradutor e Vocabulário */
         .dict-table {
             width: 100%;
@@ -691,6 +711,14 @@
             <div id="progress-text" class="progress-text">Sincronizando com a nuvem...</div>
         </div>
 
+        <!-- Campo para adicionar itens personalizados -->
+        <div class="add-custom-box">
+            <h3>➕ Sugerir Novo Item (Família)</h3>
+            <p style="font-size: 8pt; color: var(--text-light); margin-bottom: 6px;">Lembrou de algo que não está na lista? Digite abaixo e clique em adicionar:</p>
+            <input type="text" id="custom-item-input" placeholder="Ex: Protetor labial, Adaptador extra...">
+            <button class="btn-link" onclick="addNewCustomItem()" style="padding: 6px 12px; font-size: 8.5pt;">✨ Adicionar à Lista</button>
+        </div>
+
         <div class="card-box" style="border-left: 4px solid #d69e2e;">
             <h3>🏡 Definir Hospedagens nas Cidades</h3>
             <label class="check-item"><input type="checkbox" data-id="hosp-berlim"> <span>Reservar Airbnb em Berlim (Base)</span></label>
@@ -726,6 +754,12 @@
                 <label class="check-item"><input type="checkbox" data-id="milena-roupas"> <span>Roupas de frio / Térmicas</span></label>
                 <label class="check-item"><input type="checkbox" data-id="milena-pessoal"> <span>Itens pessoais e documentos</span></label>
             </div>
+        </div>
+
+        <!-- Container para itens customizados adicionados pela Milena, Mônica ou Erick -->
+        <div class="card-box" id="custom-items-container" style="display: none;">
+            <h3>✨ Sugestões da Família</h3>
+            <div id="custom-items-list"></div>
         </div>
     </div>
 
@@ -953,6 +987,15 @@
     <script>
         const API_URL = "https://script.google.com/macros/s/AKfycbwQDWrMBSEMtATAoK8DXY36q_YIf0GOC1bK0ZAaOh55LHy4rDcR-fGKtXjIWeavXgxW/exec";
 
+        // IDs fixos padrão do checklist
+        const fixedIds = [
+            'hosp-berlim', 'hosp-copenhague', 'hosp-wroclaw',
+            'doc-passaporte', 'doc-seguro', 'doc-reservas', 'doc-cartoes',
+            'erick-oculos', 'erick-roupas', 'erick-calcados', 'erick-eletronicos',
+            'monica-oculos', 'monica-roupas', 'monica-calcados', 'monica-higiene',
+            'milena-esporte', 'milena-roupas', 'milena-pessoal'
+        ];
+
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -990,22 +1033,70 @@
             if(progressText) progressText.innerText = `${checkedCount} de ${total} concluídos (${percent}%)`;
         }
 
+        // Função para renderizar dinamicamente os itens customizados criados pela família
+        function renderCustomItems(serverData) {
+            const customListDiv = document.getElementById('custom-items-list');
+            const customContainer = document.getElementById('custom-items-container');
+            
+            // Descobre quais IDs na planilha não são fixos
+            const allKeys = Object.keys(serverData);
+            const customKeys = allKeys.filter(key => !fixedIds.includes(key));
+
+            if (customKeys.length > 0) {
+                customContainer.style.display = 'block';
+                customListDiv.innerHTML = '';
+                
+                customKeys.forEach(id => {
+                    // Decodifica o ID amigável de volta para o texto legível (substitui traços por espaços)
+                    const labelText = id.replace(/^custom-/, '').replace(/-/g, ' ');
+                    const isChecked = serverData[id] === true;
+
+                    // Verifica se já existe no DOM para não duplicar eventos
+                    let existingLabel = document.querySelector(`input[data-id="${id}"]`);
+                    if (!existingLabel) {
+                        const label = document.createElement('label');
+                        label.className = `check-item ${isChecked ? 'completed' : ''}`;
+                        label.innerHTML = `<input type="checkbox" data-id="${id}" ${isChecked ? 'checked' : ''}> <span>${labelText}</span>`;
+                        
+                        const checkbox = label.querySelector('input');
+                        checkbox.addEventListener('change', () => {
+                            if (checkbox.checked) {
+                                label.classList.add('completed');
+                            } else {
+                                label.classList.remove('completed');
+                            }
+                            updateProgress();
+                            saveChecklistState(id, checkbox.checked);
+                        });
+
+                        customListDiv.appendChild(label);
+                    }
+                });
+            } else {
+                customContainer.style.display = 'none';
+            }
+        }
+
         async function loadChecklistState() {
             try {
                 const response = await fetch(API_URL);
                 const data = await response.json();
                 
+                // Atualiza checkboxes fixos
                 const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
                 checkboxes.forEach(cb => {
                     const id = cb.getAttribute('data-id');
                     if (data[id] === true) {
                         cb.checked = true;
                         cb.closest('.check-item').classList.add('completed');
-                    } else {
+                    } else if (data[id] === false) {
                         cb.checked = false;
                         cb.closest('.check-item').classList.remove('completed');
                     }
                 });
+
+                // Renderiza itens customizados da nuvem
+                renderCustomItems(data);
                 updateProgress();
             } catch (error) {
                 console.error("Erro ao carregar checklist:", error);
@@ -1023,6 +1114,26 @@
             } catch (error) {
                 console.error("Erro ao salvar:", error);
             }
+        }
+
+        // Adicionar novo item customizado digitado pela Milena/Mônica/Erick
+        async function addNewCustomItem() {
+            const input = document.getElementById('custom-item-input');
+            const text = input.value.trim();
+            if (!text) {
+                alert("Digite o nome do item!");
+                return;
+            }
+
+            // Cria um ID único baseado no texto digitado (ex: "custom-protetor-labial")
+            const cleanId = 'custom-' + text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '-');
+            
+            // Salva na planilha como false (não marcado inicialmente)
+            await saveChecklistState(cleanId, false);
+            
+            input.value = '';
+            // Recarrega o estado para exibir o novo item na tela instantaneamente
+            loadChecklistState();
         }
 
         async function translateText() {
@@ -1070,6 +1181,7 @@
             loadChecklistState();
             setInterval(loadChecklistState, 10000);
 
+            // Listener para checkboxes fixos
             const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
             checkboxes.forEach(cb => {
                 cb.addEventListener('change', () => {
