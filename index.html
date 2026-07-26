@@ -155,6 +155,40 @@
         .legend-item { display: flex; align-items: center; gap: 4px; }
         .legend-color { width: 12px; height: 12px; border-radius: 2px; }
 
+        /* Estilos de Endereços */
+        .address-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .address-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .address-card h3 {
+            font-size: 10.5pt;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 6px;
+            margin-bottom: 8px;
+        }
+
+        .address-item {
+            font-size: 9pt;
+            margin-bottom: 8px;
+        }
+
+        .address-item strong {
+            color: var(--primary);
+            display: block;
+        }
+
         /* Estilos do Checklist */
         .checklist-grid {
             display: grid;
@@ -450,7 +484,34 @@
         </table>
     </div>
 
-    <!-- 2. CHECKLIST DE BAGAGEM / ITENS A LEVAR -->
+    <!-- 2. SEÇÃO DE ENDEREÇOS ÚTEIS -->
+    <h2>Endereços & Locais Úteis</h2>
+    <div class="address-grid">
+        <div class="address-card" id="end-sgosf">
+            <h3>🤾‍♂️ SG - OSF / Treinos</h3>
+            <div class="address-item">
+                <strong>Sachsendamm 12, 10829 Berlim</strong>
+                <a href="https://maps.google.com/?q=Sachsendamm+12+10829+Berlin" target="_blank" class="btn-link">🗺️ Abrir no Google Maps</a>
+            </div>
+            <div class="address-item" style="margin-top: 8px;">
+                <strong>Dickhardtstraße 21/22, 12161 Berlim (Tempelhof-Schöneberg)</strong>
+                <a href="https://maps.google.com/?q=Dickhardtstraße+21+12161+Berlin" target="_blank" class="btn-link">🗺️ Abrir no Google Maps</a>
+            </div>
+        </div>
+        <div class="address-card" id="end-fuchse">
+            <h3>🤾‍♂️ Fuchse Berlim</h3>
+            <div class="address-item">
+                <strong>Fuchse 1: Freiheitsweg 18, 13407 Berlim</strong>
+                <a href="https://maps.google.com/?q=Freiheitsweg+18+13407+Berlin" target="_blank" class="btn-link">🗺️ Abrir no Google Maps</a>
+            </div>
+            <div class="address-item" style="margin-top: 8px;">
+                <strong>Fuchse 2: Kienhorstr. 67-69, 13403 Berlim</strong>
+                <a href="https://maps.google.com/?q=Kienhorstr.+67+13403+Berlin" target="_blank" class="btn-link">🗺️ Abrir no Google Maps</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. CHECKLIST DE BAGAGEM / ITENS A LEVAR -->
     <h2>Checklist de Bagagem & Itens</h2>
     <div class="checklist-grid">
         <div class="check-card">
@@ -482,7 +543,7 @@
         </div>
     </div>
 
-    <!-- 3. CRONOGRAMA DETALHADO -->
+    <!-- 4. CRONOGRAMA DETALHADO -->
     <h2>
         <span>Cronograma Detalhado</span>
         <a href="#topo" class="back-to-top">⬆ Voltar ao Calendário</a>
@@ -500,32 +561,64 @@
 
     <div id="d-27-01" class="day-card">
         <div class="day-header"><span class="day-date">Qua, 27/01/2027</span><span class="badge b-treino">Treino</span></div>
-        <div class="day-content">Treino: SG - OSF (18:45 - 20:15).</div>
+        <div class="day-content">
+            Treino: SG - OSF (18:45 - 20:15).
+            <div class="action-links">
+                <a href="#end-sgosf" class="btn-link">📍 Ver Endereços SG - OSF</a>
+            </div>
+        </div>
     </div>
 
     <div id="d-28-01" class="day-card">
         <div class="day-header"><span class="day-date">Qui, 28/01/2027</span><span class="badge b-treino">Treino</span></div>
-        <div class="day-content">Treino: Fuchse 1 (17:00 - 18:30).</div>
+        <div class="day-content">
+            Treino: Fuchse 1 (17:00 - 18:30).
+            <div class="action-links">
+                <a href="#end-fuchse" class="btn-link">📍 Ver Endereço Fuchse 1</a>
+            </div>
+        </div>
     </div>
 
     <div id="d-29-01" class="day-card">
         <div class="day-header"><span class="day-date">Sex, 29/01/2027</span><span class="badge b-treino">Treino</span></div>
-        <div class="day-content">Treino: Fuchse 2 (18:30 - 20:00).</div>
+        <div class="day-content">
+            Treino: Fuchse 2 (18:30 - 20:00).
+            <div class="action-links">
+                <a href="#end-fuchse" class="btn-link">📍 Ver Endereço Fuchse 2</a>
+            </div>
+        </div>
     </div>
 
     <div id="d-01-02" class="day-card">
         <div class="day-header"><span class="day-date">Seg, 01/02/2027</span><span class="badge b-treino">Treino</span></div>
-        <div class="day-content">Treinos: Fuchse 1 (17:00) & SG - OSF Goleira (18:30).</div>
+        <div class="day-content">
+            Treinos: Fuchse 1 (17:00) & SG - OSF Goleira (18:30).
+            <div class="action-links">
+                <a href="#end-fuchse" class="btn-link">📍 Fuchse 1</a>
+                <a href="#end-sgosf" class="btn-link">📍 SG - OSF</a>
+            </div>
+        </div>
     </div>
 
     <div id="d-02-02" class="day-card">
         <div class="day-header"><span class="day-date">Ter, 02/02/2027</span><span class="badge b-treino">Treino</span></div>
-        <div class="day-content">Treino: SG - OSF (18:30 - 20:00).</div>
+        <div class="day-content">
+            Treino: SG - OSF (18:30 - 20:00).
+            <div class="action-links">
+                <a href="#end-sgosf" class="btn-link">📍 Ver Endereços SG - OSF</a>
+            </div>
+        </div>
     </div>
 
     <div id="d-03-02" class="day-card">
         <div class="day-header"><span class="day-date">Qua, 03/02/2027</span><span class="badge b-treino">Treino</span></div>
-        <div class="day-content">Treinos: Fuchse 1 (17:00) & SG - OSF (18:45).</div>
+        <div class="day-content">
+            Treinos: Fuchse 1 (17:00) & SG - OSF (18:45).
+            <div class="action-links">
+                <a href="#end-fuchse" class="btn-link">📍 Fuchse 1</a>
+                <a href="#end-sgosf" class="btn-link">📍 SG - OSF</a>
+            </div>
+        </div>
     </div>
 
     <div id="d-04-02" class="day-card">
@@ -550,7 +643,13 @@
 
     <div id="d-08-02" class="day-card">
         <div class="day-header"><span class="day-date">Seg, 08/02/2027</span><span class="badge b-treino">Treino</span></div>
-        <div class="day-content">Treinos: Fuchse 1 (17:00) & SG - OSF Goleira (18:30).</div>
+        <div class="day-content">
+            Treinos: Fuchse 1 (17:00) & SG - OSF Goleira (18:30).
+            <div class="action-links">
+                <a href="#end-fuchse" class="btn-link">📍 Fuchse 1</a>
+                <a href="#end-sgosf" class="btn-link">📍 SG - OSF</a>
+            </div>
+        </div>
     </div>
 
     <div id="d-09-02" class="day-card">
@@ -558,19 +657,30 @@
         <div class="day-content">
             Treino: SG - OSF (18:30 - 20:00).
             <div class="action-links">
-                <a href="https://maps.google.com/?q=Sachsendamm+12+10829+Berlin" target="_blank" class="btn-link">📍 Ver Endereço (Sachsendamm 12)</a>
+                <a href="#end-sgosf" class="btn-link">📍 Ver Endereços SG - OSF</a>
             </div>
         </div>
     </div>
 
     <div id="d-10-02" class="day-card">
         <div class="day-header"><span class="day-date">Qua, 10/02/2027</span><span class="badge b-viagem">Viagem</span></div>
-        <div class="day-content">Treinos e Checkout Airbnb Berlim → Ida para <b>Wroclaw (Polônia)</b> → Check-in Airbnb.</div>
+        <div class="day-content">
+            Treinos e Checkout Airbnb Berlim → Ida para <b>Wroclaw (Polônia)</b> → Check-in Airbnb.
+            <div class="action-links">
+                <a href="#end-fuchse" class="btn-link">📍 Fuchse 1</a>
+                <a href="#end-sgosf" class="btn-link">📍 SG - OSF</a>
+            </div>
+        </div>
     </div>
 
     <div id="d-11-02" class="day-card">
         <div class="day-header"><span class="day-date">Qui, 11/02/2027</span><span class="badge b-treino">Treino</span></div>
-        <div class="day-content">Treino: Fuchse 2 (18:30 - 20:00) <i>[Ajustar com Wroclaw]</i>.</div>
+        <div class="day-content">
+            Treino: Fuchse 2 (18:30 - 20:00) <i>[Ajustar com Wroclaw]</i>.
+            <div class="action-links">
+                <a href="#end-fuchse" class="btn-link">📍 Fuchse 2</a>
+            </div>
+        </div>
     </div>
 
     <div id="d-12-02" class="day-card">
@@ -598,20 +708,17 @@
     </footer>
 
     <script>
-        // Script para salvar o estado dos checkboxes no navegador do celular/PC (localStorage)
         document.addEventListener('DOMContentLoaded', () => {
             const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
             
             checkboxes.forEach(cb => {
                 const id = cb.getAttribute('data-id');
-                // Carregar estado salvo
                 const savedState = localStorage.getItem('trip_' + id);
                 if (savedState === 'true') {
                     cb.checked = true;
                     cb.closest('.check-item').classList.add('completed');
                 }
 
-                // Salvar ao mudar
                 cb.addEventListener('change', () => {
                     localStorage.setItem('trip_' + id, cb.checked);
                     if (cb.checked) {
