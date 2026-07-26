@@ -291,6 +291,72 @@
         .address-item { font-size: 8.5pt; margin-bottom: 8px; }
         .address-item strong { color: var(--primary); display: block; }
 
+        /* Estilos do Tradutor e Vocabulário */
+        .dict-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8.5pt;
+            margin-bottom: 15px;
+        }
+        .dict-table th, .dict-table td {
+            border: 1px solid var(--border);
+            padding: 8px;
+            text-align: left;
+        }
+        .dict-table th {
+            background-color: var(--secondary);
+            color: white;
+            font-size: 8pt;
+            text-transform: uppercase;
+        }
+        .dict-table tr:nth-child(even) {
+            background-color: rgba(0,0,0,0.02);
+        }
+        .audio-btn {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 2px 6px;
+            cursor: pointer;
+            font-size: 8pt;
+            margin-left: 6px;
+            color: var(--primary);
+        }
+        .audio-btn:hover { background: var(--secondary); color: white; }
+
+        .translator-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 15px;
+        }
+        .translator-box textarea {
+            width: 100%;
+            height: 70px;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            font-size: 9pt;
+            resize: vertical;
+            margin-bottom: 8px;
+        }
+        .translator-result {
+            margin-top: 10px;
+            padding: 10px;
+            background: var(--bg);
+            border-radius: 6px;
+            border-left: 4px solid var(--secondary);
+            font-size: 9.5pt;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         /* Cronograma Detalhado */
         .day-card {
             background: var(--card-bg);
@@ -374,6 +440,7 @@
         <button class="tab-btn active" onclick="switchTab('tab-calendario')">📅 Calendário</button>
         <button class="tab-btn" onclick="switchTab('tab-enderecos')">📍 Endereços</button>
         <button class="tab-btn" onclick="switchTab('tab-checklist')">🎒 Checklist</button>
+        <button class="tab-btn" onclick="switchTab('tab-alemao')">🗣️ Alemão & Tradutor</button>
         <button class="tab-btn" onclick="switchTab('tab-cronograma')">⏱️ Cronograma Detalhado</button>
     </div>
 
@@ -597,7 +664,62 @@
         </div>
     </div>
 
-    <!-- ABA 4: CRONOGRAMA DETALHADO -->
+    <!-- ABA 4: ALEMÃO & TRADUTOR -->
+    <div id="tab-alemao" class="tab-content">
+        <h2>Tradutor Rápido (Português → Alemão)</h2>
+        <div class="translator-box">
+            <p style="font-size: 8.5pt; margin-bottom: 8px; color: var(--text-light);">Digite o que você quer dizer (ex: "Onde fica o banheiro?", "Quanto custa?"):</p>
+            <textarea id="source-text" placeholder="Digite aqui em português..."></textarea>
+            <button class="btn-link" onclick="translateText()" style="padding: 6px 14px; font-size: 8.5pt;">🌐 Traduzir para Alemão</button>
+            
+            <div id="translator-output" class="translator-result" style="display: none;">
+                <span id="translated-text">...</span>
+                <button class="audio-btn" onclick="speakGerman()" title="Ouvir pronúncia">🔊 Ouvir</button>
+            </div>
+        </div>
+
+        <h2>Guia de Sobrevivência: Português x Alemão</h2>
+        
+        <div class="card-box" style="margin-bottom: 15px;">
+            <h3>✈️ Educação & Básico</h3>
+            <table class="dict-table">
+                <tr><th>Português</th><th>Alemão</th><th>Pronúncia / Áudio</th></tr>
+                <tr><td>Olá / Bom dia</td><td>Guten Tag</td><td><button class="audio-btn" onclick="speakWord('Guten Tag')">🔊 Ouvir</button></td></tr>
+                <tr><td>Boa noite</td><td>Guten Abend</td><td><button class="audio-btn" onclick="speakWord('Guten Abend')">🔊 Ouvir</button></td></tr>
+                <tr><td>Por favor</td><td>Bitte</td><td><button class="audio-btn" onclick="speakWord('Bitte')">🔊 Ouvir</button></td></tr>
+                <tr><td>Obrigado(a)</td><td>Danke</td><td><button class="audio-btn" onclick="speakWord('Danke')">🔊 Ouvir</button></td></tr>
+                <tr><td>Sim / Não</td><td>Ja / Nein</td><td><button class="audio-btn" onclick="speakWord('Ja Nein')">🔊 Ouvir</button></td></tr>
+                <tr><td>Com licença / Desculpa</td><td>Entschuldigung</td><td><button class="audio-btn" onclick="speakWord('Entschuldigung')">🔊 Ouvir</button></td></tr>
+                <tr><td>Você fala inglês?</td><td>Sprechen Sie Englisch?</td><td><button class="audio-btn" onclick="speakWord('Sprechen Sie Englisch?')">🔊 Ouvir</button></td></tr>
+            </table>
+        </div>
+
+        <div class="card-box" style="margin-bottom: 15px;">
+            <h3>🍽️ Restaurantes & Comida</h3>
+            <table class="dict-table">
+                <tr><th>Português</th><th>Alemão</th><th>Áudio</th></tr>
+                <tr><td>Uma cerveja, por favor</td><td>Ein Bier, bitte</td><td><button class="audio-btn" onclick="speakWord('Ein Bier, bitte')">🔊 Ouvir</button></td></tr>
+                <tr><td>A conta, por favor</td><td>Die Rechnung, bitte</td><td><button class="audio-btn" onclick="speakWord('Die Rechnung, bitte')">🔊 Ouvir</button></td></tr>
+                <tr><td>Água sem gás / com gás</td><td>Wasser ohne / mit Kohlensäure</td><td><button class="audio-btn" onclick="speakWord('Wasser ohne Kohlensäure')">🔊 Ouvir</button></td></tr>
+                <tr><td>Comida vegetariana</td><td>Vegetarisches Essen</td><td><button class="audio-btn" onclick="speakWord('Vegetarisches Essen')">🔊 Ouvir</button></td></tr>
+                <tr><td>Está delicioso!</td><td>Es schmeckt lecker!</td><td><button class="audio-btn" onclick="speakWord('Es schmeckt lecker!')">🔊 Ouvir</button></td></tr>
+            </table>
+        </div>
+
+        <div class="card-box" style="margin-bottom: 15px;">
+            <h3>🗺️ Direções & Transporte</h3>
+            <table class="dict-table">
+                <tr><th>Português</th><th>Alemão</th><th>Áudio</th></tr>
+                <tr><td>Onde fica o banheiro?</td><td>Wo ist die Toilette?</td><td><button class="audio-btn" onclick="speakWord('Wo ist die Toilette?')">🔊 Ouvir</button></td></tr>
+                <tr><td>Estação de trem</td><td>Bahnhof</td><td><button class="audio-btn" onclick="speakWord('Bahnhof')">🔊 Ouvir</button></td></tr>
+                <tr><td>Aeroporto</td><td>Flughafen</td><td><button class="audio-btn" onclick="speakWord('Flughafen')">🔊 Ouvir</button></td></tr>
+                <tr><td>Saída</td><td>Ausgang</td><td><button class="audio-btn" onclick="speakWord('Ausgang')">🔊 Ouvir</button></td></tr>
+                <tr><td>Quanto custa?</td><td>Wie viel kostet das?</td><td><button class="audio-btn" onclick="speakWord('Wie viel kostet das?')">🔊 Ouvir</button></td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- ABA 5: CRONOGRAMA DETALHADO -->
     <div id="tab-cronograma" class="tab-content">
         <h2>
             <span>Cronograma Detalhado</span>
@@ -764,7 +886,6 @@
     </footer>
 
     <script>
-        // URL da sua API do Google Sheets
         const API_URL = "https://script.google.com/macros/s/AKfycbwQDWrMBSEMtATAoK8DXY36q_YIf0GOC1bK0ZAaOh55LHy4rDcR-fGKtXjIWeavXgxW/exec";
 
         function switchTab(tabId) {
@@ -773,7 +894,7 @@
             
             document.getElementById(tabId).classList.add('active');
             
-            const btnIndex = {'tab-calendario': 0, 'tab-enderecos': 1, 'tab-checklist': 2, 'tab-cronograma': 3}[tabId];
+            const btnIndex = {'tab-calendario': 0, 'tab-enderecos': 1, 'tab-checklist': 2, 'tab-alemao': 3, 'tab-cronograma': 4}[tabId];
             if(btnIndex !== undefined) {
                 document.querySelectorAll('.tab-btn')[btnIndex].classList.add('active');
             }
@@ -791,7 +912,6 @@
             }
         }
 
-        // Função para atualizar a barra de progresso visual
         function updateProgress() {
             const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
             const progressBar = document.getElementById('progress-bar');
@@ -805,7 +925,6 @@
             if(progressText) progressText.innerText = `${checkedCount} de ${total} concluídos (${percent}%)`;
         }
 
-        // Carregar dados da planilha ao abrir o site
         async function loadChecklistState() {
             try {
                 const response = await fetch(API_URL);
@@ -824,29 +943,68 @@
                 });
                 updateProgress();
             } catch (error) {
-                console.error("Erro ao carregar checklist da nuvem:", error);
-                document.getElementById('progress-text').innerText = "Erro ao sincronizar nuvem (modo offline)";
+                console.error("Erro ao carregar checklist:", error);
             }
         }
 
-        // Salvar estado na planilha ao mudar a caixinha
-        async function saveChecklistState(id, status, element) {
+        async function saveChecklistState(id, status) {
             try {
                 await fetch(API_URL, {
                     method: 'POST',
-                    mode: 'no-cors', // Necessário para Google Apps Script
+                    mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id: id, status: status })
                 });
             } catch (error) {
-                console.error("Erro ao salvar na nuvem:", error);
+                console.error("Erro ao salvar:", error);
             }
+        }
+
+        // Função de Tradução Instantânea usando API Gratuita (MyMemory)
+        async function translateText() {
+            const text = document.getElementById('source-text').value.trim();
+            const outputDiv = document.getElementById('translator-output');
+            const translatedSpan = document.getElementById('translated-text');
+
+            if(!text) {
+                alert("Digite algo para traduzir!");
+                return;
+            }
+
+            translatedSpan.innerText = "Traduzindo...";
+            outputDiv.style.display = "flex";
+
+            try {
+                const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=pt|de`);
+                const data = await res.json();
+                if(data && data.responseData) {
+                    translatedSpan.innerText = data.responseData.translatedText;
+                } else {
+                    translatedSpan.innerText = "Erro na tradução.";
+                }
+            } catch(e) {
+                translatedSpan.innerText = "Erro de conexão com o tradutor.";
+            }
+        }
+
+        // Função de Síntese de Voz (Ouvir o Alemão nativo pelo celular/PC)
+        function speakGerman() {
+            const text = document.getElementById('translated-text').innerText;
+            if(text && text !== "Traduzindo...") {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'de-DE';
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function speakWord(word) {
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'de-DE';
+            window.speechSynthesis.speak(utterance);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             loadChecklistState();
-
-            // Atualização automática a cada 10 segundos para ver se Mônica/Milena marcaram algo
             setInterval(loadChecklistState, 10000);
 
             const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
@@ -854,14 +1012,13 @@
                 cb.addEventListener('change', () => {
                     const id = cb.getAttribute('data-id');
                     const status = cb.checked;
-                    
                     if (status) {
                         cb.closest('.check-item').classList.add('completed');
                     } else {
                         cb.closest('.check-item').classList.remove('completed');
                     }
                     updateProgress();
-                    saveChecklistState(id, status, cb);
+                    saveChecklistState(id, status);
                 });
             });
         });
