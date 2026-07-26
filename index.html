@@ -260,6 +260,7 @@
             border-radius: var(--radius);
             padding: 14px;
             box-shadow: var(--shadow);
+            margin-bottom: 12px;
         }
         .card-box h3 {
             font-size: 10pt;
@@ -290,6 +291,7 @@
 
         .address-item { font-size: 8.5pt; margin-bottom: 8px; }
         .address-item strong { color: var(--primary); display: block; }
+        .tag-pending { background: #feebc8; color: #9c4221; padding: 2px 6px; border-radius: 4px; font-size: 7pt; font-weight: bold; }
 
         /* Estilos do Tradutor e Vocabulário */
         .dict-table {
@@ -426,7 +428,7 @@
             <div class="val">25/01/2027</div>
         </div>
         <div class="meta-item">
-            <div class="label">Base</div>
+            <div class="label">Base Principal</div>
             <div class="val">Berlim, DE</div>
         </div>
         <div class="meta-item">
@@ -438,15 +440,18 @@
     <!-- Navegação por Abas (Aplicativo) -->
     <div class="app-tabs">
         <button class="tab-btn active" onclick="switchTab('tab-calendario')">📅 Calendário</button>
+        <button class="tab-btn" onclick="switchTab('tab-berlim')">🇩🇪 Berlim</button>
+        <button class="tab-btn" onclick="switchTab('tab-copenhague')">🇩🇰 Copenhague</button>
+        <button class="tab-btn" onclick="switchTab('tab-wroclaw')">🇵🇱 Wroclaw</button>
         <button class="tab-btn" onclick="switchTab('tab-enderecos')">📍 Endereços</button>
         <button class="tab-btn" onclick="switchTab('tab-checklist')">🎒 Checklist</button>
-        <button class="tab-btn" onclick="switchTab('tab-alemao')">🗣️ Alemão & Tradutor</button>
-        <button class="tab-btn" onclick="switchTab('tab-cronograma')">⏱️ Cronograma Detalhado</button>
+        <button class="tab-btn" onclick="switchTab('tab-alemao')">🗣️ Alemão</button>
+        <button class="tab-btn" onclick="switchTab('tab-cronograma')">⏱️ Cronograma</button>
     </div>
 
     <!-- ABA 1: CALENDÁRIO -->
     <div id="tab-calendario" class="tab-content active">
-        <h2>Calendário</h2>
+        <h2>Calendário Geral</h2>
         
         <div class="legend">
             <div class="legend-item"><div class="legend-color" style="background:#feebc8;"></div> Voo</div>
@@ -592,9 +597,62 @@
         </div>
     </div>
 
-    <!-- ABA 2: ENDEREÇOS -->
+    <!-- ABA 2: BERLIM -->
+    <div id="tab-berlim" class="tab-content">
+        <h2>Berlim (Base Principal & Treinos)</h2>
+        <div class="card-box">
+            <h3>🇩🇪 Visão Geral da Base</h3>
+            <p style="font-size: 8.5pt; margin-bottom: 8px;">Berlim será a nossa principal base operacional e de treinos de handebol da Milena (SG - OSF e Fuchse Berlim).</p>
+            <ul style="font-size: 8.5pt; margin-left: 18px; margin-bottom: 10px;">
+                <li><strong>Foco principal:</strong> Rotina de treinos intensivos e adaptação ao inverno europeu.</li>
+                <li><strong>Hospedagem:</strong> <span class="tag-pending">A definir (Em aberto)</span></li>
+            </ul>
+            <button class="btn-link" onclick="switchTab('tab-enderecos')">📍 Ver Endereços de Treino em Berlim</button>
+        </div>
+    </div>
+
+    <!-- ABA 3: COPENHAGUE -->
+    <div id="tab-copenhague" class="tab-content">
+        <h2>Copenhague (Dinamarca)</h2>
+        <div class="card-box">
+            <h3>🇩🇰 Roteiro de Turismo & Experiência</h3>
+            <p style="font-size: 8.5pt; margin-bottom: 8px;">Viagem rápida de 04/02 a 07/02 para imersão na cultura dinamarquesa.</p>
+            <ul style="font-size: 8.5pt; margin-left: 18px; margin-bottom: 10px;">
+                <li><strong>Destaques:</strong> Canais de Nyhavn, Jardins Tivoli e chocolaterias artesanais (Summerbird).</li>
+                <li><strong>Hospedagem:</strong> <span class="tag-pending">A definir (Em aberto)</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ABA 4: WROCLAW -->
+    <div id="tab-wroclaw" class="tab-content">
+        <h2>Wroclaw (Polônia)</h2>
+        <div class="card-box">
+            <h3>🇵🇱 Roteiro & Imersão</h3>
+            <p style="font-size: 8.5pt; margin-bottom: 8px;">Viagem de 10/02 a 12/02 para explorar a charmosa cidade polonesa e seus famosos gnomos espalhados pelas ruas.</p>
+            <ul style="font-size: 8.5pt; margin-left: 18px; margin-bottom: 10px;">
+                <li><strong>Hospedagem:</strong> <span class="tag-pending">A definir (Em aberto)</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ABA 5: ENDEREÇOS -->
     <div id="tab-enderecos" class="tab-content">
-        <h2>Endereços & Locais Úteis</h2>
+        <h2>Endereços & Hospedagens</h2>
+        
+        <div class="card-box">
+            <h3>🏡 Hospedagens (Airbnb)</h3>
+            <div class="address-item">
+                <strong>Berlim, Alemanha (Base):</strong> <span class="tag-pending">Pendente de definição</span>
+            </div>
+            <div class="address-item" style="margin-top: 8px;">
+                <strong>Copenhague, Dinamarca:</strong> <span class="tag-pending">Pendente de definição</span>
+            </div>
+            <div class="address-item" style="margin-top: 8px;">
+                <strong>Wroclaw, Polônia:</strong> <span class="tag-pending">Pendente de definição</span>
+            </div>
+        </div>
+
         <div class="grid-2">
             <div class="card-box" id="end-sgosf">
                 <h3>🤾‍♂️ SG - OSF / Treinos</h3>
@@ -621,16 +679,23 @@
         </div>
     </div>
 
-    <!-- ABA 3: CHECKLIST -->
+    <!-- ABA 6: CHECKLIST -->
     <div id="tab-checklist" class="tab-content">
-        <h2>Checklist de Bagagem & Itens</h2>
+        <h2>Checklist de Bagagem & Hospedagem</h2>
         
         <div class="progress-box">
-            <strong>Progresso da Bagagem (Sincronizado)</strong>
+            <strong>Progresso da Viagem (Sincronizado)</strong>
             <div class="progress-bar-container">
                 <div id="progress-bar" class="progress-bar"></div>
             </div>
             <div id="progress-text" class="progress-text">Sincronizando com a nuvem...</div>
+        </div>
+
+        <div class="card-box" style="border-left: 4px solid #d69e2e;">
+            <h3>🏡 Definir Hospedagens nas Cidades</h3>
+            <label class="check-item"><input type="checkbox" data-id="hosp-berlim"> <span>Reservar Airbnb em Berlim (Base)</span></label>
+            <label class="check-item"><input type="checkbox" data-id="hosp-copenhague"> <span>Reservar Airbnb em Copenhague</span></label>
+            <label class="check-item"><input type="checkbox" data-id="hosp-wroclaw"> <span>Reservar Airbnb em Wroclaw</span></label>
         </div>
 
         <div class="grid-2">
@@ -638,7 +703,7 @@
                 <h3>🧳 Geral / Documentos</h3>
                 <label class="check-item"><input type="checkbox" data-id="doc-passaporte"> <span>Passaportes válidos</span></label>
                 <label class="check-item"><input type="checkbox" data-id="doc-seguro"> <span>Seguro viagem</span></label>
-                <label class="check-item"><input type="checkbox" data-id="doc-reservas"> <span>Reservas de Airbnb e Voos</span></label>
+                <label class="check-item"><input type="checkbox" data-id="doc-reservas"> <span>Reservas de Voos</span></label>
                 <label class="check-item"><input type="checkbox" data-id="doc-cartoes"> <span>Cartões internacionais / Dinheiro</span></label>
             </div>
             <div class="card-box">
@@ -664,7 +729,7 @@
         </div>
     </div>
 
-    <!-- ABA 4: ALEMÃO & TRADUTOR -->
+    <!-- ABA 7: ALEMÃO -->
     <div id="tab-alemao" class="tab-content">
         <h2>Tradutor Rápido (Português → Alemão)</h2>
         <div class="translator-box">
@@ -719,7 +784,7 @@
         </div>
     </div>
 
-    <!-- ABA 5: CRONOGRAMA DETALHADO -->
+    <!-- ABA 8: CRONOGRAMA DETALHADO -->
     <div id="tab-cronograma" class="tab-content">
         <h2>
             <span>Cronograma Detalhado</span>
@@ -894,7 +959,7 @@
             
             document.getElementById(tabId).classList.add('active');
             
-            const btnIndex = {'tab-calendario': 0, 'tab-enderecos': 1, 'tab-checklist': 2, 'tab-alemao': 3, 'tab-cronograma': 4}[tabId];
+            const btnIndex = {'tab-calendario': 0, 'tab-berlim': 1, 'tab-copenhague': 2, 'tab-wroclaw': 3, 'tab-enderecos': 4, 'tab-checklist': 5, 'tab-alemao': 6, 'tab-cronograma': 7}[tabId];
             if(btnIndex !== undefined) {
                 document.querySelectorAll('.tab-btn')[btnIndex].classList.add('active');
             }
@@ -960,7 +1025,6 @@
             }
         }
 
-        // Função de Tradução Instantânea usando API Gratuita (MyMemory)
         async function translateText() {
             const text = document.getElementById('source-text').value.trim();
             const outputDiv = document.getElementById('translator-output');
@@ -987,7 +1051,6 @@
             }
         }
 
-        // Função de Síntese de Voz (Ouvir o Alemão nativo pelo celular/PC)
         function speakGerman() {
             const text = document.getElementById('translated-text').innerText;
             if(text && text !== "Traduzindo...") {
