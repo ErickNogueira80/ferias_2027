@@ -155,6 +155,51 @@
         .legend-item { display: flex; align-items: center; gap: 4px; }
         .legend-color { width: 12px; height: 12px; border-radius: 2px; }
 
+        /* Estilos do Checklist */
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .check-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .check-card h3 {
+            font-size: 10.5pt;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 6px;
+            margin-bottom: 8px;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            font-size: 9pt;
+            cursor: pointer;
+        }
+
+        .check-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: var(--secondary);
+        }
+
+        .check-item.completed span {
+            text-decoration: line-through;
+            color: var(--text-light);
+        }
+
         /* Estilos do Roteiro Detalhado */
         .day-card {
             background: var(--card-bg);
@@ -227,8 +272,8 @@
         </div>
     </div>
 
-    <!-- 1. CALENDÁRIO EM GRADE NO TOPO -->
-    <h2>Visão Geral em Calendário</h2>
+    <!-- 1. CALENDÁRIO NO TOPO -->
+    <h2>Calendário</h2>
     
     <div class="legend">
         <div class="legend-item"><div class="legend-color" style="background:#feebc8;"></div> Voo</div>
@@ -405,7 +450,39 @@
         </table>
     </div>
 
-    <!-- 2. CRONOGRAMA DETALHADO COM ÂNCORAS E BOTÃO VOLTAR -->
+    <!-- 2. CHECKLIST DE BAGAGEM / ITENS A LEVAR -->
+    <h2>Checklist de Bagagem & Itens</h2>
+    <div class="checklist-grid">
+        <div class="check-card">
+            <h3>🧳 Geral / Documentos</h3>
+            <label class="check-item"><input type="checkbox" data-id="doc-passaporte"> Passaportes válidos</label>
+            <label class="check-item"><input type="checkbox" data-id="doc-seguro"> Seguro viagem</label>
+            <label class="check-item"><input type="checkbox" data-id="doc-reservas"> Reservas de Airbnb e Voos</label>
+            <label class="check-item"><input type="checkbox" data-id="doc-cartoes"> Cartões internacionais / Dinheiro</label>
+        </div>
+        <div class="check-card">
+            <h3>👓 Erick</h3>
+            <label class="check-item"><input type="checkbox" data-id="erick-oculos"> Óculos de grau / Sol</label>
+            <label class="check-item"><input type="checkbox" data-id="erick-roupas"> Roupas térmicas / Inverno</label>
+            <label class="check-item"><input type="checkbox" data-id="erick-calcados"> Calçados confortáveis / Neve</label>
+            <label class="check-item"><input type="checkbox" data-id="erick-eletronicos"> Carregadores e adaptadores</label>
+        </div>
+        <div class="check-card">
+            <h3>👜 Mônica</h3>
+            <label class="check-item"><input type="checkbox" data-id="monica-oculos"> Óculos</label>
+            <label class="check-item"><input type="checkbox" data-id="monica-roupas"> Roupas térmicas / Inverno</label>
+            <label class="check-item"><input type="checkbox" data-id="monica-calcados"> Calçados confortáveis</label>
+            <label class="check-item"><input type="checkbox" data-id="monica-higiene"> Itens de higiene pessoal</label>
+        </div>
+        <div class="check-card">
+            <h3>🤾‍♀️ Milena (Handebol)</h3>
+            <label class="check-item"><input type="checkbox" data-id="milena-esporte"> Tênis e material de handebol</label>
+            <label class="check-item"><input type="checkbox" data-id="milena-roupas"> Roupas de frio / Térmicas</label>
+            <label class="check-item"><input type="checkbox" data-id="milena-pessoal"> Itens pessoais e documentos</label>
+        </div>
+    </div>
+
+    <!-- 3. CRONOGRAMA DETALHADO -->
     <h2>
         <span>Cronograma Detalhado</span>
         <a href="#topo" class="back-to-top">⬆ Voltar ao Calendário</a>
@@ -520,5 +597,31 @@
         Criado por Adora para Família Nogueira • 2027
     </footer>
 
+    <script>
+        // Script para salvar o estado dos checkboxes no navegador do celular/PC (localStorage)
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
+            
+            checkboxes.forEach(cb => {
+                const id = cb.getAttribute('data-id');
+                // Carregar estado salvo
+                const savedState = localStorage.getItem('trip_' + id);
+                if (savedState === 'true') {
+                    cb.checked = true;
+                    cb.closest('.check-item').classList.add('completed');
+                }
+
+                // Salvar ao mudar
+                cb.addEventListener('change', () => {
+                    localStorage.setItem('trip_' + id, cb.checked);
+                    if (cb.checked) {
+                        cb.closest('.check-item').classList.add('completed');
+                    } else {
+                        cb.closest('.check-item').classList.remove('completed');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
