@@ -1088,22 +1088,23 @@
         }
 
         function renderCustomItems(serverData) {
+            // Limpa containers customizados antes de popular
             ['hospedagem', 'documentos', 'erick', 'monica', 'milena'].forEach(cat => {
                 const container = document.getElementById(`custom-${cat}`);
                 if (container) container.innerHTML = '';
             });
 
             const allKeys = Object.keys(serverData);
+            // Filtra apenas as chaves válidas de customização (ignora qualquer "_text" antigo)
             const customKeys = allKeys.filter(key => !fixedIds.includes(key) && !key.endsWith('_text'));
 
             customKeys.forEach(id => {
                 const parts = id.replace(/^custom-/, '').split('-');
                 const category = parts[0];
                 
-                let labelText = serverData[id + '_text']; 
-                if (!labelText) {
-                    labelText = parts.slice(1).join(' ');
-                }
+                // Reconstrói o texto de forma limpa e coloca a primeira letra maiúscula
+                let rawText = parts.slice(1).join(' ');
+                let labelText = rawText.charAt(0).toUpperCase() + rawText.slice(1);
                 
                 const targetContainer = document.getElementById(`custom-${category}`);
                 if (targetContainer) {
@@ -1185,7 +1186,6 @@
             const cleanId = `custom-${category}-${cleanText}`;
             
             await saveChecklistState(cleanId, false);
-            await saveChecklistState(cleanId + '_text', text);
             
             input.value = '';
             loadChecklistState();
