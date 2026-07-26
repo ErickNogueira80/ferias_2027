@@ -559,40 +559,40 @@
         <h2>Checklist de Bagagem & Itens</h2>
         
         <div class="progress-box">
-            <strong>Progresso da Bagagem</strong>
+            <strong>Progresso da Bagagem (Sincronizado)</strong>
             <div class="progress-bar-container">
                 <div id="progress-bar" class="progress-bar"></div>
             </div>
-            <div id="progress-text" class="progress-text">0 de 0 concluídos (0%)</div>
+            <div id="progress-text" class="progress-text">Sincronizando com a nuvem...</div>
         </div>
 
         <div class="grid-2">
             <div class="card-box">
                 <h3>🧳 Geral / Documentos</h3>
-                <label class="check-item"><input type="checkbox" data-id="doc-passaporte"> Passaportes válidos</label>
-                <label class="check-item"><input type="checkbox" data-id="doc-seguro"> Seguro viagem</label>
-                <label class="check-item"><input type="checkbox" data-id="doc-reservas"> Reservas de Airbnb e Voos</label>
-                <label class="check-item"><input type="checkbox" data-id="doc-cartoes"> Cartões internacionais / Dinheiro</label>
+                <label class="check-item"><input type="checkbox" data-id="doc-passaporte"> <span>Passaportes válidos</span></label>
+                <label class="check-item"><input type="checkbox" data-id="doc-seguro"> <span>Seguro viagem</span></label>
+                <label class="check-item"><input type="checkbox" data-id="doc-reservas"> <span>Reservas de Airbnb e Voos</span></label>
+                <label class="check-item"><input type="checkbox" data-id="doc-cartoes"> <span>Cartões internacionais / Dinheiro</span></label>
             </div>
             <div class="card-box">
                 <h3>👓 Erick</h3>
-                <label class="check-item"><input type="checkbox" data-id="erick-oculos"> Óculos de grau / Sol</label>
-                <label class="check-item"><input type="checkbox" data-id="erick-roupas"> Roupas térmicas / Inverno</label>
-                <label class="check-item"><input type="checkbox" data-id="erick-calcados"> Calçados confortáveis / Neve</label>
-                <label class="check-item"><input type="checkbox" data-id="erick-eletronicos"> Carregadores e adaptadores</label>
+                <label class="check-item"><input type="checkbox" data-id="erick-oculos"> <span>Óculos de grau / Sol</span></label>
+                <label class="check-item"><input type="checkbox" data-id="erick-roupas"> <span>Roupas térmicas / Inverno</span></label>
+                <label class="check-item"><input type="checkbox" data-id="erick-calcados"> <span>Calçados confortáveis / Neve</span></label>
+                <label class="check-item"><input type="checkbox" data-id="erick-eletronicos"> <span>Carregadores e adaptadores</span></label>
             </div>
             <div class="card-box">
                 <h3>👜 Mônica</h3>
-                <label class="check-item"><input type="checkbox" data-id="monica-oculos"> Óculos</label>
-                <label class="check-item"><input type="checkbox" data-id="monica-roupas"> Roupas térmicas / Inverno</label>
-                <label class="check-item"><input type="checkbox" data-id="monica-calcados"> Calçados confortáveis</label>
-                <label class="check-item"><input type="checkbox" data-id="monica-higiene"> Itens de higiene pessoal</label>
+                <label class="check-item"><input type="checkbox" data-id="monica-oculos"> <span>Óculos</span></label>
+                <label class="check-item"><input type="checkbox" data-id="monica-roupas"> <span>Roupas térmicas / Inverno</span></label>
+                <label class="check-item"><input type="checkbox" data-id="monica-calcados"> <span>Calçados confortáveis</span></label>
+                <label class="check-item"><input type="checkbox" data-id="monica-higiene"> <span>Itens de higiene pessoal</span></label>
             </div>
             <div class="card-box">
                 <h3>🤾‍♀️ Milena (Handebol)</h3>
-                <label class="check-item"><input type="checkbox" data-id="milena-esporte"> Tênis e material de handebol</label>
-                <label class="check-item"><input type="checkbox" data-id="milena-roupas"> Roupas de frio / Térmicas</label>
-                <label class="check-item"><input type="checkbox" data-id="milena-pessoal"> Itens pessoais e documentos</label>
+                <label class="check-item"><input type="checkbox" data-id="milena-esporte"> <span>Tênis e material de handebol</span></label>
+                <label class="check-item"><input type="checkbox" data-id="milena-roupas"> <span>Roupas de frio / Térmicas</span></label>
+                <label class="check-item"><input type="checkbox" data-id="milena-pessoal"> <span>Itens pessoais e documentos</span></label>
             </div>
         </div>
     </div>
@@ -764,14 +764,15 @@
     </footer>
 
     <script>
-        // Função para alternar abas de forma fluida
+        // URL da sua API do Google Sheets
+        const API_URL = "https://script.google.com/macros/s/AKfycbwQDWrMBSEMtATAoK8DXY36q_YIf0GOC1bK0ZAaOh55LHy4rDcR-fGKtXjIWeavXgxW/exec";
+
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             
             document.getElementById(tabId).classList.add('active');
             
-            // Ativar o botão correspondente
             const btnIndex = {'tab-calendario': 0, 'tab-enderecos': 1, 'tab-checklist': 2, 'tab-cronograma': 3}[tabId];
             if(btnIndex !== undefined) {
                 document.querySelectorAll('.tab-btn')[btnIndex].classList.add('active');
@@ -783,7 +784,6 @@
             const el = document.getElementById(elementId);
             if(el) {
                 el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                // Efeito de destaque rápido
                 el.style.transition = 'background-color 0.5s';
                 const originalBg = el.style.backgroundColor;
                 el.style.backgroundColor = 'rgba(49, 130, 206, 0.2)';
@@ -791,41 +791,79 @@
             }
         }
 
-        // Checklist interativo com barra de progresso e persistência (localStorage)
-        document.addEventListener('DOMContentLoaded', () => {
+        // Função para atualizar a barra de progresso visual
+        function updateProgress() {
             const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
             const progressBar = document.getElementById('progress-bar');
             const progressText = document.getElementById('progress-text');
+            
+            const total = checkboxes.length;
+            const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const percent = total > 0 ? Math.round((checkedCount / total) * 100) : 0;
+            
+            if(progressBar) progressBar.style.width = percent + '%';
+            if(progressText) progressText.innerText = `${checkedCount} de ${total} concluídos (${percent}%)`;
+        }
 
-            function updateProgress() {
-                const total = checkboxes.length;
-                const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
-                const percent = total > 0 ? Math.round((checkedCount / total) * 100) : 0;
+        // Carregar dados da planilha ao abrir o site
+        async function loadChecklistState() {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
                 
-                progressBar.style.width = percent + '%';
-                progressText.innerText = `${checkedCount} de ${total} concluídos (${percent}%)`;
+                const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
+                checkboxes.forEach(cb => {
+                    const id = cb.getAttribute('data-id');
+                    if (data[id] === true) {
+                        cb.checked = true;
+                        cb.closest('.check-item').classList.add('completed');
+                    } else {
+                        cb.checked = false;
+                        cb.closest('.check-item').classList.remove('completed');
+                    }
+                });
+                updateProgress();
+            } catch (error) {
+                console.error("Erro ao carregar checklist da nuvem:", error);
+                document.getElementById('progress-text').innerText = "Erro ao sincronizar nuvem (modo offline)";
             }
+        }
 
+        // Salvar estado na planilha ao mudar a caixinha
+        async function saveChecklistState(id, status, element) {
+            try {
+                await fetch(API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Necessário para Google Apps Script
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: id, status: status })
+                });
+            } catch (error) {
+                console.error("Erro ao salvar na nuvem:", error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadChecklistState();
+
+            // Atualização automática a cada 10 segundos para ver se Mônica/Milena marcaram algo
+            setInterval(loadChecklistState, 10000);
+
+            const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
             checkboxes.forEach(cb => {
-                const id = cb.getAttribute('data-id');
-                const savedState = localStorage.getItem('trip_' + id);
-                if (savedState === 'true') {
-                    cb.checked = true;
-                    cb.closest('.check-item').classList.add('completed');
-                }
-
                 cb.addEventListener('change', () => {
-                    localStorage.setItem('trip_' + id, cb.checked);
-                    if (cb.checked) {
+                    const id = cb.getAttribute('data-id');
+                    const status = cb.checked;
+                    
+                    if (status) {
                         cb.closest('.check-item').classList.add('completed');
                     } else {
                         cb.closest('.check-item').classList.remove('completed');
                     }
                     updateProgress();
+                    saveChecklistState(id, status, cb);
                 });
             });
-
-            updateProgress();
         });
     </script>
 </body>
