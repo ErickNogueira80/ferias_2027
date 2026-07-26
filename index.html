@@ -73,18 +73,24 @@
         .meta-item .label { font-size: 7pt; color: var(--text-light); text-transform: uppercase; font-weight: bold; }
         .meta-item .val { font-size: 9.5pt; font-weight: bold; color: var(--primary); margin-top: 2px; }
 
-        /* Painel Dinâmico de Contagem Regressiva e Próximo Evento */
+        /* Painel Dinâmico Centralizado */
         .live-status-box {
             background: linear-gradient(135deg, #2b6cb0, #3182ce);
             color: white;
             border-radius: var(--radius);
             padding: 14px;
             margin-bottom: 15px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             text-align: center;
             box-shadow: var(--shadow);
+            align-items: center;
+        }
+        .live-item {
+            padding: 0 10px;
+        }
+        .live-item:first-child {
+            border-right: 1px solid rgba(255,255,255,0.3);
         }
         .live-item .live-label { font-size: 7.5pt; text-transform: uppercase; opacity: 0.85; font-weight: bold; }
         .live-item .live-val { font-size: 11pt; font-weight: bold; margin-top: 2px; }
@@ -191,7 +197,6 @@
             transition: all 0.2s;
         }
 
-        /* Destaque para o dia atual no calendário */
         .cal-week-table td.today-highlight {
             border: 2px solid #e53e3e !important;
             background-color: rgba(229, 62, 62, 0.05);
@@ -244,7 +249,6 @@
         .legend-item { display: flex; align-items: center; gap: 4px; }
         .legend-color { width: 10px; height: 10px; border-radius: 2px; }
 
-        /* Barra de Progresso Checklist */
         .progress-box {
             background: var(--card-bg);
             border: 1px solid var(--border);
@@ -274,7 +278,6 @@
             text-align: right;
         }
 
-        /* Grids (Checklist & Endereços) */
         .grid-2 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -321,7 +324,6 @@
         .address-item strong { color: var(--primary); display: block; }
         .tag-pending { background: #feebc8; color: #9c4221; padding: 2px 6px; border-radius: 4px; font-size: 7pt; font-weight: bold; }
 
-        /* Adicionar Item Customizado */
         .add-custom-box {
             background: var(--card-bg);
             border: 1px solid var(--border);
@@ -342,7 +344,6 @@
             margin-bottom: 8px;
         }
 
-        /* Estilos do Tradutor e Vocabulário */
         .dict-table {
             width: 100%;
             border-collapse: collapse;
@@ -408,7 +409,6 @@
             align-items: center;
         }
 
-        /* Cronograma Detalhado */
         .day-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
@@ -486,13 +486,13 @@
         </div>
     </div>
 
-    <!-- Painel Dinâmico: Contagem Regressiva e Próximo Evento -->
+    <!-- Painel Dinâmico: Contagem Regressiva e Próximo Evento (Centralizado) -->
     <div class="live-status-box">
         <div class="live-item">
             <div class="live-label">⏳ Contagem Regressiva</div>
             <div id="countdown-val" class="live-val">Calculando...</div>
         </div>
-        <div class="live-item" style="border-left: 1px solid rgba(255,255,255,0.3); padding-left: 15px;">
+        <div class="live-item">
             <div class="live-label">🎯 Próximo Evento</div>
             <div id="next-event-val" class="live-val">Carregando...</div>
         </div>
@@ -506,6 +506,7 @@
         <button class="tab-btn" onclick="switchTab('tab-wroclaw')">🇵🇱 Wroclaw</button>
         <button class="tab-btn" onclick="switchTab('tab-enderecos')">📍 Endereços</button>
         <button class="tab-btn" onclick="switchTab('tab-checklist')">🎒 Checklist</button>
+        <button class="tab-btn" onclick="switchTab('tab-voos')">✈️ Voos</button>
         <button class="tab-btn" onclick="switchTab('tab-alemao')">🗣️ Alemão</button>
         <button class="tab-btn" onclick="switchTab('tab-cronograma')">⏱️ Cronograma</button>
     </div>
@@ -792,9 +793,9 @@
                 <div id="custom-monica"></div>
             </div>
 
-            <!-- 5. Milena -->
+            <!-- 5. Milena (Sem Handebol) -->
             <div class="card-box" id="card-milena">
-                <h3>🤾‍♀️ Milena (Handebol)</h3>
+                <h3>🤾‍♀️ Milena</h3>
                 <label class="check-item"><input type="checkbox" data-id="milena-esporte"> <span>Tênis e material de handebol</span></label>
                 <label class="check-item"><input type="checkbox" data-id="milena-roupas"> <span>Roupas de frio / Térmicas</span></label>
                 <label class="check-item"><input type="checkbox" data-id="milena-pessoal"> <span>Itens pessoais e documentos</span></label>
@@ -813,12 +814,24 @@
                 <option value="monica">👜 Mônica</option>
                 <option value="milena">🤾‍♀️ Milena</option>
             </select>
-            <input type="text" id="custom-item-input" placeholder="Nome do item (ex: Protetor labial)...">
+            <input type="text" id="custom-item-input" placeholder="Nome do item (ex: Cabo de aço)...">
             <button class="btn-link" onclick="addNewCustomItem()" style="padding: 6px 12px; font-size: 8.5pt;">✨ Adicionar à Categoria</button>
         </div>
     </div>
 
-    <!-- ABA 7: ALEMÃO -->
+    <!-- ABA 7: VOOS (NOVA) -->
+    <div id="tab-voos" class="tab-content">
+        <h2>Informações de Voos</h2>
+        <div class="card-box">
+            <h3>✈️ Detalhes das Passagens & Conexões</h3>
+            <p style="font-size: 8.5pt; color: var(--text-light); margin-bottom: 12px;">Esta seção armazenará os aeroportos, números de voo, horários e assentos da família.</p>
+            <div class="address-item">
+                <strong>Status:</strong> <span class="tag-pending">Aguardando dados dos voos para preenchimento</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABA 8: ALEMÃO -->
     <div id="tab-alemao" class="tab-content">
         <h2>Tradutor Rápido (Português → Alemão)</h2>
         <div class="translator-box">
@@ -873,7 +886,7 @@
         </div>
     </div>
 
-    <!-- ABA 8: CRONOGRAMA DETALHADO -->
+    <!-- ABA 9: CRONOGRAMA DETALHADO -->
     <div id="tab-cronograma" class="tab-content">
         <h2>
             <span>Cronograma Detalhado</span>
@@ -1056,7 +1069,7 @@
             
             document.getElementById(tabId).classList.add('active');
             
-            const btnIndex = {'tab-calendario': 0, 'tab-berlim': 1, 'tab-copenhague': 2, 'tab-wroclaw': 3, 'tab-enderecos': 4, 'tab-checklist': 5, 'tab-alemao': 6, 'tab-cronograma': 7}[tabId];
+            const btnIndex = {'tab-calendario': 0, 'tab-berlim': 1, 'tab-copenhague': 2, 'tab-wroclaw': 3, 'tab-enderecos': 4, 'tab-checklist': 5, 'tab-voos': 6, 'tab-alemao': 7, 'tab-cronograma': 8}[tabId];
             if(btnIndex !== undefined) {
                 document.querySelectorAll('.tab-btn')[btnIndex].classList.add('active');
             }
@@ -1088,23 +1101,20 @@
         }
 
         function renderCustomItems(serverData) {
-            // Limpa containers customizados antes de popular
             ['hospedagem', 'documentos', 'erick', 'monica', 'milena'].forEach(cat => {
                 const container = document.getElementById(`custom-${cat}`);
                 if (container) container.innerHTML = '';
             });
 
             const allKeys = Object.keys(serverData);
-            // Filtra apenas as chaves válidas de customização (ignora qualquer "_text" antigo)
-            const customKeys = allKeys.filter(key => !fixedIds.includes(key) && !key.endsWith('_text'));
+            const customKeys = allKeys.filter(key => !fixedIds.includes(key));
 
             customKeys.forEach(id => {
                 const parts = id.replace(/^custom-/, '').split('-');
                 const category = parts[0];
                 
-                // Reconstrói o texto de forma limpa e coloca a primeira letra maiúscula
-                let rawText = parts.slice(1).join(' ');
-                let labelText = rawText.charAt(0).toUpperCase() + rawText.slice(1);
+                // Pega o texto original salvo (ou reconstrói do ID se não houver)
+                let labelText = serverData[id + '_text'] || parts.slice(1).join(' ');
                 
                 const targetContainer = document.getElementById(`custom-${category}`);
                 if (targetContainer) {
@@ -1185,7 +1195,9 @@
             const cleanText = text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '-');
             const cleanId = `custom-${category}-${cleanText}`;
             
+            // Salva o estado e o texto EXATO digitado pelo usuário (sem perder maiúsculas)
             await saveChecklistState(cleanId, false);
+            await saveChecklistState(cleanId + '_text', text);
             
             input.value = '';
             loadChecklistState();
@@ -1232,12 +1244,11 @@
             window.speechSynthesis.speak(utterance);
         }
 
-        // Função para atualizar a contagem regressiva, destacar o dia atual e o próximo evento
         function updateLiveStatus() {
             const today = new Date();
             today.setHours(0,0,0,0);
             
-            const tripDate = new Date(2027, 0, 25); // 25/01/2027
+            const tripDate = new Date(2027, 0, 25);
             tripDate.setHours(0,0,0,0);
             
             const diffTime = tripDate - today;
@@ -1250,45 +1261,36 @@
                 } else if (diffDays === 0) {
                     countdownEl.innerText = `É hoje a partida! 🎉`;
                 } else {
-                    countdownEl.innerText = `Viagem em andamento / Concluída`;
+                    countdownEl.innerText = `Viagem em andamento`;
                 }
             }
 
-            // Destacar dia atual no calendário e achar o próximo evento
             const cells = document.querySelectorAll('.cal-week-table td[data-date]');
-            let nextEventText = "Nenhum evento futuro próximo";
-            let foundNext = false;
+            let foundNextText = "Viagem concluída!";
 
             cells.forEach(cell => {
                 const dateStr = cell.getAttribute('data-date');
                 const cellDate = new Date(dateStr + 'T00:00:00');
                 
-                // Destaque do dia de hoje
                 if (cellDate.getTime() === today.getTime()) {
                     cell.classList.add('today-highlight');
                 } else {
                     cell.classList.remove('today-highlight');
                 }
 
-                // Identificar o próximo evento (primeira data maior ou igual a hoje com chips)
-                if (!foundNext && cellDate >= today) {
+                if (cellDate >= today && foundNextText === "Viagem concluída!") {
                     const chips = cell.querySelectorAll('.event-chip');
                     if (chips.length > 0) {
-                        nextEventText = chips[0].getAttribute('data-desc') || chips[0].innerText.replace(/\n/g, ' ');
-                        foundNext = `${cell.querySelector('.day-num').innerText}: ${nextEventText}`;
-                        foundNext = true;
+                        const dayNumText = cell.querySelector('.day-num').innerText;
+                        const eventDesc = chips[0].getAttribute('data-desc') || chips[0].innerText.replace(/\n/g, ' ');
+                        foundNextText = `${dayNumText}: ${eventDesc}`;
                     }
                 }
             });
 
             const nextEventEl = document.getElementById('next-event-val');
             if (nextEventEl) {
-                if (foundNext === true) {
-                    // Formata bonitinho
-                    nextEventEl.innerText = typeof foundNextStr !== 'undefined' ? foundNextStr : nextEventText;
-                } else {
-                    nextEventEl.innerText = "Viagem concluída!";
-                }
+                nextEventEl.innerText = foundNextText;
             }
         }
 
