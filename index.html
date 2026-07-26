@@ -301,8 +301,9 @@
             padding: 14px;
             box-shadow: var(--shadow);
             margin-bottom: 15px;
+            border-left: 4px solid var(--secondary);
         }
-        .add-custom-box input[type="text"] {
+        .add-custom-box input[type="text"], .add-custom-box select {
             width: 100%;
             padding: 8px;
             border: 1px solid var(--border);
@@ -711,55 +712,69 @@
             <div id="progress-text" class="progress-text">Sincronizando com a nuvem...</div>
         </div>
 
-        <!-- Campo para adicionar itens personalizados -->
-        <div class="add-custom-box">
-            <h3>➕ Sugerir Novo Item (Família)</h3>
-            <p style="font-size: 8pt; color: var(--text-light); margin-bottom: 6px;">Lembrou de algo que não está na lista? Digite abaixo e clique em adicionar:</p>
-            <input type="text" id="custom-item-input" placeholder="Ex: Protetor labial, Adaptador extra...">
-            <button class="btn-link" onclick="addNewCustomItem()" style="padding: 6px 12px; font-size: 8.5pt;">✨ Adicionar à Lista</button>
-        </div>
-
-        <div class="card-box" style="border-left: 4px solid #d69e2e;">
+        <!-- 1. Hospedagem -->
+        <div class="card-box" id="card-hospedagem" style="border-left: 4px solid #d69e2e;">
             <h3>🏡 Definir Hospedagens nas Cidades</h3>
             <label class="check-item"><input type="checkbox" data-id="hosp-berlim"> <span>Reservar Airbnb em Berlim (Base)</span></label>
             <label class="check-item"><input type="checkbox" data-id="hosp-copenhague"> <span>Reservar Airbnb em Copenhague</span></label>
             <label class="check-item"><input type="checkbox" data-id="hosp-wroclaw"> <span>Reservar Airbnb em Wroclaw</span></label>
+            <div id="custom-hospedagem"></div>
         </div>
 
         <div class="grid-2">
-            <div class="card-box">
+            <!-- 2. Geral / Documentos -->
+            <div class="card-box" id="card-documentos">
                 <h3>🧳 Geral / Documentos</h3>
                 <label class="check-item"><input type="checkbox" data-id="doc-passaporte"> <span>Passaportes válidos</span></label>
                 <label class="check-item"><input type="checkbox" data-id="doc-seguro"> <span>Seguro viagem</span></label>
                 <label class="check-item"><input type="checkbox" data-id="doc-reservas"> <span>Reservas de Voos</span></label>
                 <label class="check-item"><input type="checkbox" data-id="doc-cartoes"> <span>Cartões internacionais / Dinheiro</span></label>
+                <div id="custom-documentos"></div>
             </div>
-            <div class="card-box">
+
+            <!-- 3. Erick -->
+            <div class="card-box" id="card-erick">
                 <h3>👓 Erick</h3>
                 <label class="check-item"><input type="checkbox" data-id="erick-oculos"> <span>Óculos de grau / Sol</span></label>
                 <label class="check-item"><input type="checkbox" data-id="erick-roupas"> <span>Roupas térmicas / Inverno</span></label>
                 <label class="check-item"><input type="checkbox" data-id="erick-calcados"> <span>Calçados confortáveis / Neve</span></label>
                 <label class="check-item"><input type="checkbox" data-id="erick-eletronicos"> <span>Carregadores e adaptadores</span></label>
+                <div id="custom-erick"></div>
             </div>
-            <div class="card-box">
+
+            <!-- 4. Mônica -->
+            <div class="card-box" id="card-monica">
                 <h3>👜 Mônica</h3>
                 <label class="check-item"><input type="checkbox" data-id="monica-oculos"> <span>Óculos</span></label>
                 <label class="check-item"><input type="checkbox" data-id="monica-roupas"> <span>Roupas térmicas / Inverno</span></label>
                 <label class="check-item"><input type="checkbox" data-id="monica-calcados"> <span>Calçados confortáveis</span></label>
                 <label class="check-item"><input type="checkbox" data-id="monica-higiene"> <span>Itens de higiene pessoal</span></label>
+                <div id="custom-monica"></div>
             </div>
-            <div class="card-box">
+
+            <!-- 5. Milena -->
+            <div class="card-box" id="card-milena">
                 <h3>🤾‍♀️ Milena (Handebol)</h3>
                 <label class="check-item"><input type="checkbox" data-id="milena-esporte"> <span>Tênis e material de handebol</span></label>
                 <label class="check-item"><input type="checkbox" data-id="milena-roupas"> <span>Roupas de frio / Térmicas</span></label>
                 <label class="check-item"><input type="checkbox" data-id="milena-pessoal"> <span>Itens pessoais e documentos</span></label>
+                <div id="custom-milena"></div>
             </div>
         </div>
 
-        <!-- Container para itens customizados adicionados pela Milena, Mônica ou Erick -->
-        <div class="card-box" id="custom-items-container" style="display: none;">
-            <h3>✨ Sugestões da Família</h3>
-            <div id="custom-items-list"></div>
+        <!-- Sugerir Novo Item (Movido para o final da página de Checklist) -->
+        <div class="add-custom-box">
+            <h3>➕ Sugerir Novo Item (Família)</h3>
+            <p style="font-size: 8pt; color: var(--text-light); margin-bottom: 6px;">Lembrou de algo? Escolha o membro ou categoria e adicione:</p>
+            <select id="custom-category-select">
+                <option value="hospedagem">🏡 Hospedagem</option>
+                <option value="documentos">🧳 Geral / Documentos</option>
+                <option value="erick">👓 Erick</option>
+                <option value="monica">👜 Mônica</option>
+                <option value="milena">🤾‍♀️ Milena</option>
+            </select>
+            <input type="text" id="custom-item-input" placeholder="Nome do item (ex: Protetor labial)...">
+            <button class="btn-link" onclick="addNewCustomItem()" style="padding: 6px 12px; font-size: 8.5pt;">✨ Adicionar à Categoria</button>
         </div>
     </div>
 
@@ -987,7 +1002,6 @@
     <script>
         const API_URL = "https://script.google.com/macros/s/AKfycbwQDWrMBSEMtATAoK8DXY36q_YIf0GOC1bK0ZAaOh55LHy4rDcR-fGKtXjIWeavXgxW/exec";
 
-        // IDs fixos padrão do checklist
         const fixedIds = [
             'hosp-berlim', 'hosp-copenhague', 'hosp-wroclaw',
             'doc-passaporte', 'doc-seguro', 'doc-reservas', 'doc-cartoes',
@@ -1033,29 +1047,29 @@
             if(progressText) progressText.innerText = `${checkedCount} de ${total} concluídos (${percent}%)`;
         }
 
-        // Função para renderizar dinamicamente os itens customizados criados pela família
         function renderCustomItems(serverData) {
-            const customListDiv = document.getElementById('custom-items-list');
-            const customContainer = document.getElementById('custom-items-container');
-            
-            // Descobre quais IDs na planilha não são fixos
+            ['hospedagem', 'documentos', 'erick', 'monica', 'milena'].forEach(cat => {
+                const container = document.getElementById(`custom-${cat}`);
+                if (container) container.innerHTML = '';
+            });
+
             const allKeys = Object.keys(serverData);
             const customKeys = allKeys.filter(key => !fixedIds.includes(key));
 
-            if (customKeys.length > 0) {
-                customContainer.style.display = 'block';
-                customListDiv.innerHTML = '';
+            customKeys.forEach(id => {
+                const parts = id.replace(/^custom-/, '').split('-');
+                const category = parts[0];
+                const labelText = parts.slice(1).join(' ');
                 
-                customKeys.forEach(id => {
-                    // Decodifica o ID amigável de volta para o texto legível (substitui traços por espaços)
-                    const labelText = id.replace(/^custom-/, '').replace(/-/g, ' ');
+                const targetContainer = document.getElementById(`custom-${category}`);
+                if (targetContainer) {
                     const isChecked = serverData[id] === true;
-
-                    // Verifica se já existe no DOM para não duplicar eventos
                     let existingLabel = document.querySelector(`input[data-id="${id}"]`);
+                    
                     if (!existingLabel) {
                         const label = document.createElement('label');
                         label.className = `check-item ${isChecked ? 'completed' : ''}`;
+                        label.style.marginTop = '6px';
                         label.innerHTML = `<input type="checkbox" data-id="${id}" ${isChecked ? 'checked' : ''}> <span>${labelText}</span>`;
                         
                         const checkbox = label.querySelector('input');
@@ -1069,12 +1083,10 @@
                             saveChecklistState(id, checkbox.checked);
                         });
 
-                        customListDiv.appendChild(label);
+                        targetContainer.appendChild(label);
                     }
-                });
-            } else {
-                customContainer.style.display = 'none';
-            }
+                }
+            });
         }
 
         async function loadChecklistState() {
@@ -1082,7 +1094,6 @@
                 const response = await fetch(API_URL);
                 const data = await response.json();
                 
-                // Atualiza checkboxes fixos
                 const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
                 checkboxes.forEach(cb => {
                     const id = cb.getAttribute('data-id');
@@ -1095,7 +1106,6 @@
                     }
                 });
 
-                // Renderiza itens customizados da nuvem
                 renderCustomItems(data);
                 updateProgress();
             } catch (error) {
@@ -1116,23 +1126,23 @@
             }
         }
 
-        // Adicionar novo item customizado digitado pela Milena/Mônica/Erick
         async function addNewCustomItem() {
+            const select = document.getElementById('custom-category-select');
             const input = document.getElementById('custom-item-input');
+            const category = select.value;
             const text = input.value.trim();
+
             if (!text) {
                 alert("Digite o nome do item!");
                 return;
             }
 
-            // Cria um ID único baseado no texto digitado (ex: "custom-protetor-labial")
-            const cleanId = 'custom-' + text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '-');
+            const cleanText = text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '-');
+            const cleanId = `custom-${category}-${cleanText}`;
             
-            // Salva na planilha como false (não marcado inicialmente)
             await saveChecklistState(cleanId, false);
             
             input.value = '';
-            // Recarrega o estado para exibir o novo item na tela instantaneamente
             loadChecklistState();
         }
 
@@ -1181,7 +1191,6 @@
             loadChecklistState();
             setInterval(loadChecklistState, 10000);
 
-            // Listener para checkboxes fixos
             const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
             checkboxes.forEach(cb => {
                 cb.addEventListener('change', () => {
