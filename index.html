@@ -73,6 +73,22 @@
         .meta-item .label { font-size: 7pt; color: var(--text-light); text-transform: uppercase; font-weight: bold; }
         .meta-item .val { font-size: 9.5pt; font-weight: bold; color: var(--primary); margin-top: 2px; }
 
+        /* Painel Dinâmico de Contagem Regressiva e Próximo Evento */
+        .live-status-box {
+            background: linear-gradient(135deg, #2b6cb0, #3182ce);
+            color: white;
+            border-radius: var(--radius);
+            padding: 14px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        .live-item .live-label { font-size: 7.5pt; text-transform: uppercase; opacity: 0.85; font-weight: bold; }
+        .live-item .live-val { font-size: 11pt; font-weight: bold; margin-top: 2px; }
+
         /* Abas Estilo App */
         .app-tabs {
             display: flex;
@@ -172,6 +188,18 @@
             font-size: 7.5pt;
             width: 14.28%;
             background-color: var(--card-bg);
+            transition: all 0.2s;
+        }
+
+        /* Destaque para o dia atual no calendário */
+        .cal-week-table td.today-highlight {
+            border: 2px solid #e53e3e !important;
+            background-color: rgba(229, 62, 62, 0.05);
+        }
+        .cal-week-table td.today-highlight .day-num {
+            color: #e53e3e;
+            background-color: rgba(229, 62, 62, 0.15);
+            border-radius: 4px;
         }
 
         .day-num {
@@ -180,7 +208,7 @@
             font-size: 8pt;
             margin-bottom: 3px;
             border-bottom: 1px solid var(--border);
-            padding-bottom: 2px;
+            padding: 1px 2px;
             text-align: center;
         }
 
@@ -458,6 +486,18 @@
         </div>
     </div>
 
+    <!-- Painel Dinâmico: Contagem Regressiva e Próximo Evento -->
+    <div class="live-status-box">
+        <div class="live-item">
+            <div class="live-label">⏳ Contagem Regressiva</div>
+            <div id="countdown-val" class="live-val">Calculando...</div>
+        </div>
+        <div class="live-item" style="border-left: 1px solid rgba(255,255,255,0.3); padding-left: 15px;">
+            <div class="live-label">🎯 Próximo Evento</div>
+            <div id="next-event-val" class="live-val">Carregando...</div>
+        </div>
+    </div>
+
     <!-- Navegação por Abas (Aplicativo) -->
     <div class="app-tabs">
         <button class="tab-btn active" onclick="switchTab('tab-calendario')">📅 Calendário</button>
@@ -490,28 +530,28 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><div class="day-num">24/01</div></td>
-                        <td>
+                        <td data-date="2027-01-24"><div class="day-num">24/01</div></td>
+                        <td data-date="2027-01-25">
                             <div class="day-num">25/01</div>
-                            <a href="#d-25-01" onclick="switchTab('tab-cronograma')" class="event-chip c-voo">Voo ida GRU<br>23h40</a>
+                            <a href="#d-25-01" onclick="switchTab('tab-cronograma')" class="event-chip c-voo" data-desc="Voo ida GRU 23h40">Voo ida GRU<br>23h40</a>
                         </td>
-                        <td>
+                        <td data-date="2027-01-26">
                             <div class="day-num">26/01</div>
-                            <a href="#d-26-01" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem">Chegada BER<br>Checkin Airbnb</a>
+                            <a href="#d-26-01" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="Chegada BER / Checkin Airbnb">Chegada BER<br>Checkin Airbnb</a>
                         </td>
-                        <td>
+                        <td data-date="2027-01-27">
                             <div class="day-num">27/01</div>
-                            <a href="#d-27-01" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-blue">SG - OSF<br>18:45 - 20:15</a>
+                            <a href="#d-27-01" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-blue" data-desc="Treino SG - OSF (18:45 - 20:15)">SG - OSF<br>18:45 - 20:15</a>
                         </td>
-                        <td>
+                        <td data-date="2027-01-28">
                             <div class="day-num">28/01</div>
-                            <a href="#d-28-01" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-pink">Fuchse 1<br>17:00 - 18:30</a>
+                            <a href="#d-28-01" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-pink" data-desc="Treino Fuchse 1 (17:00 - 18:30)">Fuchse 1<br>17:00 - 18:30</a>
                         </td>
-                        <td>
+                        <td data-date="2027-01-29">
                             <div class="day-num">29/01</div>
-                            <a href="#d-29-01" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-green">Fuchse 2<br>18:30 - 20:00</a>
+                            <a href="#d-29-01" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-green" data-desc="Treino Fuchse 2 (18:30 - 20:00)">Fuchse 2<br>18:30 - 20:00</a>
                         </td>
-                        <td><div class="day-num">30/01</div></td>
+                        <td data-date="2027-01-30"><div class="day-num">30/01</div></td>
                     </tr>
                 </tbody>
             </table>
@@ -525,27 +565,27 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><div class="day-num">31/01</div></td>
-                        <td>
+                        <td data-date="2027-01-31"><div class="day-num">31/01</div></td>
+                        <td data-date="2027-02-01">
                             <div class="day-num">01/02</div>
-                            <a href="#d-01-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-pink">Fuchse 1 17:00</a>
-                            <a href="#d-01-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-yellow">Goleira 18:30</a>
+                            <a href="#d-01-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-pink" data-desc="Treino Fuchse 1 (17:00)">Fuchse 1 17:00</a>
+                            <a href="#d-01-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-yellow" data-desc="Treino Goleira (18:30)">Goleira 18:30</a>
                         </td>
-                        <td>
+                        <td data-date="2027-02-02">
                             <div class="day-num">02/02</div>
-                            <a href="#d-02-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-blue">SG - OSF<br>18:30 - 20:00</a>
+                            <a href="#d-02-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-blue" data-desc="Treino SG - OSF (18:30 - 20:00)">SG - OSF<br>18:30 - 20:00</a>
                         </td>
-                        <td>
+                        <td data-date="2027-02-03">
                             <div class="day-num">03/02</div>
-                            <a href="#d-03-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-pink">Fuchse 1 17:00</a>
-                            <a href="#d-03-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-blue">SG - OSF 18:45</a>
+                            <a href="#d-03-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-pink" data-desc="Treino Fuchse 1 (17:00)">Fuchse 1 17:00</a>
+                            <a href="#d-03-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-blue" data-desc="Treino SG - OSF (18:45)">SG - OSF 18:45</a>
                         </td>
-                        <td>
+                        <td data-date="2027-02-04">
                             <div class="day-num">04/02</div>
-                            <a href="#d-04-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem">Ida Copenhagen<br>Checkin Airbnb</a>
+                            <a href="#d-04-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="Ida Copenhague / Check-in Airbnb">Ida Copenhagen<br>Checkin Airbnb</a>
                         </td>
-                        <td><div class="day-num">05/02</div></td>
-                        <td><div class="day-num">06/02</div></td>
+                        <td data-date="2027-02-05"><div class="day-num">05/02</div></td>
+                        <td data-date="2027-02-06"><div class="day-num">06/02</div></td>
                     </tr>
                 </tbody>
             </table>
@@ -559,35 +599,35 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>
+                        <td data-date="2027-02-07">
                             <div class="day-num">07/02</div>
-                            <a href="#d-07-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem">Retorno CPH<br>Berlim</a>
+                            <a href="#d-07-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="Retorno CPH para Berlim">Retorno CPH<br>Berlim</a>
                         </td>
-                        <td>
+                        <td data-date="2027-02-08">
                             <div class="day-num">08/02</div>
-                            <a href="#d-08-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-pink">Fuchse 1 17:00</a>
-                            <a href="#d-08-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-yellow">Goleira 18:30</a>
+                            <a href="#d-08-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-pink" data-desc="Treino Fuchse 1 (17:00)">Fuchse 1 17:00</a>
+                            <a href="#d-08-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-yellow" data-desc="Treino Goleira (18:30)">Goleira 18:30</a>
                         </td>
-                        <td>
+                        <td data-date="2027-02-09">
                             <div class="day-num">09/02</div>
-                            <a href="#d-09-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-blue">SG - OSF<br>18:30 - 20:00</a>
+                            <a href="#d-09-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-blue" data-desc="Treino SG - OSF (18:30 - 20:00)">SG - OSF<br>18:30 - 20:00</a>
                         </td>
-                        <td>
+                        <td data-date="2027-02-10">
                             <div class="day-num">10/02</div>
-                            <a href="#d-10-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-pink">Fuchse 1</a>
-                            <a href="#d-10-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem">Ida Wroclaw</a>
+                            <a href="#d-10-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-pink" data-desc="Treino Fuchse 1">Fuchse 1</a>
+                            <a href="#d-10-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="Ida para Wroclaw">Ida Wroclaw</a>
                         </td>
-                        <td>
+                        <td data-date="2027-02-11">
                             <div class="day-num">11/02</div>
-                            <a href="#d-11-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-green">Fuchse 2<br>18:30 - 20:00</a>
+                            <a href="#d-11-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-green" data-desc="Treino Fuchse 2 (18:30 - 20:00)">Fuchse 2<br>18:30 - 20:00</a>
                         </td>
-                        <td>
+                        <td data-date="2027-02-12">
                             <div class="day-num">12/02</div>
-                            <a href="#d-12-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem">Retorno Wroclaw</a>
+                            <a href="#d-12-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="Retorno Wroclaw">Retorno Wroclaw</a>
                         </td>
-                        <td>
+                        <td data-date="2027-02-13">
                             <div class="day-num">13/02</div>
-                            <a href="#d-13-02" onclick="switchTab('tab-cronograma')" class="event-chip c-voo">Voo BER 17h40</a>
+                            <a href="#d-13-02" onclick="switchTab('tab-cronograma')" class="event-chip c-voo" data-desc="Voo BER 17h40">Voo BER 17h40</a>
                         </td>
                     </tr>
                 </tbody>
@@ -602,16 +642,16 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>
+                        <td data-date="2027-02-14">
                             <div class="day-num">14/02</div>
-                            <a href="#d-14-02" onclick="switchTab('tab-cronograma')" class="event-chip c-voo">Chegada GRU<br>05h05</a>
+                            <a href="#d-14-02" onclick="switchTab('tab-cronograma')" class="event-chip c-voo" data-desc="Chegada GRU 05h05">Chegada GRU<br>05h05</a>
                         </td>
-                        <td><div class="day-num">15/02</div></td>
-                        <td><div class="day-num">16/02</div></td>
-                        <td><div class="day-num">17/02</div></td>
-                        <td><div class="day-num">18/02</div></td>
-                        <td><div class="day-num">19/02</div></td>
-                        <td><div class="day-num">20/02</div></td>
+                        <td data-date="2027-02-15"><div class="day-num">15/02</div></td>
+                        <td data-date="2027-02-16"><div class="day-num">16/02</div></td>
+                        <td data-date="2027-02-17"><div class="day-num">17/02</div></td>
+                        <td data-date="2027-02-18"><div class="day-num">18/02</div></td>
+                        <td data-date="2027-02-19"><div class="day-num">19/02</div></td>
+                        <td data-date="2027-02-20"><div class="day-num">20/02</div></td>
                     </tr>
                 </tbody>
             </table>
@@ -762,7 +802,7 @@
             </div>
         </div>
 
-        <!-- Sugerir Novo Item (Movido para o final da página de Checklist) -->
+        <!-- Sugerir Novo Item -->
         <div class="add-custom-box">
             <h3>➕ Sugerir Novo Item (Família)</h3>
             <p style="font-size: 8pt; color: var(--text-light); margin-bottom: 6px;">Lembrou de algo? Escolha o membro ou categoria e adicione:</p>
@@ -1048,21 +1088,18 @@
         }
 
         function renderCustomItems(serverData) {
-            // Limpa containers customizados antes de popular
             ['hospedagem', 'documentos', 'erick', 'monica', 'milena'].forEach(cat => {
                 const container = document.getElementById(`custom-${cat}`);
                 if (container) container.innerHTML = '';
             });
 
             const allKeys = Object.keys(serverData);
-            const customKeys = allKeys.filter(key => !fixedIds.includes(key));
+            const customKeys = allKeys.filter(key => !fixedIds.includes(key) && !key.endsWith('_text'));
 
             customKeys.forEach(id => {
-                // O ID técnico continua limpo para a nuvem, mas agora guardamos o texto original
                 const parts = id.replace(/^custom-/, '').split('-');
                 const category = parts[0];
                 
-                // Pega o texto original salvo ou reconstrói mantendo o formato amigável
                 let labelText = serverData[id + '_text']; 
                 if (!labelText) {
                     labelText = parts.slice(1).join(' ');
@@ -1147,7 +1184,6 @@
             const cleanText = text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '-');
             const cleanId = `custom-${category}-${cleanText}`;
             
-            // Salva o estado do checkbox e também o texto original com acentos/maiúsculas
             await saveChecklistState(cleanId, false);
             await saveChecklistState(cleanId + '_text', text);
             
@@ -1196,9 +1232,70 @@
             window.speechSynthesis.speak(utterance);
         }
 
+        // Função para atualizar a contagem regressiva, destacar o dia atual e o próximo evento
+        function updateLiveStatus() {
+            const today = new Date();
+            today.setHours(0,0,0,0);
+            
+            const tripDate = new Date(2027, 0, 25); // 25/01/2027
+            tripDate.setHours(0,0,0,0);
+            
+            const diffTime = tripDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            const countdownEl = document.getElementById('countdown-val');
+            if (countdownEl) {
+                if (diffDays > 0) {
+                    countdownEl.innerText = `Faltam ${diffDays} dias!`;
+                } else if (diffDays === 0) {
+                    countdownEl.innerText = `É hoje a partida! 🎉`;
+                } else {
+                    countdownEl.innerText = `Viagem em andamento / Concluída`;
+                }
+            }
+
+            // Destacar dia atual no calendário e achar o próximo evento
+            const cells = document.querySelectorAll('.cal-week-table td[data-date]');
+            let nextEventText = "Nenhum evento futuro próximo";
+            let foundNext = false;
+
+            cells.forEach(cell => {
+                const dateStr = cell.getAttribute('data-date');
+                const cellDate = new Date(dateStr + 'T00:00:00');
+                
+                // Destaque do dia de hoje
+                if (cellDate.getTime() === today.getTime()) {
+                    cell.classList.add('today-highlight');
+                } else {
+                    cell.classList.remove('today-highlight');
+                }
+
+                // Identificar o próximo evento (primeira data maior ou igual a hoje com chips)
+                if (!foundNext && cellDate >= today) {
+                    const chips = cell.querySelectorAll('.event-chip');
+                    if (chips.length > 0) {
+                        nextEventText = chips[0].getAttribute('data-desc') || chips[0].innerText.replace(/\n/g, ' ');
+                        foundNext = `${cell.querySelector('.day-num').innerText}: ${nextEventText}`;
+                        foundNext = true;
+                    }
+                }
+            });
+
+            const nextEventEl = document.getElementById('next-event-val');
+            if (nextEventEl) {
+                if (foundNext === true) {
+                    // Formata bonitinho
+                    nextEventEl.innerText = typeof foundNextStr !== 'undefined' ? foundNextStr : nextEventText;
+                } else {
+                    nextEventEl.innerText = "Viagem concluída!";
+                }
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             loadChecklistState();
             setInterval(loadChecklistState, 10000);
+            updateLiveStatus();
 
             const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
             checkboxes.forEach(cb => {
