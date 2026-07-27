@@ -1207,7 +1207,7 @@
             });
 
             const allKeys = Object.keys(serverData);
-            const customKeys = allKeys.filter(key => !fixedIds.includes(key));
+            const customKeys = allKeys.filter(key => !fixedIds.includes(key) && !key.endsWith('_text'));
 
             customKeys.forEach(id => {
                 const parts = id.replace(/^custom-/, '').split('-');
@@ -1291,8 +1291,9 @@
                 return;
             }
 
-            const cleanText = text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '-');
-            const cleanId = `custom-${category}-${cleanText}`;
+            // Gera um ID limpo, seguro e com limite de palavras para evitar IDs gigantescos
+            const slug = text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').substring(0, 25);
+            const cleanId = `custom-${category}-${slug}`;
             
             await saveChecklistState(cleanId, false);
             await saveChecklistState(cleanId + '_text', text);
