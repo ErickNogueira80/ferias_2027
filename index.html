@@ -74,26 +74,47 @@
         .meta-item .val { font-size: 9.5pt; font-weight: bold; color: var(--primary); margin-top: 2px; }
 
         /* Painel Dinâmico Centralizado */
+        .live-status-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
         .live-status-box {
             background: linear-gradient(135deg, #2b6cb0, #3182ce);
             color: white;
             border-radius: var(--radius);
-            padding: 14px;
-            margin-bottom: 15px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            padding: 12px;
             text-align: center;
             box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .live-label { font-size: 7.5pt; text-transform: uppercase; opacity: 0.85; font-weight: bold; margin-bottom: 2px; }
+        .live-val { font-size: 10.5pt; font-weight: bold; }
+
+        .world-clock-box {
+            background: linear-gradient(135deg, #1a365d, #2b6cb0);
+            color: white;
+            border-radius: var(--radius);
+            padding: 10px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
             align-items: center;
         }
-        .live-item {
-            padding: 0 10px;
+        .clock-item {
+            padding: 2px;
         }
-        .live-item:first-child {
+        .clock-item:first-child {
             border-right: 1px solid rgba(255,255,255,0.3);
         }
-        .live-item .live-label { font-size: 7.5pt; text-transform: uppercase; opacity: 0.85; font-weight: bold; }
-        .live-item .live-val { font-size: 11pt; font-weight: bold; margin-top: 2px; }
+        .clock-title { font-size: 7pt; text-transform: uppercase; opacity: 0.8; font-weight: bold; }
+        .clock-time { font-size: 10pt; font-weight: bold; margin-top: 1px; }
 
         /* Abas Estilo App */
         .app-tabs {
@@ -447,7 +468,7 @@
         .day-date { font-weight: bold; color: var(--primary); font-size: 9.5pt; }
         .badge {
             font-size: 7pt;
-            padding: 2px 7pt;
+            padding: 2px 7px;
             border-radius: 20px;
             font-weight: bold;
         }
@@ -503,15 +524,22 @@
         </div>
     </div>
 
-    <!-- Painel Dinâmico: Contagem Regressiva e Próximo Evento (Centralizado) -->
-    <div class="live-status-box">
-        <div class="live-item">
-            <div class="live-label">⏳ Contagem Regressiva</div>
+    <!-- Painel Dinâmico: Contagem Regressiva, Clima e Relógio Mundial -->
+    <div class="live-status-container">
+        <div class="live-status-box">
+            <div class="live-label">⏳ Contagem & Clima (Berlim)</div>
             <div id="countdown-val" class="live-val">Calculando...</div>
+            <div id="weather-val" style="font-size: 8pt; opacity: 0.9; margin-top: 2px;">Carregando temperatura...</div>
         </div>
-        <div class="live-item">
-            <div class="live-label">🎯 Próximo Evento</div>
-            <div id="next-event-val" class="live-val">Carregando...</div>
+        <div class="world-clock-box">
+            <div class="clock-item">
+                <div class="clock-title">🇩🇪 Berlim (Local)</div>
+                <div id="clock-berlin" class="clock-time">--:--:--</div>
+            </div>
+            <div class="clock-item">
+                <div class="clock-title">🇧🇷 Brasília</div>
+                <div id="clock-brasil" class="clock-time">--:--:--</div>
+            </div>
         </div>
     </div>
 
@@ -1352,9 +1380,9 @@
             const countdownEl = document.getElementById('countdown-val');
             if (countdownEl) {
                 if (diffDays > 0) {
-                    countdownEl.innerText = `Faltam ${diffDays} dias!`;
+                    countdownEl.innerText = `Faltam ${diffDays} dias para a partida! 🎉`;
                 } else if (diffDays === 0) {
-                    countdownEl.innerText = `É hoje a partida! 🎉`;
+                    countdownEl.innerText = `É hoje a partida! ✈️`;
                 } else {
                     countdownEl.innerText = `Viagem em andamento`;
                 }
@@ -1382,10 +1410,37 @@
                     }
                 }
             });
+        }
 
-            const nextEventEl = document.getElementById('next-event-val');
-            if (nextEventEl) {
-                nextEventEl.innerText = foundNextText;
+        function updateClocks() {
+            const now = new Date();
+            
+            // Relógio Berlim (CET/CEST)
+            const optionsBerlin = { timeZone: 'Europe/Berlin', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            const timeBerlin = new Intl.DateTimeFormat('pt-BR', optionsBerlin).format(now);
+            const clockBerlinEl = document.getElementById('clock-berlin');
+            if (clockBerlinEl) clockBerlinEl.innerText = timeBerlin;
+
+            // Relógio Brasil (Brasília)
+            const optionsBrasil = { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            const timeBrasil = new Intl.DateTimeFormat('pt-BR', optionsBrasil).format(now);
+            const clockBrasilEl = document.getElementById('clock-brasil');
+            if (clockBrasilEl) clockBrasilEl.innerText = timeBrasil;
+        }
+
+        async function fetchWeather() {
+            const weatherEl = document.getElementById('weather-val');
+            if (!weatherEl) return;
+            try {
+                // Coordenadas de Berlim
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m');
+                const data = await res.json();
+                if (data && data.current) {
+                    const temp = data.current.temperature_2m;
+                    weatherEl.innerText = `🌡️ Berlim agora: ${temp}°C`;
+                }
+            } catch (e) {
+                weatherEl.innerText = `🌡️ Berlim: Temperatura indisponível`;
             }
         }
 
@@ -1393,6 +1448,11 @@
             loadChecklistState();
             setInterval(loadChecklistState, 10000);
             updateLiveStatus();
+            
+            updateClocks();
+            setInterval(updateClocks, 1000);
+
+            fetchWeather();
 
             const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
             checkboxes.forEach(cb => {
