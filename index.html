@@ -94,7 +94,7 @@
         .meta-item .label { font-size: 7pt; color: var(--text-light); text-transform: uppercase; font-weight: bold; }
         .meta-item .val { font-size: 9.5pt; font-weight: bold; color: var(--primary); margin-top: 2px; }
 
-        /* Painel de Relógios e Temperatura reorganizado em Grid Flexível */
+        /* Painel de Relógios e Temperatura (Sem linhas e fixo no topo) */
         .world-clock-box {
             background: linear-gradient(135deg, #1a365d, #2b6cb0);
             color: white;
@@ -106,12 +106,12 @@
             margin-bottom: 15px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         .world-clock-top {
             display: grid;
-            grid-template-columns: 1fr auto 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 6px;
             align-items: center;
             width: 100%;
@@ -120,19 +120,13 @@
         .clock-item { padding: 2px; }
         .clock-title { font-size: 7pt; text-transform: uppercase; opacity: 0.8; font-weight: bold; }
         .clock-time { font-size: 11pt; font-weight: bold; margin-top: 1px; }
-        .clock-divider {
-            border-left: 1px solid rgba(255,255,255,0.3);
-            height: 75%;
-            margin: 0 auto;
-        }
 
         .weather-center {
             font-size: 8pt;
             opacity: 0.95;
             text-align: center;
             font-weight: 500;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            padding-top: 8px;
+            padding-top: 2px;
             width: 100%;
         }
 
@@ -513,6 +507,26 @@
         <p>Erick, Mônica e Milena | Alemanha, Dinamarca & Polônia</p>
     </header>
 
+    <!-- BLOCO GLOBAL: Relógios Mundiais e Temperatura (Fixo em todas as abas, sem linhas) -->
+    <div class="world-clock-box">
+        <button class="theme-toggle-btn" onclick="toggleTheme()" id="theme-btn" title="Alternar tema">🌙</button>
+        
+        <div class="world-clock-top">
+            <div class="clock-item">
+                <div class="clock-title">🇩🇪 Berlim</div>
+                <div id="clock-berlin" class="clock-time">--:--:--</div>
+            </div>
+            <div class="clock-item">
+                <div class="clock-title">🇧🇷 Brasília</div>
+                <div id="clock-brasil" class="clock-time">--:--:--</div>
+            </div>
+        </div>
+
+        <div class="weather-center">
+            <div id="weather-val">🌡️ Carregando...</div>
+        </div>
+    </div>
+
     <!-- Navegação por Abas -->
     <div class="app-tabs">
         <button class="tab-btn active" onclick="switchTab('tab-calendario')">📅 Calendário</button>
@@ -525,30 +539,9 @@
         <button class="tab-btn" onclick="switchTab('tab-cronograma')">⏱️ Cronograma</button>
     </div>
 
-    <!-- ABA 1: CALENDÁRIO (Com Relógios/Temperatura e Partida/Retorno exclusivos aqui) -->
+    <!-- ABA 1: CALENDÁRIO -->
     <div id="tab-calendario" class="tab-content active">
         
-        <!-- Relógios Mundiais com o Botão de Tema no Canto Superior Direito e Temperatura na Linha de Baixo -->
-        <div class="world-clock-box">
-            <button class="theme-toggle-btn" onclick="toggleTheme()" id="theme-btn" title="Alternar tema">🌙</button>
-            
-            <div class="world-clock-top">
-                <div class="clock-item">
-                    <div class="clock-title">🇩🇪 Berlim</div>
-                    <div id="clock-berlin" class="clock-time">--:--:--</div>
-                </div>
-                <div class="clock-divider"></div>
-                <div class="clock-item">
-                    <div class="clock-title">🇧🇷 Brasília</div>
-                    <div id="clock-brasil" class="clock-time">--:--:--</div>
-                </div>
-            </div>
-
-            <div class="weather-center">
-                <div id="weather-val">🌡️ Carregando...</div>
-            </div>
-        </div>
-
         <!-- Partida e Retorno -->
         <div class="meta-card">
             <div class="meta-item">
