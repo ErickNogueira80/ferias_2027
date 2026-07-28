@@ -64,11 +64,14 @@
             background: rgba(255, 255, 255, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.4);
             color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 8pt;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 11pt;
             cursor: pointer;
-            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: background 0.2s;
         }
         .theme-toggle-btn:hover {
@@ -90,43 +93,35 @@
         .meta-item .label { font-size: 7pt; color: var(--text-light); text-transform: uppercase; font-weight: bold; }
         .meta-item .val { font-size: 9.5pt; font-weight: bold; color: var(--primary); margin-top: 2px; }
 
-        /* Painel Dinâmico exclusivo para a aba Calendário */
-        .live-status-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-
-        .live-status-box {
-            background: linear-gradient(135deg, #2b6cb0, #3182ce);
+        /* Painel de Relógios e Temperatura no topo */
+        .world-clock-box {
+            background: linear-gradient(135deg, #1a365d, #2b6cb0);
             color: white;
             border-radius: var(--radius);
             padding: 12px;
             text-align: center;
             box-shadow: var(--shadow);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .live-val { font-size: 10.5pt; font-weight: bold; }
-
-        .world-clock-box {
-            background: linear-gradient(135deg, #1a365d, #2b6cb0);
-            color: white;
-            border-radius: var(--radius);
-            padding: 10px;
-            text-align: center;
-            box-shadow: var(--shadow);
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr auto 1fr;
             gap: 6px;
             align-items: center;
+            margin-bottom: 15px;
         }
         .clock-item { padding: 2px; }
-        .clock-item:first-child { border-right: 1px solid rgba(255,255,255,0.3); }
         .clock-title { font-size: 7pt; text-transform: uppercase; opacity: 0.8; font-weight: bold; }
-        .clock-time { font-size: 10pt; font-weight: bold; margin-top: 1px; }
+        .clock-time { font-size: 10.5pt; font-weight: bold; margin-top: 1px; }
+        .clock-divider {
+            border-left: 1px solid rgba(255,255,255,0.3);
+            height: 80%;
+            margin: 0 auto;
+        }
+        .weather-center {
+            font-size: 7.5pt;
+            opacity: 0.95;
+            padding: 0 10px;
+            text-align: center;
+            font-weight: 500;
+        }
 
         /* Abas Estilo App */
         .app-tabs {
@@ -511,21 +506,10 @@
 <body id="topo">
 
     <header>
-        <button class="theme-toggle-btn" onclick="toggleTheme()" id="theme-btn">🌙 Escuro</button>
+        <button class="theme-toggle-btn" onclick="toggleTheme()" id="theme-btn">🌙</button>
         <h1>Roteiro de Férias 2027</h1>
         <p>Erick, Mônica e Milena | Alemanha, Dinamarca & Polônia</p>
     </header>
-
-    <div class="meta-card">
-        <div class="meta-item">
-            <div class="label">Partida (GRU)</div>
-            <div class="val">25/01/2027</div>
-        </div>
-        <div class="meta-item">
-            <div class="label">Retorno (GRU)</div>
-            <div class="val">14/02/2027</div>
-        </div>
-    </div>
 
     <!-- Navegação por Abas -->
     <div class="app-tabs">
@@ -539,24 +523,35 @@
         <button class="tab-btn" onclick="switchTab('tab-cronograma')">⏱️ Cronograma</button>
     </div>
 
-    <!-- ABA 1: CALENDÁRIO (Com o Painel Dinâmico exclusivo aqui) -->
+    <!-- ABA 1: CALENDÁRIO (Com Relógios/Temperatura e Partida/Retorno exclusivos aqui) -->
     <div id="tab-calendario" class="tab-content active">
         
-        <!-- Painel Dinâmico (Apenas na aba Calendário) -->
-        <div class="live-status-container">
-            <div class="live-status-box">
-                <div id="countdown-val" class="live-val">Calculando...</div>
-                <div id="weather-val" style="font-size: 8pt; opacity: 0.9; margin-top: 2px;">Carregando temperatura...</div>
+        <!-- Relógios Mundiais com Temperatura Integrada no Meio -->
+        <div class="world-clock-box">
+            <div class="clock-item">
+                <div class="clock-title">🇩🇪 Berlim</div>
+                <div id="clock-berlin" class="clock-time">--:--:--</div>
             </div>
-            <div class="world-clock-box">
-                <div class="clock-item">
-                    <div class="clock-title">🇩🇪 Berlim</div>
-                    <div id="clock-berlin" class="clock-time">--:--:--</div>
-                </div>
-                <div class="clock-item">
-                    <div class="clock-title">🇧🇷 Brasília</div>
-                    <div id="clock-brasil" class="clock-time">--:--:--</div>
-                </div>
+            <div class="clock-divider"></div>
+            <div class="weather-center">
+                <div id="weather-val">🌡️ Carregando...</div>
+            </div>
+            <div class="clock-divider"></div>
+            <div class="clock-item">
+                <div class="clock-title">🇧🇷 Brasília</div>
+                <div id="clock-brasil" class="clock-time">--:--:--</div>
+            </div>
+        </div>
+
+        <!-- Partida e Retorno -->
+        <div class="meta-card">
+            <div class="meta-item">
+                <div class="label">Partida (GRU)</div>
+                <div class="val">25/01/2027</div>
+            </div>
+            <div class="meta-item">
+                <div class="label">Retorno (GRU)</div>
+                <div class="val">14/02/2027</div>
             </div>
         </div>
 
@@ -1196,17 +1191,17 @@
             body.classList.toggle('dark-mode');
             const btn = document.getElementById('theme-btn');
             if (body.classList.contains('dark-mode')) {
-                btn.innerText = "☀️ Claro";
+                btn.innerText = "☀️";
                 localStorage.setItem('theme', 'dark');
             } else {
-                btn.innerText = "🌙 Escuro";
+                btn.innerText = "🌙";
                 localStorage.setItem('theme', 'light');
             }
         }
 
         if (localStorage.getItem('theme') === 'dark') {
             document.body.classList.add('dark-mode');
-            document.getElementById('theme-btn').innerText = "☀️ Claro";
+            document.getElementById('theme-btn').innerText = "☀️";
         }
 
         function switchTab(tabId) {
@@ -1388,28 +1383,6 @@
             window.speechSynthesis.speak(utterance);
         }
 
-        function updateLiveStatus() {
-            const today = new Date();
-            today.setHours(0,0,0,0);
-            
-            const tripDate = new Date(2027, 0, 25);
-            tripDate.setHours(0,0,0,0);
-            
-            const diffTime = tripDate - today;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            
-            const countdownEl = document.getElementById('countdown-val');
-            if (countdownEl) {
-                if (diffDays > 0) {
-                    countdownEl.innerText = `Faltam ${diffDays} dias para a partida! 🎉`;
-                } else if (diffDays === 0) {
-                    countdownEl.innerText = `É hoje a partida! ✈️`;
-                } else {
-                    countdownEl.innerText = `Viagem em andamento`;
-                }
-            }
-        }
-
         function updateClocks() {
             const now = new Date();
             const optionsBerlin = { timeZone: 'Europe/Berlin', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
@@ -1431,17 +1404,16 @@
                 const data = await res.json();
                 if (data && data.current) {
                     const temp = data.current.temperature_2m;
-                    weatherEl.innerText = `🌡️ Berlim agora: ${temp}°C`;
+                    weatherEl.innerText = `🌡️ Berlim: ${temp}°C`;
                 }
             } catch (e) {
-                weatherEl.innerText = `🌡️ Berlim: Temperatura indisponível`;
+                weatherEl.innerText = `🌡️ Berlim: Indisponível`;
             }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             loadChecklistState();
             setInterval(loadChecklistState, 10000);
-            updateLiveStatus();
             
             updateClocks();
             setInterval(updateClocks, 1000);
