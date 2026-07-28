@@ -18,18 +18,16 @@
             --radius: 12px;
         }
 
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --primary: #63b3ed;
-                --secondary: #4299e1;
-                --accent: #63b3ed;
-                --bg: #1a202c;
-                --card-bg: #2d3748;
-                --text: #f7fafc;
-                --text-light: #a0aec0;
-                --border: #4a5568;
-                --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            }
+        body.dark-mode {
+            --primary: #63b3ed;
+            --secondary: #4299e1;
+            --accent: #63b3ed;
+            --bg: #1a202c;
+            --card-bg: #2d3748;
+            --text: #f7fafc;
+            --text-light: #a0aec0;
+            --border: #4a5568;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -53,10 +51,29 @@
             margin-bottom: 15px;
             text-align: center;
             box-shadow: var(--shadow);
+            position: relative;
         }
 
         header h1 { font-size: 18pt; margin-bottom: 4px; font-weight: 700; }
         header p { font-size: 9pt; opacity: 0.9; }
+
+        .theme-toggle-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 8pt;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .theme-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
 
         .meta-card {
             background: var(--card-bg);
@@ -73,7 +90,7 @@
         .meta-item .label { font-size: 7pt; color: var(--text-light); text-transform: uppercase; font-weight: bold; }
         .meta-item .val { font-size: 9.5pt; font-weight: bold; color: var(--primary); margin-top: 2px; }
 
-        /* Painel Dinâmico Centralizado */
+        /* Painel Dinâmico */
         .live-status-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -92,7 +109,6 @@
             flex-direction: column;
             justify-content: center;
         }
-        .live-label { font-size: 7.5pt; text-transform: uppercase; opacity: 0.85; font-weight: bold; margin-bottom: 2px; }
         .live-val { font-size: 10.5pt; font-weight: bold; }
 
         .world-clock-box {
@@ -107,12 +123,8 @@
             gap: 6px;
             align-items: center;
         }
-        .clock-item {
-            padding: 2px;
-        }
-        .clock-item:first-child {
-            border-right: 1px solid rgba(255,255,255,0.3);
-        }
+        .clock-item { padding: 2px; }
+        .clock-item:first-child { border-right: 1px solid rgba(255,255,255,0.3); }
         .clock-title { font-size: 7pt; text-transform: uppercase; opacity: 0.8; font-weight: bold; }
         .clock-time { font-size: 10pt; font-weight: bold; margin-top: 1px; }
 
@@ -145,14 +157,8 @@
             border-color: var(--secondary);
         }
 
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease-in-out;
-        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(4px); }
@@ -505,6 +511,7 @@
 <body id="topo">
 
     <header>
+        <button class="theme-toggle-btn" onclick="toggleTheme()" id="theme-btn">🌙 Escuro</button>
         <h1>Roteiro de Férias 2027</h1>
         <p>Erick, Mônica e Milena | Alemanha, Dinamarca & Polônia</p>
     </header>
@@ -515,25 +522,20 @@
             <div class="val">25/01/2027</div>
         </div>
         <div class="meta-item">
-            <div class="label">Base Principal</div>
-            <div class="val">Berlim, DE</div>
-        </div>
-        <div class="meta-item">
             <div class="label">Retorno (GRU)</div>
             <div class="val">14/02/2027</div>
         </div>
     </div>
 
-    <!-- Painel Dinâmico: Contagem Regressiva, Clima e Relógio Mundial -->
+    <!-- Painel Dinâmico -->
     <div class="live-status-container">
         <div class="live-status-box">
-            <div class="live-label">⏳ Contagem & Clima (Berlim)</div>
             <div id="countdown-val" class="live-val">Calculando...</div>
             <div id="weather-val" style="font-size: 8pt; opacity: 0.9; margin-top: 2px;">Carregando temperatura...</div>
         </div>
         <div class="world-clock-box">
             <div class="clock-item">
-                <div class="clock-title">🇩🇪 Berlim (Local)</div>
+                <div class="clock-title">🇩🇪 Berlim</div>
                 <div id="clock-berlin" class="clock-time">--:--:--</div>
             </div>
             <div class="clock-item">
@@ -543,7 +545,7 @@
         </div>
     </div>
 
-    <!-- Navegação por Abas (Aplicativo) -->
+    <!-- Navegação por Abas -->
     <div class="app-tabs">
         <button class="tab-btn active" onclick="switchTab('tab-calendario')">📅 Calendário</button>
         <button class="tab-btn" onclick="switchTab('tab-berlim')">🇩🇪 Berlim</button>
@@ -710,10 +712,10 @@
 
     <!-- ABA 2: BERLIM -->
     <div id="tab-berlim" class="tab-content">
-        <h2>Berlim (Base Principal, Treinos & Endereços)</h2>
+        <h2>Berlim (Treinos & Endereços)</h2>
         
         <div class="card-box">
-            <h3>🏡 Hospedagem (Base em Berlim)</h3>
+            <h3>🏡 Hospedagem em Berlim</h3>
             <div class="address-item">
                 <strong>Airbnb:</strong> Heinrich-Heine-Straße 7, 10179 Berlin
             </div>
@@ -836,7 +838,7 @@
         <!-- 1. Hospedagem -->
         <div class="card-box" id="card-hospedagem" style="border-left: 4px solid #d69e2e;">
             <h3>🏡 Definir Hospedagens nas Cidades</h3>
-            <label class="check-item"><input type="checkbox" data-id="hosp-berlim"> <span>Reservar Airbnb em Berlim (Base)</span></label>
+            <label class="check-item"><input type="checkbox" data-id="hosp-berlim"> <span>Reservar Airbnb em Berlim</span></label>
             <label class="check-item"><input type="checkbox" data-id="hosp-copenhague"> <span>Reservar Airbnb em Copenhague</span></label>
             <label class="check-item"><input type="checkbox" data-id="hosp-wroclaw"> <span>Reservar Airbnb em Wroclaw</span></label>
             <div id="custom-hospedagem"></div>
@@ -1188,6 +1190,25 @@
             'milena-esporte', 'milena-roupas', 'milena-pessoal'
         ];
 
+        function toggleTheme() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+            const btn = document.getElementById('theme-btn');
+            if (body.classList.contains('dark-mode')) {
+                btn.innerText = "☀️ Claro";
+                localStorage.setItem('theme', 'dark');
+            } else {
+                btn.innerText = "🌙 Escuro";
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Carrega o tema salvo
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('theme-btn').innerText = "☀️ Claro";
+        }
+
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -1387,41 +1408,15 @@
                     countdownEl.innerText = `Viagem em andamento`;
                 }
             }
-
-            const cells = document.querySelectorAll('.cal-week-table td[data-date]');
-            let foundNextText = "Viagem concluída!";
-
-            cells.forEach(cell => {
-                const dateStr = cell.getAttribute('data-date');
-                const cellDate = new Date(dateStr + 'T00:00:00');
-                
-                if (cellDate.getTime() === today.getTime()) {
-                    cell.classList.add('today-highlight');
-                } else {
-                    cell.classList.remove('today-highlight');
-                }
-
-                if (cellDate >= today && foundNextText === "Viagem concluída!") {
-                    const chips = cell.querySelectorAll('.event-chip');
-                    if (chips.length > 0) {
-                        const dayNumText = cell.querySelector('.day-num').innerText;
-                        const eventDesc = chips[0].getAttribute('data-desc') || chips[0].innerText.replace(/\n/g, ' ');
-                        foundNextText = `${dayNumText}: ${eventDesc}`;
-                    }
-                }
-            });
         }
 
         function updateClocks() {
             const now = new Date();
-            
-            // Relógio Berlim (CET/CEST)
             const optionsBerlin = { timeZone: 'Europe/Berlin', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
             const timeBerlin = new Intl.DateTimeFormat('pt-BR', optionsBerlin).format(now);
             const clockBerlinEl = document.getElementById('clock-berlin');
             if (clockBerlinEl) clockBerlinEl.innerText = timeBerlin;
 
-            // Relógio Brasil (Brasília)
             const optionsBrasil = { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
             const timeBrasil = new Intl.DateTimeFormat('pt-BR', optionsBrasil).format(now);
             const clockBrasilEl = document.getElementById('clock-brasil');
@@ -1432,7 +1427,6 @@
             const weatherEl = document.getElementById('weather-val');
             if (!weatherEl) return;
             try {
-                // Coordenadas de Berlim
                 const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m');
                 const data = await res.json();
                 if (data && data.current) {
