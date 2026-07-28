@@ -99,14 +99,21 @@
             white-space: nowrap;
         }
 
-        /* Abas Estilo App e Botão de Tema Integrado */
+        /* Abas Estilo App, afastadas e com barra de rolagem invisível */
         .app-tabs {
             display: flex;
             gap: 6px;
+            margin-top: 20px;    /* Afastado do bloco de cima */
             margin-bottom: 15px;
             overflow-x: auto;
-            padding-bottom: 4px;
+            padding-bottom: 8px; /* Espaço para toque sem mostrar scroll */
             align-items: center;
+            scrollbar-width: none;  /* Esconde no Firefox */
+        }
+
+        /* Esconde a barra de rolagem no Chrome, Safari e Edge */
+        .app-tabs::-webkit-scrollbar {
+            display: none;
         }
 
         .theme-tab-btn {
@@ -513,7 +520,7 @@
         </div>
     </div>
 
-    <!-- Navegação por Abas (Com o Botão de Tema como 1º item) -->
+    <!-- Navegação por Abas (Com o Botão de Tema como 1º item e sem barra de rolagem visível) -->
     <div class="app-tabs">
         <button class="theme-tab-btn" onclick="toggleTheme()" id="theme-btn" title="Alternar tema">🌙</button>
         <button class="tab-btn active" onclick="switchTab('tab-calendario')">📅 Calendário</button>
@@ -1198,7 +1205,6 @@
             
             const btnIndex = {'tab-calendario': 0, 'tab-berlim': 1, 'tab-copenhague': 2, 'tab-wroclaw': 3, 'tab-checklist': 4, 'tab-voos': 5, 'tab-alemao': 6, 'tab-cronograma': 7}[tabId];
             if(btnIndex !== undefined) {
-                // Ajustado o índice por conta do botão de tema na primeira posição
                 document.querySelectorAll('.tab-btn')[btnIndex].classList.add('active');
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
