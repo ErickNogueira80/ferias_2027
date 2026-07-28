@@ -447,7 +447,7 @@
         .day-date { font-weight: bold; color: var(--primary); font-size: 9.5pt; }
         .badge {
             font-size: 7pt;
-            padding: 2px 7px;
+            padding: 2px 7pt;
             border-radius: 20px;
             font-weight: bold;
         }
@@ -521,7 +521,6 @@
         <button class="tab-btn" onclick="switchTab('tab-berlim')">🇩🇪 Berlim</button>
         <button class="tab-btn" onclick="switchTab('tab-copenhague')">🇩🇰 Copenhague</button>
         <button class="tab-btn" onclick="switchTab('tab-wroclaw')">🇵🇱 Wroclaw</button>
-        <button class="tab-btn" onclick="switchTab('tab-enderecos')">📍 Endereços</button>
         <button class="tab-btn" onclick="switchTab('tab-checklist')">🎒 Checklist</button>
         <button class="tab-btn" onclick="switchTab('tab-voos')">✈️ Voos</button>
         <button class="tab-btn" onclick="switchTab('tab-alemao')">🗣️ Alemão</button>
@@ -683,82 +682,12 @@
 
     <!-- ABA 2: BERLIM -->
     <div id="tab-berlim" class="tab-content">
-        <h2>Berlim (Base Principal, Treinos & Atrações)</h2>
-        <div class="card-box">
-            <h3>🇩🇪 Visão Geral da Base</h3>
-            <p style="font-size: 8.5pt; margin-bottom: 8px;">Berlim será a nossa principal base operacional e de treinos de handebol da Milena (SG - OSF e Fuchse Berlim).</p>
-            <ul style="font-size: 8.5pt; margin-left: 18px; margin-bottom: 10px;">
-                <li><strong>Foco principal:</strong> Rotina de treinos intensivos, compras e descobertas na cidade.</li>
-                <li><strong>Hospedagem:</strong> Heinrich-Heine-Straße 7, 10179 Berlin</li>
-            </ul>
-            <button class="btn-link" onclick="switchTab('tab-enderecos')">📍 Ver Endereços em Berlim</button>
-        </div>
-
-        <div class="card-box" style="margin-top: 12px;">
-            <h3>🚇 Destaques Especiais em Berlim</h3>
-            <div class="address-item" style="margin-bottom: 10px;">
-                <strong>U-Bahn-Convertible (Passeio de Metrô Aberto):</strong> Um tour super original e exclusivo a bordo de um vagão de metrô aberto pelas entranhas e túneis de Berlim, passando por estações históricas e curiosidades subterrâneas.
-                <a href="https://maps.google.com/?q=Deutsche+Oper+underground+station+Berlin" target="_blank" class="btn-link" style="margin-top: 4px;">🗺️ Ponto de Partida (Deutsche Oper)</a>
-            </div>
-            <div class="address-item">
-                <strong>Mall of Berlin:</strong> Um dos maiores e mais modernos complexos de compras e lazer da cidade, localizado bem no coração de Berlim (perto da Potsdamer Platz), com arquitetura imponente e centenas de lojas.
-                <a href="https://maps.google.com/?q=Mall+of+Berlin+Leipziger+Platz" target="_blank" class="btn-link" style="margin-top: 4px;">🗺️ Google Maps (Mall of Berlin)</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- ABA 3: COPENHAGUE -->
-    <div id="tab-copenhague" class="tab-content">
-        <h2>Copenhague (Dinamarca)</h2>
-        <div class="card-box">
-            <h3>🇩🇰 Roteiro & Experiência de Inverno (04/02 a 07/02)</h3>
-            <p style="font-size: 8.5pt; margin-bottom: 8px;">Viagem de trem partindo de Berlim até a København H para imersão na cultura dinamarquesa e atrações imperdíveis.</p>
-            <ul style="font-size: 8.5pt; margin-left: 18px; margin-bottom: 10px;">
-                <li><strong>LEGO Store:</strong> Localizada na Strøget (Vimmelskaftet 37), parada perfeita para a Milena logo nos primeiros dias.</li>
-                <li><strong>Cultura & História:</strong> Palácio de Amalienborg (com troca da guarda ao meio-dia), Igreja de Mármore, Castelo de Rosenborg e Museu Nacional da Dinamarca (gratuito para menores de 18 anos).</li>
-                <li><strong>Ícones & Ciência:</strong> A Pequena Sereia, o Kastellet e o ultra-interativo Experimentarium.</li>
-                <li><strong>Dicas de Inverno & Guloseimas:</strong> Passeios de barco cobertos e aquecidos pelos canais, e as famosas chocolaterias e docerias como <strong>Summerbird</strong> (famosa pelos flødeboller), <strong>Peter Beier</strong> e <strong>Lagkagehuset</strong>.</li>
-            </ul>
-            <div class="address-item">
-                <strong>Hospedagem:</strong> <span class="tag-pending">Pendente de definição (Próximo à København H)</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- ABA 4: WROCLAW -->
-    <div id="tab-wroclaw" class="tab-content">
-        <h2>Wroclaw (Polônia) — "Vrotsuav"</h2>
-        <div class="card-box">
-            <h3>🇵🇱 Roteiro Dinâmico e Jovem (10/02 a 12/02)</h3>
-            <p style="font-size: 8.5pt; margin-bottom: 8px;">Wroclaw é uma escolha fantástica, uma cidade viva, jovem e altamente interativa, ideal para adolescentes.</p>
-            <ul style="font-size: 8.5pt; margin-left: 18px; margin-bottom: 10px;">
-                <li><strong>Caça aos Gnomos (Dwarf-Hunting):</strong> Mais de 700 estatuetas de bronze espalhadas pela cidade transformam a exploração urbana em um jogo divertido.</li>
-                <li><strong>Hydropolis:</strong> Centro de conhecimento sobre a água ultra-moderno e interativo, cheio de tecnologia e experiências sensoriais.</li>
-                <li><strong>Kolejkowo:</strong> A maior exposição de ferromodelismo da Polônia, com miniaturas detalhadas e ciclo de luz simulando dia e noite a cada 9 minutos.</li>
-                <li><strong>Ponte dos Penitentes (Ponte das Bruxas):</strong> Passarela entre as torres da Igreja de Santa Maria Madalena com uma vista espetacular de Wroclaw.</li>
-                <li><strong>Acendedor de Lampiões:</strong> Na Ilha da Catedral, ao cair da tarde (por volta das 15h30/16h), com sua tradição centenária super cinematográfica.</li>
-                <li><strong>Castelo Książ (Bate-volta):</strong> Conhecido como o "Castelo Cor de Rosa da Polônia", imponente e muito fotogênico.</li>
-            </ul>
-            <div class="address-item">
-                <strong>Hospedagem:</strong> <span class="tag-pending">Pendente de definição em Wroclaw</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- ABA 5: ENDEREÇOS -->
-    <div id="tab-enderecos" class="tab-content">
-        <h2>Endereços & Hospedagens</h2>
+        <h2>Berlim (Base Principal, Treinos & Endereços)</h2>
         
         <div class="card-box">
-            <h3>🏡 Hospedagens (Airbnb)</h3>
+            <h3>🏡 Hospedagem (Base em Berlim)</h3>
             <div class="address-item">
-                <strong>Berlim, Alemanha (Base):</strong> Heinrich-Heine-Straße 7, 10179 Berlin
-            </div>
-            <div class="address-item" style="margin-top: 8px;">
-                <strong>Copenhague, Dinamarca:</strong> <span class="tag-pending">Pendente de definição</span>
-            </div>
-            <div class="address-item" style="margin-top: 8px;">
-                <strong>Wroclaw, Polônia:</strong> <span class="tag-pending">Pendente de definição</span>
+                <strong>Airbnb:</strong> Heinrich-Heine-Straße 7, 10179 Berlin
             </div>
         </div>
 
@@ -766,61 +695,105 @@
             <div class="card-box" id="end-sgosf">
                 <h3>🤾‍♂️ SG - OSF / Treinos</h3>
                 <div class="address-item">
-                    <strong>Sachsendamm 12, 10829 Berlim</strong>
-                    <a href="https://maps.google.com/?q=Sachsendamm+12+10829+Berlin" target="_blank" class="btn-link">🗺️ Google Maps</a>
+                    <strong>Endereço 1:</strong> Sachsendamm 12, 10829 Berlim
+                    <a href="https://maps.google.com/?q=Sachsendamm+12+10829+Berlin" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
                 </div>
                 <div class="address-item" style="margin-top: 10px;">
-                    <strong>Dickhardtstraße 21/22, 12161 Berlim</strong>
-                    <a href="https://maps.google.com/?q=Dickhardtstraße+21+12161+Berlin" target="_blank" class="btn-link">🗺️ Google Maps</a>
+                    <strong>Endereço 2:</strong> Dickhardtstraße 21/22, 12161 Berlim
+                    <a href="https://maps.google.com/?q=Dickhardtstraße+21+12161+Berlin" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
                 </div>
             </div>
             <div class="card-box" id="end-fuchse">
                 <h3>🤾‍♂️ Fuchse Berlim</h3>
                 <div class="address-item">
-                    <strong>Fuchse 1: Freiheitsweg 18, 13407 Berlim</strong>
-                    <a href="https://maps.google.com/?q=Freiheitsweg+18+13407+Berlin" target="_blank" class="btn-link">🗺️ Google Maps</a>
+                    <strong>Fuchse 1:</strong> Freiheitsweg 18, 13407 Berlim
+                    <a href="https://maps.google.com/?q=Freiheitsweg+18+13407+Berlin" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
                 </div>
                 <div class="address-item" style="margin-top: 10px;">
-                    <strong>Fuchse 2: Kienhorstr. 67-69, 13403 Berlim</strong>
-                    <a href="https://maps.google.com/?q=Kienhorstr.+67+13403+Berlin" target="_blank" class="btn-link">🗺️ Google Maps</a>
+                    <strong>Fuchse 2:</strong> Kienhorstr. 67-69, 13403 Berlim
+                    <a href="https://maps.google.com/?q=Kienhorstr.+67+13403+Berlin" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
                 </div>
             </div>
         </div>
 
-        <div class="card-box" id="end-berlin-extras" style="margin-top: 12px;">
-            <h3>🇩🇪 Outras Atrações em Berlim</h3>
+        <div class="card-box" style="margin-top: 12px;">
+            <h3>🚇 Destaques, Compras & Atrações Especiais</h3>
+            <div class="address-item" style="margin-bottom: 10px;">
+                <strong>U-Bahn-Convertible (Passeio de Metrô Aberto):</strong> Tour exclusivo a bordo de um vagão de metrô aberto pelas entranhas e túneis de Berlim.
+                <div class="action-links" style="margin-top:4px;">
+                    <a href="https://maps.google.com/?q=Deutsche+Oper+underground+station+Berlin" target="_blank" class="btn-link">🗺️ Ponto de Partida (Deutsche Oper)</a>
+                    <a href="https://www.instagram.com/reel/DbQcmYKosz6/?igsh=MXU4cm0yNXJldndlbA==" target="_blank" class="btn-link" style="background:#fed7e2; color:#97266d;">📸 Reel Instagram</a>
+                </div>
+            </div>
             <div class="address-item">
-                <strong>Mall of Berlin:</strong> Leipziger Pl. 12, 10117 Berlin, Alemanha
-                <a href="https://maps.google.com/?q=Mall+of+Berlin+Leipziger+Platz" target="_blank" class="btn-link">🗺️ Google Maps</a>
-            </div>
-            <div class="address-item" style="margin-top: 8px;">
-                <strong>U-Bahn-Convertible (Ponto de Partida - Deutsche Oper):</strong> Bismarckstraße 35, 10627 Berlin, Alemanha
-                <a href="https://maps.google.com/?q=Deutsche+Oper+underground+station+Berlin" target="_blank" class="btn-link">🗺️ Google Maps</a>
-            </div>
-        </div>
-
-        <div class="card-box" id="end-wroclaw" style="margin-top: 12px;">
-            <h3>🇵🇱 Atrações em Wroclaw</h3>
-            <div class="address-item">
-                <strong>Hydropolis:</strong> Na Grobli 19/+48, 50-421 Wrocław, Polônia
-                <a href="https://maps.google.com/?q=Hydropolis+Wroclaw" target="_blank" class="btn-link">🗺️ Google Maps</a>
-            </div>
-            <div class="address-item" style="margin-top: 8px;">
-                <strong>Kolejkowo:</strong> Powstańców Śląskich 95, 53-332 Wrocław, Polônia
-                <a href="https://maps.google.com/?q=Kolejkowo+Wroclaw" target="_blank" class="btn-link">🗺️ Google Maps</a>
-            </div>
-            <div class="address-item" style="margin-top: 8px;">
-                <strong>Ponte dos Penitentes (Igreja Sta. Maria Madalena):</strong> szewska 10, 50-122 Wrocław, Polônia
-                <a href="https://maps.google.com/?q=St.+Mary+Magdalene+Church+Wroclaw" target="_blank" class="btn-link">🗺️ Google Maps</a>
-            </div>
-            <div class="address-item" style="margin-top: 8px;">
-                <strong>Castelo Książ (Bate-volta):</strong> Piastów Śląskich 1, 58-306 Wałbrzych, Polônia
-                <a href="https://maps.google.com/?q=Ksiaz+Castle+Walbrzych" target="_blank" class="btn-link">🗺️ Google Maps</a>
+                <strong>Mall of Berlin:</strong> Complexo moderno de compras e lazer no coração de Berlim (perto da Potsdamer Platz).
+                <div class="action-links" style="margin-top:4px;">
+                    <a href="https://maps.google.com/?q=Mall+of+Berlin+Leipziger+Platz" target="_blank" class="btn-link">🗺️ Google Maps</a>
+                    <a href="https://www.instagram.com/reel/DaAurVUsl5r/?igsh=MTNscmt3anZ1ZnBpNw==" target="_blank" class="btn-link" style="background:#fed7e2; color:#97266d;">📸 Reel Instagram</a>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- ABA 6: CHECKLIST -->
+    <!-- ABA 3: COPENHAGUE -->
+    <div id="tab-copenhague" class="tab-content">
+        <h2>Copenhague (Dinamarca & Endereços)</h2>
+        <div class="card-box">
+            <h3>🏡 Hospedagem & Logística</h3>
+            <div class="address-item">
+                <strong>Hospedagem:</strong> <span class="tag-pending">Pendente de definição (Próximo à København H)</span>
+            </div>
+            <div class="address-item" style="margin-top: 8px;">
+                <strong>Estação Principal:</strong> København H (Ponto de chegada dos trens de Berlim).
+                <a href="https://maps.google.com/?q=Copenhagen+Central+Station" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
+            </div>
+        </div>
+
+        <div class="card-box">
+            <h3>🇩🇰 Roteiro & Principais Pontos (04/02 a 07/02)</h3>
+            <ul style="font-size: 8.5pt; margin-left: 18px; margin-bottom: 10px;">
+                <li><strong>LEGO Store:</strong> Strøget (Vimmelskaftet 37). <a href="https://maps.google.com/?q=LEGO+Store+Copenhagen+Vimmelskaftet" target="_blank" class="btn-link" style="display:inline-flex; margin-left:4px;">🗺️ Mapa</a></li>
+                <li><strong>Palácio de Amalienborg & Igreja de Mármore:</strong> Frederiksgade 4. <a href="https://maps.google.com/?q=Amalienborg+Palace" target="_blank" class="btn-link" style="display:inline-flex; margin-left:4px;">🗺️ Mapa</a></li>
+                <li><strong>Castelo de Rosenborg:</strong> Øster Voldgade 4A. <a href="https://maps.google.com/?q=Rosenborg+Castle+Copenhagen" target="_blank" class="btn-link" style="display:inline-flex; margin-left:4px;">🗺️ Mapa</a></li>
+                <li><strong>Experimentarium:</strong> Tuborg Havnevej 7, Hellerup. <a href="https://maps.google.com/?q=Experimentarium+Hellerup" target="_blank" class="btn-link" style="display:inline-flex; margin-left:4px;">🗺️ Mapa</a></li>
+                <li><strong>A Pequena Sereia:</strong> Langelinie, 2100 København Ø. <a href="https://maps.google.com/?q=The+Little+Mermaid+Copenhagen" target="_blank" class="btn-link" style="display:inline-flex; margin-left:4px;">🗺️ Mapa</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ABA 4: WROCLAW -->
+    <div id="tab-wroclaw" class="tab-content">
+        <h2>Wroclaw (Polônia & Endereços)</h2>
+        
+        <div class="card-box">
+            <h3>🏡 Hospedagem</h3>
+            <div class="address-item">
+                <strong>Hospedagem em Wroclaw:</strong> <span class="tag-pending">Pendente de definição</span>
+            </div>
+        </div>
+
+        <div class="card-box">
+            <h3>🇵🇱 Atrações Imperdíveis (10/02 a 12/02)</h3>
+            <div class="address-item">
+                <strong>Hydropolis (Centro de Ciências da Água):</strong> Na Grobli 19/+48, 50-421 Wrocław
+                <a href="https://maps.google.com/?q=Hydropolis+Wroclaw" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
+            </div>
+            <div class="address-item" style="margin-top: 10px;">
+                <strong>Kolejkowo (Mundo das Miniaturas):</strong> Powstańców Śląskich 95, 53-332 Wrocław
+                <a href="https://maps.google.com/?q=Kolejkowo+Wroclaw" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
+            </div>
+            <div class="address-item" style="margin-top: 10px;">
+                <strong>Ponte dos Penitentes (Igreja Sta. Maria Madalena):</strong> szewska 10, 50-122 Wrocław
+                <a href="https://maps.google.com/?q=St.+Mary+Magdalene+Church+Wroclaw" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
+            </div>
+            <div class="address-item" style="margin-top: 10px;">
+                <strong>Castelo Książ (Bate-volta / Wałbrzych):</strong> Piastów Śląskich 1, 58-306 Wałbrzych
+                <a href="https://maps.google.com/?q=Ksiaz+Castle+Walbrzych" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABA 5: CHECKLIST -->
     <div id="tab-checklist" class="tab-content">
         <h2>Checklist de Bagagem & Hospedagem</h2>
         
@@ -898,7 +871,7 @@
         </div>
     </div>
 
-    <!-- ABA 7: VOOS -->
+    <!-- ABA 6: VOOS -->
     <div id="tab-voos" class="tab-content">
         <h2>Informações de Voos (Localizador: GJECNQ)</h2>
         
@@ -936,7 +909,7 @@
         </div>
     </div>
 
-    <!-- ABA 8: ALEMÃO -->
+    <!-- ABA 7: ALEMÃO -->
     <div id="tab-alemao" class="tab-content">
         <h2>Tradutor Rápido (Português → Alemão)</h2>
         <div class="translator-box">
@@ -991,7 +964,7 @@
         </div>
     </div>
 
-    <!-- ABA 9: CRONOGRAMA DETALHADO -->
+    <!-- ABA 8: CRONOGRAMA DETALHADO -->
     <div id="tab-cronograma" class="tab-content">
         <h2>
             <span>Cronograma Detalhado</span>
@@ -1013,7 +986,7 @@
             <div class="day-content">
                 Treino: SG - OSF (18:45 - 20:15).
                 <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-enderecos'); scrollToId('end-sgosf');">📍 Ver Endereços SG - OSF</button>
+                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-sgosf');">📍 Ver Endereços SG - OSF</button>
                 </div>
             </div>
         </div>
@@ -1023,7 +996,7 @@
             <div class="day-content">
                 Treino: Fuchse 1 (17:00 - 18:30).
                 <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-enderecos'); scrollToId('end-fuchse');">📍 Ver Endereço Fuchse 1</button>
+                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-fuchse');">📍 Ver Endereço Fuchse 1</button>
                 </div>
             </div>
         </div>
@@ -1033,7 +1006,7 @@
             <div class="day-content">
                 Treino: Fuchse 2 (18:30 - 20:00).
                 <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-enderecos'); scrollToId('end-fuchse');">📍 Ver Endereço Fuchse 2</button>
+                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-fuchse');">📍 Ver Endereço Fuchse 2</button>
                 </div>
             </div>
         </div>
@@ -1043,8 +1016,8 @@
             <div class="day-content">
                 Treinos: Fuchse 1 (17:00) & SG - OSF Goleira (18:30).
                 <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-enderecos'); scrollToId('end-fuchse');">📍 Fuchse 1</button>
-                    <button class="btn-link" onclick="switchTab('tab-enderecos'); scrollToId('end-sgosf');">📍 SG - OSF</button>
+                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-fuchse');">📍 Fuchse 1</button>
+                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-sgosf');">📍 SG - OSF</button>
                 </div>
             </div>
         </div>
@@ -1054,7 +1027,7 @@
             <div class="day-content">
                 Treino: SG - OSF (18:30 - 20:00).
                 <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-enderecos'); scrollToId('end-sgosf');">📍 Ver Endereços SG - OSF</button>
+                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-sgosf');">📍 Ver Endereços SG - OSF</button>
                 </div>
             </div>
         </div>
@@ -1064,8 +1037,8 @@
             <div class="day-content">
                 Treinos: Fuchse 1 (17:00) & SG - OSF (18:45).
                 <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-enderecos'); scrollToId('end-fuchse');">📍 Fuchse 1</button>
-                    <button class="btn-link" onclick="switchTab('tab-enderecos'); scrollToId('end-sgosf');">📍 SG - OSF</button>
+                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-fuchse');">📍 Fuchse 1</button>
+                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-sgosf');">📍 SG - OSF</button>
                 </div>
             </div>
         </div>
@@ -1107,8 +1080,8 @@
             <div class="day-content">
                 Treinos: Fuchse 1 (17:00) & SG - OSF Goleira (18:30).
                 <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-enderecos'); scrollToId('end-fuchse');">📍 Fuchse 1</button>
-                    <button class="btn-link" onclick="switchTab('tab-enderecos'); scrollToId('end-sgosf');">📍 SG - OSF</button>
+                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-fuchse');">📍 Fuchse 1</button>
+                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-sgosf');">📍 SG - OSF</button>
                 </div>
             </div>
         </div>
@@ -1118,7 +1091,7 @@
             <div class="day-content">
                 Treino: SG - OSF (18:30 - 20:00).
                 <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-enderecos'); scrollToId('end-sgosf');">📍 Ver Endereços SG - OSF</button>
+                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-sgosf');">📍 Ver Endereços SG - OSF</button>
                 </div>
             </div>
         </div>
@@ -1129,7 +1102,7 @@
                 Ida para <b>Wroclaw (Polônia)</b> → Check-in Airbnb.<br>
                 Tarde/Início da noite: Iniciar caça aos gnomos (Dwarf-Hunting) pelas ruas e acompanhar o tradicional acendedor de lampiões na Ilha da Catedral (por volta das 15h30/16h).
                 <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-enderecos'); scrollToId('end-wroclaw');">📍 Ver Endereços Wroclaw</button>
+                    <button class="btn-link" onclick="switchTab('tab-wroclaw');">🇵🇱 Ver Wrocław</button>
                 </div>
             </div>
         </div>
@@ -1140,7 +1113,7 @@
                 Manhã: <b>Hydropolis</b> (centro de água ultra-interativo).<br>
                 Tarde: <b>Kolejkowo</b> (incrível mundo de miniaturas e ferromodelismo) e subida na <b>Ponte dos Penitentes</b> para vista panorâmica.
                 <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-enderecos'); scrollToId('end-wroclaw');">📍 Ver Endereços Wroclaw</button>
+                    <button class="btn-link" onclick="switchTab('tab-wroclaw');">🇵🇱 Ver Wrocław</button>
                 </div>
             </div>
         </div>
@@ -1151,7 +1124,7 @@
                 Manhã: Bate-volta épico ao <b>Castelo Książ</b> (o Castelo Cor de Rosa da Polônia).<br>
                 Tarde: Retorno para <b>Berlim</b> e check-in Airbnb.
                 <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-enderecos'); scrollToId('end-wroclaw');">📍 Ver Castelo Książ</button>
+                    <button class="btn-link" onclick="switchTab('tab-wroclaw');">🇵🇱 Ver Wrocław</button>
                 </div>
             </div>
         </div>
@@ -1193,7 +1166,7 @@
             
             document.getElementById(tabId).classList.add('active');
             
-            const btnIndex = {'tab-calendario': 0, 'tab-berlim': 1, 'tab-copenhague': 2, 'tab-wroclaw': 3, 'tab-enderecos': 4, 'tab-checklist': 5, 'tab-voos': 6, 'tab-alemao': 7, 'tab-cronograma': 8}[tabId];
+            const btnIndex = {'tab-calendario': 0, 'tab-berlim': 1, 'tab-copenhague': 2, 'tab-wroclaw': 3, 'tab-checklist': 4, 'tab-voos': 5, 'tab-alemao': 6, 'tab-cronograma': 7}[tabId];
             if(btnIndex !== undefined) {
                 document.querySelectorAll('.tab-btn')[btnIndex].classList.add('active');
             }
