@@ -683,15 +683,27 @@
 
     <!-- ABA 2: BERLIM -->
     <div id="tab-berlim" class="tab-content">
-        <h2>Berlim (Base Principal & Treinos)</h2>
+        <h2>Berlim (Base Principal, Treinos & Atrações)</h2>
         <div class="card-box">
             <h3>🇩🇪 Visão Geral da Base</h3>
             <p style="font-size: 8.5pt; margin-bottom: 8px;">Berlim será a nossa principal base operacional e de treinos de handebol da Milena (SG - OSF e Fuchse Berlim).</p>
             <ul style="font-size: 8.5pt; margin-left: 18px; margin-bottom: 10px;">
-                <li><strong>Foco principal:</strong> Rotina de treinos intensivos e adaptação ao inverno europeu.</li>
+                <li><strong>Foco principal:</strong> Rotina de treinos intensivos, compras e descobertas na cidade.</li>
                 <li><strong>Hospedagem:</strong> Heinrich-Heine-Straße 7, 10179 Berlin</li>
             </ul>
-            <button class="btn-link" onclick="switchTab('tab-enderecos')">📍 Ver Endereços de Treino em Berlim</button>
+            <button class="btn-link" onclick="switchTab('tab-enderecos')">📍 Ver Endereços em Berlim</button>
+        </div>
+
+        <div class="card-box" style="margin-top: 12px;">
+            <h3>🚇 Destaques Especiais em Berlim</h3>
+            <div class="address-item" style="margin-bottom: 10px;">
+                <strong>U-Bahn-Convertible (Passeio de Metrô Aberto):</strong> Um tour super original e exclusivo a bordo de um vagão de metrô aberto pelas entranhas e túneis de Berlim, passando por estações históricas e curiosidades subterrâneas.
+                <a href="https://maps.google.com/?q=Deutsche+Oper+underground+station+Berlin" target="_blank" class="btn-link" style="margin-top: 4px;">🗺️ Ponto de Partida (Deutsche Oper)</a>
+            </div>
+            <div class="address-item">
+                <strong>Mall of Berlin:</strong> Um dos maiores e mais modernos complexos de compras e lazer da cidade, localizado bem no coração de Berlim (perto da Potsdamer Platz), com arquitetura imponente e centenas de lojas.
+                <a href="https://maps.google.com/?q=Mall+of+Berlin+Leipziger+Platz" target="_blank" class="btn-link" style="margin-top: 4px;">🗺️ Google Maps (Mall of Berlin)</a>
+            </div>
         </div>
     </div>
 
@@ -772,6 +784,18 @@
                     <strong>Fuchse 2: Kienhorstr. 67-69, 13403 Berlim</strong>
                     <a href="https://maps.google.com/?q=Kienhorstr.+67+13403+Berlin" target="_blank" class="btn-link">🗺️ Google Maps</a>
                 </div>
+            </div>
+        </div>
+
+        <div class="card-box" id="end-berlin-extras" style="margin-top: 12px;">
+            <h3>🇩🇪 Outras Atrações em Berlim</h3>
+            <div class="address-item">
+                <strong>Mall of Berlin:</strong> Leipziger Pl. 12, 10117 Berlin, Alemanha
+                <a href="https://maps.google.com/?q=Mall+of+Berlin+Leipziger+Platz" target="_blank" class="btn-link">🗺️ Google Maps</a>
+            </div>
+            <div class="address-item" style="margin-top: 8px;">
+                <strong>U-Bahn-Convertible (Ponto de Partida - Deutsche Oper):</strong> Bismarckstraße 35, 10627 Berlin, Alemanha
+                <a href="https://maps.google.com/?q=Deutsche+Oper+underground+station+Berlin" target="_blank" class="btn-link">🗺️ Google Maps</a>
             </div>
         </div>
 
@@ -1291,7 +1315,6 @@
                 return;
             }
 
-            // Gera um ID limpo, seguro e com limite de palavras para evitar IDs gigantescos
             const slug = text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').substring(0, 25);
             const cleanId = `custom-${category}-${slug}`;
             
