@@ -90,7 +90,7 @@
         .meta-item .label { font-size: 7pt; color: var(--text-light); text-transform: uppercase; font-weight: bold; }
         .meta-item .val { font-size: 9.5pt; font-weight: bold; color: var(--primary); margin-top: 2px; }
 
-        /* Painel Dinâmico */
+        /* Painel Dinâmico exclusivo para a aba Calendário */
         .live-status-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -527,24 +527,6 @@
         </div>
     </div>
 
-    <!-- Painel Dinâmico -->
-    <div class="live-status-container">
-        <div class="live-status-box">
-            <div id="countdown-val" class="live-val">Calculando...</div>
-            <div id="weather-val" style="font-size: 8pt; opacity: 0.9; margin-top: 2px;">Carregando temperatura...</div>
-        </div>
-        <div class="world-clock-box">
-            <div class="clock-item">
-                <div class="clock-title">🇩🇪 Berlim</div>
-                <div id="clock-berlin" class="clock-time">--:--:--</div>
-            </div>
-            <div class="clock-item">
-                <div class="clock-title">🇧🇷 Brasília</div>
-                <div id="clock-brasil" class="clock-time">--:--:--</div>
-            </div>
-        </div>
-    </div>
-
     <!-- Navegação por Abas -->
     <div class="app-tabs">
         <button class="tab-btn active" onclick="switchTab('tab-calendario')">📅 Calendário</button>
@@ -557,8 +539,27 @@
         <button class="tab-btn" onclick="switchTab('tab-cronograma')">⏱️ Cronograma</button>
     </div>
 
-    <!-- ABA 1: CALENDÁRIO -->
+    <!-- ABA 1: CALENDÁRIO (Com o Painel Dinâmico exclusivo aqui) -->
     <div id="tab-calendario" class="tab-content active">
+        
+        <!-- Painel Dinâmico (Apenas na aba Calendário) -->
+        <div class="live-status-container">
+            <div class="live-status-box">
+                <div id="countdown-val" class="live-val">Calculando...</div>
+                <div id="weather-val" style="font-size: 8pt; opacity: 0.9; margin-top: 2px;">Carregando temperatura...</div>
+            </div>
+            <div class="world-clock-box">
+                <div class="clock-item">
+                    <div class="clock-title">🇩🇪 Berlim</div>
+                    <div id="clock-berlin" class="clock-time">--:--:--</div>
+                </div>
+                <div class="clock-item">
+                    <div class="clock-title">🇧🇷 Brasília</div>
+                    <div id="clock-brasil" class="clock-time">--:--:--</div>
+                </div>
+            </div>
+        </div>
+
         <h2>Calendário Geral</h2>
         
         <div class="legend">
@@ -1203,7 +1204,6 @@
             }
         }
 
-        // Carrega o tema salvo
         if (localStorage.getItem('theme') === 'dark') {
             document.body.classList.add('dark-mode');
             document.getElementById('theme-btn').innerText = "☀️ Claro";
