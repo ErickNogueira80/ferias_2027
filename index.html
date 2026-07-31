@@ -103,15 +103,14 @@
         .app-tabs {
             display: flex;
             gap: 6px;
-            margin-top: 20px;    /* Afastado do bloco de cima */
+            margin-top: 20px;
             margin-bottom: 15px;
             overflow-x: auto;
-            padding-bottom: 8px; /* Espaço para toque sem mostrar scroll */
+            padding-bottom: 8px;
             align-items: center;
-            scrollbar-width: none;  /* Esconde no Firefox */
+            scrollbar-width: none;
         }
 
-        /* Esconde a barra de rolagem no Chrome, Safari e Edge */
         .app-tabs::-webkit-scrollbar {
             display: none;
         }
@@ -131,9 +130,7 @@
             align-items: center;
             justify-content: center;
         }
-        .theme-tab-btn:hover {
-            opacity: 0.85;
-        }
+        .theme-tab-btn:hover { opacity: 0.85; }
 
         .tab-btn {
             background: var(--card-bg);
@@ -520,7 +517,7 @@
         </div>
     </div>
 
-    <!-- Navegação por Abas (Com o Botão de Tema como 1º item e sem barra de rolagem visível) -->
+    <!-- Navegação por Abas -->
     <div class="app-tabs">
         <button class="theme-tab-btn" onclick="toggleTheme()" id="theme-btn" title="Alternar tema">🌙</button>
         <button class="tab-btn active" onclick="switchTab('tab-calendario')">📅 Calendário</button>
@@ -701,7 +698,7 @@
 
     <!-- ABA 2: BERLIM -->
     <div id="tab-berlim" class="tab-content">
-        <h2>Berlim (Treinos & Endereços)</h2>
+        <h2>Berlim (Treinos, Endereços & Dicas)</h2>
         
         <div class="card-box">
             <h3>🏡 Hospedagem em Berlim</h3>
@@ -735,21 +732,46 @@
             </div>
         </div>
 
-        <div class="card-box" style="margin-top: 12px;">
-            <h3>🚇 Destaques, Compras & Atrações Especiais</h3>
-            <div class="address-item" style="margin-bottom: 10px;">
-                <strong>U-Bahn-Convertible (Passeio de Metrô Aberto):</strong> Tour exclusivo a bordo de um vagão de metrô aberto pelas entranhas e túneis de Berlim.
-                <div class="action-links" style="margin-top:4px;">
-                    <a href="https://maps.google.com/?q=Deutsche+Oper+underground+station+Berlin" target="_blank" class="btn-link">🗺️ Ponto de Partida (Deutsche Oper)</a>
-                    <a href="https://www.instagram.com/reel/DbQcmYKosz6/?igsh=MXU4cm0yNXJldndlbA==" target="_blank" class="btn-link" style="background:#fed7e2; color:#97266d;">📸 Reel Instagram</a>
-                </div>
+        <!-- Novos Links Organizados por Categoria -->
+        <div class="card-box" style="border-left: 4px solid #38a169;">
+            <h3>🍔 Comida (Dicas da Mônica)</h3>
+            <div class="action-links">
+                <a href="https://www.instagram.com/reel/DZesSSiobXz/?igsh=bHE0cDFkaG1lcG4z" target="_blank" class="btn-link">🍽️ Dica de Comida 1</a>
+                <a href="https://www.instagram.com/reel/DbBXLscoowY/?igsh=N2ZvN2Fia2d2aHBu" target="_blank" class="btn-link">🍽️ Dica de Comida 2</a>
+                <a href="https://www.instagram.com/reel/DbJRlctM3IR/?igsh=MTR6Y2xzaWc3d3dvOQ==" target="_blank" class="btn-link">🍽️ Dica de Comida 3</a>
+                <a href="https://www.instagram.com/p/DadgZIiik2L/?img_index=7&igsh=MWx0bTdlYXdhb3lwYw==" target="_blank" class="btn-link">🍽️ Dica de Comida 4</a>
+                <a href="https://www.instagram.com/reel/Da-7YCdu0er/?igsh=MW9yM2wwejBxbWJmZw==" target="_blank" class="btn-link">🍽️ Dica de Comida 5</a>
+                <a href="https://www.instagram.com/reel/DansCTvs3Mq/?igsh=MXA2dnlpcXhrdzV5dg==" target="_blank" class="btn-link">🍽️ Dica de Comida 6</a>
             </div>
-            <div class="address-item">
-                <strong>Mall of Berlin:</strong> Complexo moderno de compras e lazer no coração de Berlim (perto da Potsdamer Platz).
-                <div class="action-links" style="margin-top:4px;">
-                    <a href="https://maps.google.com/?q=Mall+of+Berlin+Leipziger+Platz" target="_blank" class="btn-link">🗺️ Google Maps</a>
-                    <a href="https://www.instagram.com/reel/DaAurVUsl5r/?igsh=MTNscmt3anZ1ZnBpNw==" target="_blank" class="btn-link" style="background:#fed7e2; color:#97266d;">📸 Reel Instagram</a>
-                </div>
+        </div>
+
+        <div class="card-box" style="border-left: 4px solid #d69e2e;">
+            <h3>🛒 Costumes / Curiosidades (Supermercado)</h3>
+            <div class="action-links">
+                <a href="https://www.instagram.com/p/Da7PtOWDNKM/?img_index=6&igsh=MWxpNXgzM2k4MGJ6ZQ==" target="_blank" class="btn-link" style="background:#feebc8; color:#744210;">🛒 Como usar o Supermercado</a>
+            </div>
+        </div>
+
+        <div class="card-box" style="border-left: 4px solid #3182ce;">
+            <h3>📍 Locais para Visitar</h3>
+            <div class="action-links">
+                <a href="https://www.instagram.com/reel/Da-jERqomCG/?igsh=NXliYTlpbjIzZ3o1" target="_blank" class="btn-link">🏛️ Local para Visitar 1</a>
+                <a href="https://www.instagram.com/p/DbWYhm_Cmhq/?img_index=10&igsh=MXNjamI4aXQ4ZnFtcQ==" target="_blank" class="btn-link">🏛️ Local para Visitar 2</a>
+            </div>
+        </div>
+
+        <div class="card-box" style="border-left: 4px solid #97266d;">
+            <h3>🗺️ Roteiros Sugeridos</h3>
+            <div class="action-links">
+                <a href="https://www.instagram.com/reel/DbWY5DAtQRT/?igsh=MWQ3cTBkbnlicjY0aQ==" target="_blank" class="btn-link" style="background:#fed7e2; color:#97266d;">🗺️ Roteiro Sugerido Instagram</a>
+            </div>
+        </div>
+
+        <div class="card-box" style="margin-top: 12px; border-left: 4px solid #718096;">
+            <h3>📦 Outros (Berlim)</h3>
+            <div class="action-links" style="margin-top:4px;">
+                <a href="https://www.instagram.com/reel/DbQcmYKosz6/?igsh=MXU4cm0yNXJldndlbA==" target="_blank" class="btn-link">📸 U-Bahn-Convertible (Reel)</a>
+                <a href="https://www.instagram.com/reel/DaAurVUsl5r/?igsh=MTNscmt3anZ1ZnBpNw==" target="_blank" class="btn-link">📸 Mall of Berlin (Reel)</a>
             </div>
         </div>
     </div>
@@ -777,6 +799,15 @@
                 <li><strong>Experimentarium:</strong> Tuborg Havnevej 7, Hellerup. <a href="https://maps.google.com/?q=Experimentarium+Hellerup" target="_blank" class="btn-link" style="display:inline-flex; margin-left:4px;">🗺️ Mapa</a></li>
                 <li><strong>A Pequena Sereia:</strong> Langelinie, 2100 København Ø. <a href="https://maps.google.com/?q=The+Little+Mermaid+Copenhagen" target="_blank" class="btn-link" style="display:inline-flex; margin-left:4px;">🗺️ Mapa</a></li>
             </ul>
+        </div>
+
+        <!-- Categoria Outros -->
+        <div class="card-box" style="border-left: 4px solid #718096;">
+            <h3>📦 Outros (Copenhague)</h3>
+            <p style="font-size: 8pt; color: var(--text-light); margin-bottom: 6px;">Itens e links que serão classificados posteriormente:</p>
+            <div class="action-links">
+                <span style="font-size: 8pt; color: var(--text-light); font-style: italic;">Nenhum item pendente no momento.</span>
+            </div>
         </div>
     </div>
 
@@ -808,6 +839,15 @@
             <div class="address-item" style="margin-top: 10px;">
                 <strong>Castelo Książ (Bate-volta / Wałbrzych):</strong> Piastów Śląskich 1, 58-306 Wałbrzych
                 <a href="https://maps.google.com/?q=Ksiaz+Castle+Walbrzych" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
+            </div>
+        </div>
+
+        <!-- Categoria Outros -->
+        <div class="card-box" style="border-left: 4px solid #718096;">
+            <h3>📦 Outros (Wroclaw)</h3>
+            <p style="font-size: 8pt; color: var(--text-light); margin-bottom: 6px;">Itens e links que serão classificados posteriormente:</p>
+            <div class="action-links">
+                <span style="font-size: 8pt; color: var(--text-light); font-style: italic;">Nenhum item pendente no momento.</span>
             </div>
         </div>
     </div>
