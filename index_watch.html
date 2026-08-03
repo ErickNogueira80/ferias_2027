@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Viagem Alemanha 2027</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Watch 2027 Pro</title>
 <style>
     * {
         box-sizing: border-box;
@@ -16,158 +16,171 @@
         color: #FFFFFF;
         width: 100vw;
         height: 100vh;
-        overflow-x: hidden;
-        overflow-y: auto;
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 28px 12px 40px 12px;
         text-align: center;
+        /* Padding extra para a area circular superior/inferior */
+        padding: 40px 10px 45px 10px;
+        overflow-x: hidden;
+        overflow-y: scroll; /* Permite rolagem fluida */
     }
-    /* Estilo para a tela circular */
     .container {
         width: 100%;
-        max-width: 320px;
-        margin: 0 auto;
+        max-width: 300px; /* Reduzi ligeiramente a largura para margem lateral */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
-    .badge {
-        background: #222;
-        color: #ff9d00;
-        font-size: 11px;
-        font-weight: bold;
-        padding: 4px 10px;
-        border-radius: 12px;
-        display: inline-block;
-        margin-bottom: 8px;
-        border: 1px solid #333;
-    }
+    /* Estilo do Titulo Compacto */
     h1 {
-        font-size: 16px;
+        font-size: 14px;
         color: #fff;
         margin-bottom: 12px;
         font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
-    .clock-card {
-        background: #111;
-        border: 1px solid #222;
-        border-radius: 16px;
-        padding: 10px;
-        margin-bottom: 10px;
+    /* Estilo dos Relogios Dual */
+    .clock-container {
+        width: 100%;
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 10px;
+    }
+    .clock-pill {
+        flex: 1;
+        background: #111;
+        border: 1px solid #333;
+        border-radius: 20px;
+        padding: 6px 4px;
+        display: flex;
+        flex-direction: column;
         align-items: center;
     }
-    .clock-box {
-        flex: 1;
-    }
     .clock-label {
-        font-size: 10px;
+        font-size: 8px;
         color: #888;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        margin-bottom: 1px;
     }
     .clock-time {
         font-size: 18px;
         font-weight: bold;
-        color: #00d2ff;
-        margin-top: 2px;
+        color: #00d2ff; /* Cyan */
     }
-    .weather-card {
+    /* Estilo do Weather Compacto */
+    .weather-container {
+        width: 100%;
         background: #111;
-        border: 1px solid #222;
-        border-radius: 16px;
-        padding: 10px;
-        margin-bottom: 12px;
-    }
-    .weather-title {
-        font-size: 10px;
-        color: #888;
-        margin-bottom: 6px;
+        border: 1px solid #333;
+        border-radius: 12px;
+        padding: 8px;
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     .weather-temp {
-        font-size: 22px;
+        font-size: 19px;
         font-weight: bold;
-        color: #ffcc00;
+        color: #ffcc00; /* Yellow */
+        display: flex;
+        align-items: center;
+        gap: 4px;
     }
-    .weather-desc {
-        font-size: 11px;
+    .weather-sub {
+        font-size: 10px;
         color: #ccc;
+        margin-top: -2px;
     }
-    .section-title {
-        font-size: 12px;
-        color: #ff9d00;
+    /* Estilo da Agenda Resumida */
+    .agenda-title {
+        font-size: 11px;
+        color: #ff9d00; /* Orange */
         text-transform: uppercase;
         letter-spacing: 1px;
-        margin: 12px 0 8px 0;
-        border-bottom: 1px solid #222;
-        padding-bottom: 4px;
+        margin: 4px 0 6px 0;
+        align-self: center;
+    }
+    .agenda-list {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
     }
     .agenda-item {
         background: #151515;
-        border-left: 3px solid #00d2ff;
+        border-left: 3px solid #00d2ff; /* Cyan */
         border-radius: 6px;
-        padding: 8px;
-        margin-bottom: 6px;
+        padding: 6px 8px;
         text-align: left;
     }
     .agenda-date {
-        font-size: 10px;
+        font-size: 9px;
         color: #00d2ff;
         font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 3px;
     }
     .agenda-event {
-        font-size: 11px;
+        font-size: 10px;
         color: #eee;
-        margin-top: 2px;
+        margin-top: 1px;
     }
 </style>
 </head>
 <body>
 <div class="container">
-    <div class="badge">ALEMANHA 2027</div>
-    <h1>Resumo de Viagem</h1>
+    <h1>Viagem Alemanha 2027</h1>
 
     <!-- Relógios -->
-    <div class="clock-card">
-        <div class="clock-box">
+    <div class="clock-container">
+        <div class="clock-pill">
             <div class="clock-label">Brasil (BRT)</div>
             <div class="clock-time" id="time-br">--:--</div>
         </div>
-        <div style="width: 1px; height: 25px; background: #333;"></div>
-        <div class="clock-box">
+        <div class="clock-pill">
             <div class="clock-label">Alemanha (CET)</div>
             <div class="clock-time" id="time-de">--:--</div>
         </div>
     </div>
 
     <!-- Temperatura (Previsão Média p/ Janeiro) -->
-    <div class="weather-card">
-        <div class="weather-title">Temperatura Típica (Jan/Fev)</div>
-        <div class="weather-temp">-1°C / 4°C</div>
-        <div class="weather-desc">❄️ Frio Intenso / Neve</div>
+    <div class="weather-container">
+        <div class="weather-temp">
+            <span style="font-size: 12px; margin-right: -1px;">❄️</span>
+            -1°C / 4°C
+        </div>
+        <div class="weather-sub">Média Jan/Fev (Neve)</div>
     </div>
 
-    <!-- Agenda Resumida -->
-    <div class="section-title">Agenda Principal</div>
+    <!-- Agenda Resumida V2 (Mais compacta) -->
+    <div class="agenda-title">Agenda Principal</div>
     
-    <div class="agenda-item">
-        <div class="agenda-date">25/JAN/2027</div>
-        <div class="agenda-event">🛫 Embarque rumo à Alemanha</div>
-    </div>
+    <div class="agenda-list">
+        <div class="agenda-item">
+            <div class="agenda-date">🛫 25/JAN/27</div>
+            <div class="agenda-event">Embarque p/ Alemanha</div>
+        </div>
 
-    <div class="agenda-item">
-        <div class="agenda-date">26/JAN - 04/FEV</div>
-        <div class="agenda-event">🏠 Estadia Reservada em Berlim</div>
-    </div>
+        <div class="agenda-item">
+            <div class="agenda-date">🏠 26/JAN - 04/FEV</div>
+            <div class="agenda-event">Berlim (Hospedagem Reservada)</div>
+        </div>
 
-    <div class="agenda-item">
-        <div class="agenda-date">FEVEREIRO 2027</div>
-        <div class="agenda-event">🤾 Leipzig / Intercâmbio Esportivo</div>
-    </div>
+        <div class="agenda-item">
+            <div class="agenda-date">🤾 FEVEREIRO 2027</div>
+            <div class="agenda-event">Leipzig / Intercâmbio Esportivo</div>
+        </div>
 
-    <div class="agenda-item">
-        <div class="agenda-date">14/FEV/2027</div>
-        <div class="agenda-event">🛬 Retorno ao Brasil (Frankfurt)</div>
+        <div class="agenda-item">
+            <div class="agenda-date">🛬 14/FEV/2027</div>
+            <div class="agenda-event">Retorno (Frankfurt > Brasil)</div>
+        </div>
     </div>
 
 </div>
@@ -184,7 +197,7 @@
             hour12: false
         }).format(now);
         
-        // Horário da Alemanha (UTC+1 em Jan/Fev ou UTC+2 no Verão - Europe/Berlin)
+        // Horário da Alemanha (UTC+1 em Jan/Fev - Europe/Berlin)
         const deTime = new Intl.DateTimeFormat('pt-BR', {
             timeZone: 'Europe/Berlin',
             hour: '2-digit',
@@ -197,7 +210,7 @@
     }
 
     updateClocks();
-    setInterval(updateClocks, 10000); // Atualiza a cada 10s
+    setInterval(updateClocks, 15000); // Atualiza a cada 15s (menos consumo)
 </script>
 </body>
 </html>
