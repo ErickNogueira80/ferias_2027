@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Viagem Alemanha 2027</title>
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+        background-color: #000000;
+        color: #FFFFFF;
+        width: 100vw;
+        height: 100vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 28px 12px 40px 12px;
+        text-align: center;
+    }
+    /* Estilo para a tela circular */
+    .container {
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+    }
+    .badge {
+        background: #222;
+        color: #ff9d00;
+        font-size: 11px;
+        font-weight: bold;
+        padding: 4px 10px;
+        border-radius: 12px;
+        display: inline-block;
+        margin-bottom: 8px;
+        border: 1px solid #333;
+    }
+    h1 {
+        font-size: 16px;
+        color: #fff;
+        margin-bottom: 12px;
+        font-weight: 700;
+    }
+    .clock-card {
+        background: #111;
+        border: 1px solid #222;
+        border-radius: 16px;
+        padding: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .clock-box {
+        flex: 1;
+    }
+    .clock-label {
+        font-size: 10px;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .clock-time {
+        font-size: 18px;
+        font-weight: bold;
+        color: #00d2ff;
+        margin-top: 2px;
+    }
+    .weather-card {
+        background: #111;
+        border: 1px solid #222;
+        border-radius: 16px;
+        padding: 10px;
+        margin-bottom: 12px;
+    }
+    .weather-title {
+        font-size: 10px;
+        color: #888;
+        margin-bottom: 6px;
+    }
+    .weather-temp {
+        font-size: 22px;
+        font-weight: bold;
+        color: #ffcc00;
+    }
+    .weather-desc {
+        font-size: 11px;
+        color: #ccc;
+    }
+    .section-title {
+        font-size: 12px;
+        color: #ff9d00;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 12px 0 8px 0;
+        border-bottom: 1px solid #222;
+        padding-bottom: 4px;
+    }
+    .agenda-item {
+        background: #151515;
+        border-left: 3px solid #00d2ff;
+        border-radius: 6px;
+        padding: 8px;
+        margin-bottom: 6px;
+        text-align: left;
+    }
+    .agenda-date {
+        font-size: 10px;
+        color: #00d2ff;
+        font-weight: bold;
+    }
+    .agenda-event {
+        font-size: 11px;
+        color: #eee;
+        margin-top: 2px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="badge">ALEMANHA 2027</div>
+    <h1>Resumo de Viagem</h1>
+
+    <!-- Relógios -->
+    <div class="clock-card">
+        <div class="clock-box">
+            <div class="clock-label">Brasil (BRT)</div>
+            <div class="clock-time" id="time-br">--:--</div>
+        </div>
+        <div style="width: 1px; height: 25px; background: #333;"></div>
+        <div class="clock-box">
+            <div class="clock-label">Alemanha (CET)</div>
+            <div class="clock-time" id="time-de">--:--</div>
+        </div>
+    </div>
+
+    <!-- Temperatura (Previsão Média p/ Janeiro) -->
+    <div class="weather-card">
+        <div class="weather-title">Temperatura Típica (Jan/Fev)</div>
+        <div class="weather-temp">-1°C / 4°C</div>
+        <div class="weather-desc">❄️ Frio Intenso / Neve</div>
+    </div>
+
+    <!-- Agenda Resumida -->
+    <div class="section-title">Agenda Principal</div>
+    
+    <div class="agenda-item">
+        <div class="agenda-date">25/JAN/2027</div>
+        <div class="agenda-event">🛫 Embarque rumo à Alemanha</div>
+    </div>
+
+    <div class="agenda-item">
+        <div class="agenda-date">26/JAN - 04/FEV</div>
+        <div class="agenda-event">🏠 Estadia Reservada em Berlim</div>
+    </div>
+
+    <div class="agenda-item">
+        <div class="agenda-date">FEVEREIRO 2027</div>
+        <div class="agenda-event">🤾 Leipzig / Intercâmbio Esportivo</div>
+    </div>
+
+    <div class="agenda-item">
+        <div class="agenda-date">14/FEV/2027</div>
+        <div class="agenda-event">🛬 Retorno ao Brasil (Frankfurt)</div>
+    </div>
+
+</div>
+
+<script>
+    function updateClocks() {
+        const now = new Date();
+        
+        // Horário de Brasília (UTC-3)
+        const brTime = new Intl.DateTimeFormat('pt-BR', {
+            timeZone: 'America/Sao_Paulo',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        }).format(now);
+        
+        // Horário da Alemanha (UTC+1 em Jan/Fev ou UTC+2 no Verão - Europe/Berlin)
+        const deTime = new Intl.DateTimeFormat('pt-BR', {
+            timeZone: 'Europe/Berlin',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        }).format(now);
+
+        document.getElementById('time-br').innerText = brTime;
+        document.getElementById('time-de').innerText = deTime;
+    }
+
+    updateClocks();
+    setInterval(updateClocks, 10000); // Atualiza a cada 10s
+</script>
+</body>
+</html>
