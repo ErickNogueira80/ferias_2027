@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Watch 2027 Minimalist Pro</title>
+<title>Watch 2027 Bold Concept</title>
 <style>
     * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-family: 'Impact', 'Trebuchet MS', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
     
     ::-webkit-scrollbar {
@@ -31,250 +31,297 @@
     }
 
     /* ----------------------------------------------------
-       PARTE SUPERIOR: FIXA (Fundo Preto Total / Fontes Grandes)
+       PARTE SUPERIOR FIXA (Inspirada na Montagem do Usuário)
     ---------------------------------------------------- */
     .top-fixed {
-        height: 48vh;
+        height: 50vh;
         width: 100%;
         background-color: #000000;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
-        padding: 10px 14px 0px 14px;
+        padding: 8px 10px 4px 10px;
         z-index: 10;
-        position: relative;
     }
 
-    .badge-header {
+    /* Titulo Principal */
+    .brand-title {
         color: #ff9d00;
-        font-size: 11px;
+        font-size: 16px;
         font-weight: 900;
-        letter-spacing: 1.5px;
+        letter-spacing: 2px;
         text-transform: uppercase;
+        margin-top: 2px;
     }
 
-    .dashboard-grid {
-        width: 100%;
+    .brand-year {
+        color: #ffffff;
+    }
+
+    /* Dias da Semana (Dinamicos com destaque no dia atual) */
+    .week-days {
         display: flex;
-        justify-content: space-around;
-        align-items: center;
+        gap: 6px;
+        font-size: 9px;
+        color: #444455;
+        font-weight: 800;
+        text-transform: lowercase;
         margin-top: -2px;
     }
 
-    /* Coluna dos Relógios Sem Fundo */
+    .week-days .day-item.active {
+        color: #ff9d00;
+        font-size: 10px;
+        font-weight: 900;
+        text-decoration: underline;
+    }
+
+    /* Grid do Dashboard Fixo */
+    .dashboard-grid {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 4px;
+    }
+
+    /* Coluna Esquerda: Relógios BR e DE */
     .clocks-col {
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 4px;
         text-align: left;
     }
 
     .clock-row {
         display: flex;
         align-items: center;
-        gap: 6px;
-        background: transparent;
-        padding: 0;
+        gap: 4px;
     }
 
-    .flag {
-        font-size: 20px;
-        line-height: 1;
-    }
-
-    .clock-data {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .clock-label {
-        font-size: 8px;
-        color: #777788;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+    .country-code {
+        font-size: 11px;
+        font-weight: 900;
+        color: #888899;
+        width: 18px;
     }
 
     .clock-time {
-        font-size: 20px; /* Aumentado */
+        font-size: 19px;
         font-weight: 900;
         color: #00d2ff;
-        line-height: 1;
         letter-spacing: -0.5px;
+        line-height: 1;
     }
 
-    /* Coluna do Clima Sem Fundo */
-    .weather-col {
-        background: transparent;
+    /* Coluna Central: Dia e Mês Gigante */
+    .date-col {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        text-align: center;
+        line-height: 0.9;
+    }
+
+    .date-num {
+        font-size: 26px;
+        font-weight: 900;
+        color: #ff9d00;
+    }
+
+    .date-month {
+        font-size: 13px;
+        font-weight: 900;
+        color: #ff9d00;
+        letter-spacing: 1px;
+    }
+
+    /* Coluna Direita: Clima em Leipzig */
+    .weather-col {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        text-align: right;
     }
 
     .weather-city {
-        font-size: 9px;
+        font-size: 8px;
         color: #777788;
-        font-weight: 800;
+        font-weight: 900;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        margin-bottom: 2px;
     }
 
     .weather-temp-main {
-        font-size: 30px; /* Bem grande no estilo do modelo */
+        font-size: 26px;
         font-weight: 900;
         color: #ffcc00;
         line-height: 1;
     }
 
     .weather-desc-text {
-        font-size: 10px;
+        font-size: 9px;
         color: #00d2ff;
-        font-weight: 700;
-        margin-top: 1px;
+        font-weight: 800;
     }
 
-    /* Linha Divisória Estilizada (Neon Glow Cyberpunk) */
+    /* Divisória com Estilo Cyber Glow */
     .cyber-divider {
-        width: 82%;
+        width: 90%;
         height: 2px;
-        background: linear-gradient(90deg, transparent, #ff9d00, transparent);
-        box-shadow: 0 0 8px rgba(255, 157, 0, 0.8);
-        margin-top: 4px;
+        background: linear-gradient(90deg, transparent, #ff9d00 50%, transparent);
+        box-shadow: 0 0 10px rgba(255, 157, 0, 0.9);
+        margin-top: 2px;
     }
 
     /* ----------------------------------------------------
-       PARTE INFERIOR: SCROLLABLE (Agenda Completa)
+       PARTE INFERIOR SCROLLABLE (Agenda Expandida de Canto a Canto)
     ---------------------------------------------------- */
     .bottom-scrollable {
-        height: 52vh;
-        width: 100%;
+        height: 50vh;
+        width: 100vw; /* Ocupa 100% da largura da tela */
         overflow-y: scroll;
-        padding: 8px 14px 40px 14px;
+        padding: 6px 4px 40px 4px; /* Margens mínimas para usar toda a largura da tela */
         display: flex;
         flex-direction: column;
         align-items: center;
         background-color: #000000;
     }
 
-    .agenda-title {
-        font-size: 11px;
+    .agenda-title-badge {
+        background: #111118;
         color: #ff9d00;
+        font-size: 10px;
         font-weight: 900;
         text-transform: uppercase;
         letter-spacing: 1.5px;
-        margin-bottom: 8px;
+        padding: 3px 12px;
+        border-radius: 10px;
+        border: 1px solid #222233;
+        margin-bottom: 6px;
     }
 
     .agenda-list {
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 7px;
+        gap: 6px;
     }
 
     .agenda-item {
-        background: #111115;
-        border-left: 3px solid #333;
+        width: 100%;
+        background: #0d0d12;
+        border-left: 4px solid #333;
         border-radius: 8px;
-        padding: 8px 10px;
+        padding: 10px 12px;
         text-align: left;
     }
 
+    /* Destaque Gigante do Próximo Evento */
     .agenda-item.next-event {
-        background: #151c28;
-        border-left: 4px solid #00d2ff;
-        box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+        background: #121a29;
+        border-left: 5px solid #00d2ff;
+        box-shadow: 0 0 12px rgba(0, 210, 255, 0.35);
+    }
+
+    .agenda-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2px;
+    }
+
+    .agenda-date {
+        font-size: 12px;
+        color: #888899;
+        font-weight: 900;
+    }
+
+    .agenda-event {
+        font-size: 13px; /* Aumentado para leitura impecável */
+        color: #dddddd;
+        font-weight: 800;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     .agenda-item.next-event .agenda-date {
         color: #00d2ff;
-        font-size: 11px;
+        font-size: 13px;
     }
 
     .agenda-item.next-event .agenda-event {
         color: #ffffff;
-        font-size: 12px;
-        font-weight: 800;
+        font-size: 15px; /* Destaque forte */
+        font-weight: 900;
     }
 
     .next-badge {
         display: none;
         background: #00d2ff;
         color: #000;
-        font-size: 8px;
+        font-size: 9px;
         font-weight: 900;
-        padding: 1px 5px;
-        border-radius: 3px;
-        margin-left: auto;
+        padding: 2px 6px;
+        border-radius: 4px;
         text-transform: uppercase;
     }
 
     .agenda-item.next-event .next-badge {
         display: inline-block;
     }
-
-    .agenda-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 2px;
-    }
-
-    .agenda-date {
-        font-size: 10px;
-        color: #888899;
-        font-weight: 700;
-    }
-
-    .agenda-event {
-        font-size: 11px;
-        color: #cccccc;
-    }
 </style>
 </head>
 <body>
 
-    <!-- METADE SUPERIOR FIXA (Sem Containers / Fundo Preto Puro) -->
+    <!-- METADE SUPERIOR FIXA -->
     <div class="top-fixed">
-        <div class="badge-header">ALEMANHA 2027</div>
+        <div class="brand-title">ALEMANHA<span class="brand-year">27</span></div>
+
+        <!-- Dias da Semana Fictícios com Dia Atual Automático -->
+        <div class="week-days">
+            <span class="day-item" id="day-0">dom</span>
+            <span class="day-item" id="day-1">seg</span>
+            <span class="day-item" id="day-2">ter</span>
+            <span class="day-item" id="day-3">qua</span>
+            <span class="day-item" id="day-4">qui</span>
+            <span class="day-item" id="day-5">sex</span>
+            <span class="day-item" id="day-6">sáb</span>
+        </div>
 
         <div class="dashboard-grid">
-            <!-- Relógios -->
+            <!-- Relógios Esquerda -->
             <div class="clocks-col">
                 <div class="clock-row">
-                    <span class="flag">🇧🇷</span>
-                    <div class="clock-data">
-                        <span class="clock-label">Brasil</span>
-                        <span class="clock-time" id="time-br">--:--</span>
-                    </div>
+                    <span class="country-code">BR</span>
+                    <span class="clock-time" id="time-br">--:--</span>
                 </div>
                 <div class="clock-row">
-                    <span class="flag">🇩🇪</span>
-                    <div class="clock-data">
-                        <span class="clock-label">Alemanha</span>
-                        <span class="clock-time" id="time-de">--:--</span>
-                    </div>
+                    <span class="country-code">DE</span>
+                    <span class="clock-time" id="time-de">--:--</span>
                 </div>
             </div>
 
-            <!-- Clima Atual -->
+            <!-- Centro: Data Atual (Dia + Mês) -->
+            <div class="date-col">
+                <span class="date-num" id="curr-day">--</span>
+                <span class="date-month" id="curr-month">---</span>
+            </div>
+
+            <!-- Direita: Clima em Leipzig -->
             <div class="weather-col">
-                <span class="weather-city">Leipzig</span>
+                <span class="weather-city">LEIPZIG</span>
                 <span class="weather-temp-main" id="temp-val">--°</span>
                 <span class="weather-desc-text" id="temp-desc">Carregando...</span>
             </div>
         </div>
 
-        <!-- Linha Divisória Estilo Glow/Neon do Modelo -->
         <div class="cyber-divider"></div>
     </div>
 
-    <!-- METADE INFERIOR COM ROLAGEM -->
+    <!-- METADE INFERIOR SCROLLABLE (EXPANDIDA DE CANTO A CANTO) -->
     <div class="bottom-scrollable">
-        <div class="agenda-title">Agenda de Viagem</div>
+        <div class="agenda-title-badge">AGENDA DE VIAGEM</div>
 
         <div class="agenda-list">
             <div class="agenda-item" data-date="2027-01-25">
@@ -312,9 +359,10 @@
     </div>
 
 <script>
-    function updateClocks() {
+    function updateDashboard() {
         const now = new Date();
-        
+
+        // 1. Relógios
         const brTime = new Intl.DateTimeFormat('pt-BR', {
             timeZone: 'America/Sao_Paulo',
             hour: '2-digit',
@@ -331,6 +379,25 @@
 
         document.getElementById('time-br').innerText = brTime;
         document.getElementById('time-de').innerText = deTime;
+
+        // 2. Data Atual (Dia + Mês em Caixas Altas)
+        const dayNum = String(now.getDate()).padStart(2, '0');
+        const months = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'];
+        const monthName = months[now.getMonth()];
+
+        document.getElementById('curr-day').innerText = dayNum;
+        document.getElementById('curr-month').innerText = monthName;
+
+        // 3. Destacar Dia da Semana
+        const currentDayOfWeek = now.getDay();
+        for (let i = 0; i < 7; i++) {
+            const dayElem = document.getElementById(`day-${i}`);
+            if (i === currentDayOfWeek) {
+                dayElem.classList.add('active');
+            } else {
+                dayElem.classList.remove('active');
+            }
+        }
     }
 
     function highlightNextEvent() {
@@ -368,27 +435,27 @@
                 document.getElementById('temp-desc').innerText = getWeatherDescription(code);
             }
         } catch (error) {
-            document.getElementById('temp-val').innerText = '18°C';
-            document.getElementById('temp-desc').innerText = 'Tempo Real';
+            document.getElementById('temp-val').innerText = '23°C';
+            document.getElementById('temp-desc').innerText = 'Parcial';
         }
     }
 
     function getWeatherDescription(code) {
-        if (code === 0) return '☀️ Limpo';
-        if (code >= 1 && code <= 3) return '⛅ Parcial';
-        if (code >= 45 && code <= 48) return '🌫️ Nevoeiro';
-        if (code >= 51 && code <= 67) return '🌧️ Chuva';
-        if (code >= 71 && code <= 77) return '❄️ Neve';
-        if (code >= 80 && code <= 82) return '🌧️ Pancadas';
-        if (code >= 95) return '⛈️ Tempestade';
-        return '🌡️ Atual';
+        if (code === 0) return 'Limpo';
+        if (code >= 1 && code <= 3) return 'Parcial';
+        if (code >= 45 && code <= 48) return 'Nevoeiro';
+        if (code >= 51 && code <= 67) return 'Chuva';
+        if (code >= 71 && code <= 77) return 'Neve';
+        if (code >= 80 && code <= 82) return 'Pancadas';
+        if (code >= 95) return 'Tempestade';
+        return 'Atual';
     }
 
-    updateClocks();
+    updateDashboard();
     highlightNextEvent();
     fetchLiveWeather();
 
-    setInterval(updateClocks, 10000);
+    setInterval(updateDashboard, 10000);
     setInterval(fetchLiveWeather, 600000);
 </script>
 </body>
