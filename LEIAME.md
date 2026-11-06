@@ -39,6 +39,10 @@ Tudo isso é salvo na nuvem e aparece para todos em até 10 segundos.
 - Tradução em letra grande, com A− / A+ (o tamanho fica guardado no aparelho) e **⛶ Mostrar grande**:
   tela preta com a maior letra que cabe sem quebrar palavra, para mostrar a quem está longe ou a
   pessoas mais idosas. 🔊 lê em alemão ou português conforme o sentido.
+- **🎤 Falar:** reconhecimento de voz do Chrome (Web Speech API) no idioma de origem. O texto aparece
+  enquanto a pessoa fala, e a tradução sai sozinha quando ela termina. Na primeira vez o Chrome pede
+  permissão do microfone. Só funciona no Chrome e no PWA instalado por ele: a WebView do APK não tem
+  reconhecimento de voz, então lá o botão some e aparece a dica de usar o 🎤 do teclado.
 
 ## Arquivos
 

@@ -560,6 +560,9 @@
         .tr-swap { padding: 0 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--card-bg); color: var(--secondary); font-size: 14pt; cursor: pointer; }
         .tr-hint { font-size: 10pt; margin-bottom: 8px; color: var(--text-light); }
         .translator-box textarea#source-text { font-size: 14pt; height: 96px; font-family: inherit; }
+        .tr-mic { width: 100%; padding: 12px; margin-bottom: 8px; border-radius: 8px; border: none; background: #2b6cb0; color: #fff; font-size: 12pt; font-weight: bold; cursor: pointer; }
+        .tr-mic.listening { background: #c53030; animation: tr-pulse 1.2s infinite; }
+        @keyframes tr-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
         .tr-go { width: 100%; justify-content: center; padding: 10px; font-size: 11pt; cursor: pointer; }
         .tr-output { margin-top: 12px; padding: 14px; background: var(--bg); border-radius: 8px; border-left: 4px solid var(--secondary); }
         .tr-text { font-size: var(--tr-size, 24pt); font-weight: bold; line-height: 1.3; color: var(--text); word-wrap: break-word; }
@@ -1086,6 +1089,8 @@
         </div>
         <p id="tr-hint" class="tr-hint">Digite o que você quer dizer (ex: "Onde fica o banheiro?", "Quanto custa?"):</p>
         <textarea id="source-text" placeholder="Digite aqui em português..."></textarea>
+        <button id="tr-mic" class="tr-mic" onclick="toggleListening()">🎤 Falar em português</button>
+        <p id="tr-mic-tip" class="tr-hint" style="display:none;">Para falar em vez de digitar, toque no 🎤 do teclado do celular.</p>
         <button id="tr-go" class="btn-link tr-go" onclick="translateText()">🌐 Traduzir para Alemão</button>
 
         <div id="translator-output" class="tr-output" style="display: none;">
@@ -1998,6 +2003,8 @@
             ? 'Digite o que você quer dizer (ex: "Onde fica o banheiro?", "Quanto custa?"):'
             : 'Peça para a pessoa digitar em alemão, ou copie o texto de uma placa ou cardápio:';
         document.getElementById('tr-go').innerText = ptde ? '🌐 Traduzir para Alemão' : '🌐 Traduzir para Português';
+        if (trRecognition) trRecognition.abort();
+        updateMicButton();
         // inverteu com uma tradução na tela: a tradução vira o texto a traduzir
         const out = document.getElementById('translated-text').innerText;
         const src = document.getElementById('source-text');
@@ -2006,6 +2013,63 @@
             document.getElementById('translator-output').style.display = 'none';
         }
         try { localStorage.setItem('tr-dir', dir); } catch (e) {}
+    }
+
+    // Falar em vez de digitar (reconhecimento de voz do Chrome). No APK (WebView) não existe:
+    // o botão some e aparece a dica do microfone do teclado.
+    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let trRecognition = null;
+
+    function updateMicButton() {
+        const btn = document.getElementById('tr-mic');
+        if (!btn) return;
+        if (!SpeechRec) {
+            btn.style.display = 'none';
+            document.getElementById('tr-mic-tip').style.display = 'block';
+            return;
+        }
+        btn.classList.toggle('listening', !!trRecognition);
+        btn.innerText = trRecognition
+            ? '🔴 Ouvindo... toque para parar'
+            : (trDir === 'pt-de' ? '🎤 Falar em português' : '🎤 Falar em alemão');
+    }
+
+    function toggleListening() {
+        if (!SpeechRec) return;
+        if (trRecognition) { trRecognition.stop(); return; }
+        const rec = new SpeechRec();
+        rec.lang = trDir === 'pt-de' ? 'pt-BR' : 'de-DE';
+        rec.interimResults = true;
+        rec.continuous = false;
+        const src = document.getElementById('source-text');
+        let finalText = '';
+        rec.onresult = (e) => {
+            let interim = '';
+            finalText = '';
+            for (let i = 0; i < e.results.length; i++) {
+                if (e.results[i].isFinal) finalText += e.results[i][0].transcript;
+                else interim += e.results[i][0].transcript;
+            }
+            src.value = (finalText + interim).trim();
+        };
+        rec.onerror = (e) => {
+            if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+                alert('Permita o uso do microfone para este app nas configurações do navegador.');
+            } else if (e.error === 'no-speech') {
+                flToast('Não ouvi nada, tente de novo');
+            } else if (e.error !== 'aborted') {
+                flToast('Erro no microfone: ' + e.error);
+            }
+        };
+        rec.onend = () => {
+            trRecognition = null;
+            updateMicButton();
+            if (finalText.trim()) translateText();   // terminou de falar: já traduz
+        };
+        trRecognition = rec;
+        src.value = '';
+        updateMicButton();
+        rec.start();
     }
 
     // Tamanho da letra da tradução (A− / A+), lembrado no aparelho
@@ -2115,6 +2179,7 @@
             if (localStorage.getItem('tr-dir') === 'de-pt') setTranslateDir('de-pt');
         } catch (e) {}
         applyTrFont();
+        updateMicButton();
         handleSharedLink();
         loadChecklistState();
         setInterval(loadChecklistState, 10000);
