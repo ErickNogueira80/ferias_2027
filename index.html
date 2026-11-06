@@ -3,31 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roteiro de Férias 2027 - Família Nogueira</title>
+    <title>Roteiro de Férias 2027 - Mi, Mô e Erick</title>
+    <!-- Configurações para instalar no celular como App -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Férias 2027">
+    <meta name="theme-color" content="#111111">
+
+    <!-- Ícone que vai aparecer na tela do celular -->
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="icons/favicon.png">
+    <link rel="manifest" href="manifest.webmanifest">
     <style>
         :root {
             --primary: #1a365d;
-            --secondary: #2b6cb0;
-            --accent: #3182ce;
-            --bg: #f4f6f8;
-            --card-bg: #ffffff;
+            --secondary: #DD6B20;      /* Laranja Alemanha para abas/destaques */
+            --accent: #D69E2E;         /* Ouro Alemanha */
+            --bg: #EAEFF5;             /* Fundo Suave (Off-White/Cinza Claro - não dói a vista) */
+            --card-bg: #ffffff;        /* Cards em branco puro para destacar do fundo */
             --text: #2d3748;
             --text-light: #718096;
-            --border: #e2e8f0;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+            --border: #CBD5E1;         /* Borda levemente mais definida */
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             --radius: 12px;
         }
 
+        /* TEMA ESCURO ELEGANTE - ALEMANHA DARK */
         body.dark-mode {
-            --primary: #63b3ed;
-            --secondary: #4299e1;
-            --accent: #63b3ed;
-            --bg: #1a202c;
-            --card-bg: #2d3748;
-            --text: #f7fafc;
-            --text-light: #a0aec0;
-            --border: #4a5568;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            --primary: #DD6B20;
+            --secondary: #E53E3E;
+            --accent: #DD6B20;
+            --bg: #1E222B;             /* Fundo Clareado (Cinza-Grafite Média) */
+            --card-bg: #2A303C;        /* Moldura ajustada para destacar no fundo */
+            --text: #E2E8F0;
+            --text-light: #94A3B8;
+            --border: #3A4252;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -38,19 +50,21 @@
             color: var(--text);
             line-height: 1.5;
             padding: 12px;
+            padding-top: 36px; /* Espaçamento seguro para a Status Bar do Celular */
             max-width: 900px;
             margin: 0 auto;
             transition: background 0.3s, color 0.3s;
         }
 
         header {
-            background: linear-gradient(135deg, #1a365d, #2b6cb0);
+            background: linear-gradient(135deg, #111111 0%, #8B0000 50%, #D69E2E 100%);
             color: white;
             padding: 22px;
             border-radius: var(--radius);
             margin-bottom: 15px;
             text-align: center;
             box-shadow: var(--shadow);
+            border: none;
         }
 
         header h1 { font-size: 18pt; margin-bottom: 4px; font-weight: 700; }
@@ -71,9 +85,9 @@
         .meta-item .label { font-size: 7pt; color: var(--text-light); text-transform: uppercase; font-weight: bold; }
         .meta-item .val { font-size: 9.5pt; font-weight: bold; color: var(--primary); margin-top: 2px; }
 
-        /* Bloco de Relógios Compacto com Temperatura ao Centro */
+        /* Bloco de Relógios com o mesmo Degradê Alemanha */
         .world-clock-box {
-            background: linear-gradient(135deg, #1a365d, #2b6cb0);
+            background: linear-gradient(135deg, #111111 0%, #8B0000 50%, #D69E2E 100%);
             color: white;
             border-radius: var(--radius);
             padding: 10px 12px;
@@ -84,6 +98,7 @@
             grid-template-columns: 1fr auto 1fr;
             align-items: center;
             gap: 4px;
+            border: none;
         }
 
         .clock-item { padding: 2px; }
@@ -150,6 +165,7 @@
             background: var(--secondary);
             color: white;
             border-color: var(--secondary);
+            font-weight: bold;
         }
 
         .tab-content { display: none; }
@@ -484,6 +500,34 @@
         }
         .btn-link:hover { opacity: 0.8; }
 
+        /* LINKS DA FAMÍLIA (salvos na nuvem, qualquer um adiciona) */
+        .family-links { border-left: 4px solid var(--secondary); }
+        .fl-group { margin-bottom: 10px; }
+        .fl-group-title { font-size: 8pt; font-weight: bold; color: var(--text-light); text-transform: uppercase; margin-bottom: 4px; }
+        .fl-item { display: inline-flex; align-items: center; gap: 2px; margin: 0 4px 4px 0; }
+        .fl-item .btn-link { max-width: 260px; }
+        .fl-item .btn-link span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .fl-who { font-size: 7pt; color: var(--text-light); font-weight: normal; }
+        .fl-del { background: none; border: none; color: var(--text-light); font-size: 10pt; cursor: pointer; padding: 0 4px; line-height: 1; }
+        .fl-empty { font-size: 8.5pt; color: var(--text-light); margin-bottom: 8px; }
+        .fl-pending { opacity: 0.55; }
+        .fl-open-btn { width: 100%; justify-content: center; padding: 8px; font-size: 9pt; cursor: pointer; }
+
+        .fl-form input[type="text"], .fl-form input[type="url"], .fl-form select {
+            width: 100%; padding: 9px; border: 1px solid var(--border); border-radius: 6px;
+            background: var(--bg); color: var(--text); font-size: 10pt; margin-bottom: 8px;
+        }
+        .fl-form label { font-size: 8pt; font-weight: bold; color: var(--text-light); display: block; margin-bottom: 2px; }
+        .fl-actions { display: flex; gap: 8px; }
+        .fl-actions .btn-link { flex: 1; justify-content: center; padding: 9px; font-size: 9.5pt; cursor: pointer; }
+        .fl-actions .fl-save { background: var(--secondary); color: #fff; border-color: var(--secondary); }
+
+        .fl-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.55); display: none; align-items: flex-end; justify-content: center; z-index: 1000; }
+        .fl-modal.open { display: flex; }
+        .fl-sheet { background: var(--card-bg); color: var(--text); width: 100%; max-width: 560px; border-radius: 16px 16px 0 0; padding: 18px 16px 24px; box-shadow: 0 -4px 20px rgba(0,0,0,0.3); }
+        .fl-sheet h3 { font-size: 11pt; color: var(--primary); margin-bottom: 10px; }
+        .fl-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: #111; color: #fff; padding: 9px 16px; border-radius: 20px; font-size: 9pt; z-index: 1100; display: none; }
+
         footer {
             text-align: center;
             font-size: 7.5pt;
@@ -495,993 +539,1261 @@
 </head>
 <body id="topo">
 
-    <header>
-        <h1>Roteiro de Férias 2027</h1>
-        <p>Erick, Mônica e Milena | Alemanha, Dinamarca & Polônia</p>
-    </header>
+<header>
+    <h1>Roteiro de Férias 2027</h1>
+    <p>Mi, Mô e Erick | Alemanha, Dinamarca & Polônia</p>
+</header>
 
-    <!-- BLOCO GLOBAL: Relógios e Temperatura Compactos ao Centro -->
-    <div class="world-clock-box">
-        <div class="clock-item" style="text-align: left; padding-left: 4px;">
-            <div class="clock-title">🇩🇪 Berlim</div>
-            <div id="clock-berlin" class="clock-time">--:--:--</div>
-        </div>
-        
-        <div class="weather-center">
-            <div id="weather-val">🌡️ Carregando...</div>
-        </div>
+<!-- BLOCO GLOBAL: Relógios e Temperatura Compactos ao Centro -->
+<div class="world-clock-box">
+    <div class="clock-item" style="text-align: left; padding-left: 4px;">
+        <div id="top-city-title" class="clock-title">🇩🇪 Berlim</div>
+        <div id="clock-berlin" class="clock-time">--:--:--</div>
+    </div>
 
-        <div class="clock-item" style="text-align: right; padding-right: 4px;">
-            <div class="clock-title">🇧🇷 Brasília</div>
-            <div id="clock-brasil" class="clock-time">--:--:--</div>
+    <div class="weather-center">
+        <div id="countdown-top" style="font-weight: bold; color: #fbbf24; margin-bottom: 2px;">Calculando...</div>
+        <div id="weather-val">🌡️ Carregando...</div>
+    </div>
+
+    <div class="clock-item" style="text-align: right; padding-right: 4px;">
+        <div class="clock-title">🇧🇷 Brasília</div>
+        <div id="clock-brasil" class="clock-time">--:--:--</div>
+    </div>
+</div>
+
+<!-- Navegação por Abas -->
+<div class="app-tabs">
+    <button class="theme-tab-btn" onclick="toggleTheme()" id="theme-btn" title="Alternar tema">🌙</button>
+    <button class="tab-btn active" onclick="switchTab('tab-calendario')">📅 Calendário</button>
+    <button class="tab-btn" onclick="switchTab('tab-berlim')">🇩🇪 Berlim</button>
+    <button class="tab-btn" onclick="switchTab('tab-copenhague')">🇩🇰 Copenhague</button>
+    <button class="tab-btn" onclick="switchTab('tab-wroclaw')">🇵🇱 Wroclaw</button>
+    <button class="tab-btn" onclick="switchTab('tab-checklist')">🎒 Checklist</button>
+    <button class="tab-btn" onclick="switchTab('tab-voos')">✈️ Voos</button>
+    <button class="tab-btn" onclick="switchTab('tab-alemao')">🗣️ Alemão</button>
+    <button class="tab-btn" onclick="switchTab('tab-cronograma')">⏱️ Cronograma</button>
+</div>
+
+<!-- ABA 1: CALENDÁRIO -->
+<div id="tab-calendario" class="tab-content active">
+
+    <!-- Partida e Retorno -->
+    <div class="meta-card">
+        <div class="meta-item">
+            <div class="label">Partida (GRU)</div>
+            <div class="val">25/01/2027</div>
+        </div>
+        <div class="meta-item">
+            <div class="label">Retorno (GRU)</div>
+            <div class="val">14/02/2027</div>
         </div>
     </div>
 
-    <!-- Navegação por Abas -->
-    <div class="app-tabs">
-        <button class="theme-tab-btn" onclick="toggleTheme()" id="theme-btn" title="Alternar tema">🌙</button>
-        <button class="tab-btn active" onclick="switchTab('tab-calendario')">📅 Calendário</button>
-        <button class="tab-btn" onclick="switchTab('tab-berlim')">🇩🇪 Berlim</button>
-        <button class="tab-btn" onclick="switchTab('tab-copenhague')">🇩🇰 Copenhague</button>
-        <button class="tab-btn" onclick="switchTab('tab-wroclaw')">🇵🇱 Wroclaw</button>
-        <button class="tab-btn" onclick="switchTab('tab-checklist')">🎒 Checklist</button>
-        <button class="tab-btn" onclick="switchTab('tab-voos')">✈️ Voos</button>
-        <button class="tab-btn" onclick="switchTab('tab-alemao')">🗣️ Alemão</button>
-        <button class="tab-btn" onclick="switchTab('tab-cronograma')">⏱️ Cronograma</button>
+    <h2>Calendário Geral</h2>
+
+    <div class="legend">
+        <div class="legend-item"><div class="legend-color" style="background:#feebc8;"></div> Voo</div>
+        <div class="legend-item"><div class="legend-color" style="background:#fed7e2;"></div> Fuchse</div>
+        <div class="legend-item"><div class="legend-color" style="background:#bee3f8;"></div> SG - OSF</div>
+        <div class="legend-item"><div class="legend-color" style="background:#c6f6d5;"></div> Fuchse 2</div>
+        <div class="legend-item"><div class="legend-color" style="background:#e6fffa;"></div> Viagem / Turismo</div>
     </div>
 
-    <!-- ABA 1: CALENDÁRIO -->
-    <div id="tab-calendario" class="tab-content active">
-        
-        <!-- Partida e Retorno -->
-        <div class="meta-card">
-            <div class="meta-item">
-                <div class="label">Partida (GRU)</div>
-                <div class="val">25/01/2027</div>
-            </div>
-            <div class="meta-item">
-                <div class="label">Retorno (GRU)</div>
-                <div class="val">14/02/2027</div>
-            </div>
-        </div>
+    <!-- Semana 1 -->
+    <div class="calendar-container">
+        <table class="cal-week-table">
+            <thead>
+            <tr><th>Domingo</th><th>Segunda</th><th>Terça</th><th>Quarta</th><th>Quinta</th><th>Sexta</th><th>Sábado</th></tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td data-date="2027-01-24"><div class="day-num">24/01</div></td>
+                <td data-date="2027-01-25">
+                    <div class="day-num">25/01</div>
+                    <a href="#d-25-01" onclick="switchTab('tab-cronograma')" class="event-chip c-voo" data-desc="Voo ida GRU 23h40">Voo ida GRU<br>23h40</a>
+                </td>
+                <td data-date="2027-01-26">
+                    <div class="day-num">26/01</div>
+                    <a href="#d-26-01" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="Chegada BER / Checkin Airbnb">Chegada BER<br>Checkin Airbnb</a>
+                </td>
+                <td data-date="2027-01-27">
+                    <div class="day-num">27/01</div>
+                    <a href="#d-27-01" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-blue" data-desc="Treino SG - OSF (18:45 - 20:15)">SG - OSF<br>18:45 - 20:15</a>
+                </td>
+                <td data-date="2027-01-28">
+                    <div class="day-num">28/01</div>
+                    <a href="#d-28-01" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-pink" data-desc="Treino Fuchse 1 (17:00 - 18:30)">Fuchse 1<br>17:00 - 18:30</a>
+                </td>
+                <td data-date="2027-01-29">
+                    <div class="day-num">29/01</div>
+                    <a href="#d-29-01" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-green" data-desc="Treino Fuchse 2 (18:30 - 20:00)">Fuchse 2<br>18:30 - 20:00</a>
+                </td>
+                <td data-date="2027-01-30"><div class="day-num">30/01</div></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-        <h2>Calendário Geral</h2>
-        
-        <div class="legend">
-            <div class="legend-item"><div class="legend-color" style="background:#feebc8;"></div> Voo</div>
-            <div class="legend-item"><div class="legend-color" style="background:#fed7e2;"></div> Fuchse</div>
-            <div class="legend-item"><div class="legend-color" style="background:#bee3f8;"></div> SG - OSF</div>
-            <div class="legend-item"><div class="legend-color" style="background:#c6f6d5;"></div> Fuchse 2</div>
-            <div class="legend-item"><div class="legend-color" style="background:#e6fffa;"></div> Viagem / Turismo</div>
-        </div>
+    <!-- Semana 2 -->
+    <div class="calendar-container">
+        <table class="cal-week-table">
+            <thead>
+            <tr><th>Domingo</th><th>Segunda</th><th>Terça</th><th>Quarta</th><th>Quinta</th><th>Sexta</th><th>Sábado</th></tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td data-date="2027-01-31"><div class="day-num">31/01</div></td>
+                <td data-date="2027-02-01">
+                    <div class="day-num">01/02</div>
+                    <a href="#d-01-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-pink" data-desc="Treino Fuchse 1 (17:00)">Fuchse 1 17:00</a>
+                    <a href="#d-01-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-yellow" data-desc="Treino Goleira (18:30)">Goleira 18:30</a>
+                </td>
+                <td data-date="2027-02-02">
+                    <div class="day-num">02/02</div>
+                    <a href="#d-02-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-blue" data-desc="Treino SG - OSF (18:30 - 20:00)">SG - OSF<br>18:30 - 20:00</a>
+                </td>
+                <td data-date="2027-02-03">
+                    <div class="day-num">03/02</div>
+                    <a href="#d-03-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-pink" data-desc="Treino Fuchse 1 (17:00)">Fuchse 1 17:00</a>
+                    <a href="#d-03-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-blue" data-desc="Treino SG - OSF (18:45)">SG - OSF 18:45</a>
+                </td>
+                <td data-date="2027-02-04">
+                    <div class="day-num">04/02</div>
+                    <a href="#d-04-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="Ida Copenhague + Nyhavn">Ida Copenhague<br>Nyhavn</a>
+                </td>
+                <td data-date="2027-02-05">
+                    <div class="day-num">05/02</div>
+                    <a href="#d-05-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="LEGO Store + Amalienborg + Strøget">LEGO & Palácios<br>Strøget</a>
+                </td>
+                <td data-date="2027-02-06">
+                    <div class="day-num">06/02</div>
+                    <a href="#d-06-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="Experimentarium + Pequena Sereia">Experimentarium<br>Sereia</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-        <!-- Semana 1 -->
-        <div class="calendar-container">
-            <table class="cal-week-table">
-                <thead>
-                    <tr><th>Domingo</th><th>Segunda</th><th>Terça</th><th>Quarta</th><th>Quinta</th><th>Sexta</th><th>Sábado</th></tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td data-date="2027-01-24"><div class="day-num">24/01</div></td>
-                        <td data-date="2027-01-25">
-                            <div class="day-num">25/01</div>
-                            <a href="#d-25-01" onclick="switchTab('tab-cronograma')" class="event-chip c-voo" data-desc="Voo ida GRU 23h40">Voo ida GRU<br>23h40</a>
-                        </td>
-                        <td data-date="2027-01-26">
-                            <div class="day-num">26/01</div>
-                            <a href="#d-26-01" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="Chegada BER / Checkin Airbnb">Chegada BER<br>Checkin Airbnb</a>
-                        </td>
-                        <td data-date="2027-01-27">
-                            <div class="day-num">27/01</div>
-                            <a href="#d-27-01" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-blue" data-desc="Treino SG - OSF (18:45 - 20:15)">SG - OSF<br>18:45 - 20:15</a>
-                        </td>
-                        <td data-date="2027-01-28">
-                            <div class="day-num">28/01</div>
-                            <a href="#d-28-01" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-pink" data-desc="Treino Fuchse 1 (17:00 - 18:30)">Fuchse 1<br>17:00 - 18:30</a>
-                        </td>
-                        <td data-date="2027-01-29">
-                            <div class="day-num">29/01</div>
-                            <a href="#d-29-01" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-green" data-desc="Treino Fuchse 2 (18:30 - 20:00)">Fuchse 2<br>18:30 - 20:00</a>
-                        </td>
-                        <td data-date="2027-01-30"><div class="day-num">30/01</div></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <!-- Semana 3 -->
+    <div class="calendar-container">
+        <table class="cal-week-table">
+            <thead>
+            <tr><th>Domingo</th><th>Segunda</th><th>Terça</th><th>Quarta</th><th>Quinta</th><th>Sexta</th><th>Sábado</th></tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td data-date="2027-02-07">
+                    <div class="day-num">07/02</div>
+                    <a href="#d-07-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="Rosenborg + Museu Nacional + Retorno Berlim">Rosenborg<br>Retorno Berlim</a>
+                </td>
+                <td data-date="2027-02-08">
+                    <div class="day-num">08/02</div>
+                    <a href="#d-08-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-pink" data-desc="Treino Fuchse 1 (17:00)">Fuchse 1 17:00</a>
+                    <a href="#d-08-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-yellow" data-desc="Treino Goleira (18:30)">Goleira 18:30</a>
+                </td>
+                <td data-date="2027-02-09">
+                    <div class="day-num">09/02</div>
+                    <a href="#d-09-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-blue" data-desc="Treino SG - OSF (18:30 - 20:00)">SG - OSF<br>18:30 - 20:00</a>
+                </td>
+                <td data-date="2027-02-10">
+                    <div class="day-num">10/02</div>
+                    <a href="#d-10-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="Ida Wroclaw + Gnomos + Acendedor de Lampiões">Ida Wroclaw<br>Gnomos & Lampiões</a>
+                </td>
+                <td data-date="2027-02-11">
+                    <div class="day-num">11/02</div>
+                    <a href="#d-11-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="Hydropolis + Kolejkowo + Ponte dos Penitentes">Hydropolis<br>Kolejkowo</a>
+                </td>
+                <td data-date="2027-02-12">
+                    <div class="day-num">12/02</div>
+                    <a href="#d-12-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="Castelo Książ + Retorno Berlim">Castelo Książ<br>Retorno Berlim</a>
+                </td>
+                <td data-date="2027-02-13">
+                    <div class="day-num">13/02</div>
+                    <a href="#d-13-02" onclick="switchTab('tab-cronograma')" class="event-chip c-voo" data-desc="Voo BER 17h40">Voo BER 17h40</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-        <!-- Semana 2 -->
-        <div class="calendar-container">
-            <table class="cal-week-table">
-                <thead>
-                    <tr><th>Domingo</th><th>Segunda</th><th>Terça</th><th>Quarta</th><th>Quinta</th><th>Sexta</th><th>Sábado</th></tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td data-date="2027-01-31"><div class="day-num">31/01</div></td>
-                        <td data-date="2027-02-01">
-                            <div class="day-num">01/02</div>
-                            <a href="#d-01-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-pink" data-desc="Treino Fuchse 1 (17:00)">Fuchse 1 17:00</a>
-                            <a href="#d-01-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-yellow" data-desc="Treino Goleira (18:30)">Goleira 18:30</a>
-                        </td>
-                        <td data-date="2027-02-02">
-                            <div class="day-num">02/02</div>
-                            <a href="#d-02-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-blue" data-desc="Treino SG - OSF (18:30 - 20:00)">SG - OSF<br>18:30 - 20:00</a>
-                        </td>
-                        <td data-date="2027-02-03">
-                            <div class="day-num">03/02</div>
-                            <a href="#d-03-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-pink" data-desc="Treino Fuchse 1 (17:00)">Fuchse 1 17:00</a>
-                            <a href="#d-03-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-blue" data-desc="Treino SG - OSF (18:45)">SG - OSF 18:45</a>
-                        </td>
-                        <td data-date="2027-02-04">
-                            <div class="day-num">04/02</div>
-                            <a href="#d-04-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="Ida Copenhague + Nyhavn">Ida Copenhague<br>Nyhavn</a>
-                        </td>
-                        <td data-date="2027-02-05">
-                            <div class="day-num">05/02</div>
-                            <a href="#d-05-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="LEGO Store + Amalienborg + Strøget">LEGO & Palácios<br>Strøget</a>
-                        </td>
-                        <td data-date="2027-02-06">
-                            <div class="day-num">06/02</div>
-                            <a href="#d-06-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="Experimentarium + Pequena Sereia">Experimentarium<br>Sereia</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <!-- Semana 4 -->
+    <div class="calendar-container">
+        <table class="cal-week-table">
+            <thead>
+            <tr><th>Domingo</th><th>Segunda</th><th>Terça</th><th>Quarta</th><th>Quinta</th><th>Sexta</th><th>Sábado</th></tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td data-date="2027-02-14">
+                    <div class="day-num">14/02</div>
+                    <a href="#d-14-02" onclick="switchTab('tab-cronograma')" class="event-chip c-voo" data-desc="Chegada GRU 05h05">Chegada GRU<br>05h05</a>
+                </td>
+                <td data-date="2027-02-15"><div class="day-num">15/02</div></td>
+                <td data-date="2027-02-16"><div class="day-num">16/02</div></td>
+                <td data-date="2027-02-17"><div class="day-num">17/02</div></td>
+                <td data-date="2027-02-18"><div class="day-num">18/02</div></td>
+                <td data-date="2027-02-19"><div class="day-num">19/02</div></td>
+                <td data-date="2027-02-20"><div class="day-num">20/02</div></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-        <!-- Semana 3 -->
-        <div class="calendar-container">
-            <table class="cal-week-table">
-                <thead>
-                    <tr><th>Domingo</th><th>Segunda</th><th>Terça</th><th>Quarta</th><th>Quinta</th><th>Sexta</th><th>Sábado</th></tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td data-date="2027-02-07">
-                            <div class="day-num">07/02</div>
-                            <a href="#d-07-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="Rosenborg + Museu Nacional + Retorno Berlim">Rosenborg<br>Retorno Berlim</a>
-                        </td>
-                        <td data-date="2027-02-08">
-                            <div class="day-num">08/02</div>
-                            <a href="#d-08-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-pink" data-desc="Treino Fuchse 1 (17:00)">Fuchse 1 17:00</a>
-                            <a href="#d-08-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-yellow" data-desc="Treino Goleira (18:30)">Goleira 18:30</a>
-                        </td>
-                        <td data-date="2027-02-09">
-                            <div class="day-num">09/02</div>
-                            <a href="#d-09-02" onclick="switchTab('tab-cronograma')" class="event-chip c-treino-blue" data-desc="Treino SG - OSF (18:30 - 20:00)">SG - OSF<br>18:30 - 20:00</a>
-                        </td>
-                        <td data-date="2027-02-10">
-                            <div class="day-num">10/02</div>
-                            <a href="#d-10-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="Ida Wroclaw + Gnomos + Acendedor de Lampiões">Ida Wroclaw<br>Gnomos & Lampiões</a>
-                        </td>
-                        <td data-date="2027-02-11">
-                            <div class="day-num">11/02</div>
-                            <a href="#d-11-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="Hydropolis + Kolejkowo + Ponte dos Penitentes">Hydropolis<br>Kolejkowo</a>
-                        </td>
-                        <td data-date="2027-02-12">
-                            <div class="day-num">12/02</div>
-                            <a href="#d-12-02" onclick="switchTab('tab-cronograma')" class="event-chip c-viagem" data-desc="Castelo Książ + Retorno Berlim">Castelo Książ<br>Retorno Berlim</a>
-                        </td>
-                        <td data-date="2027-02-13">
-                            <div class="day-num">13/02</div>
-                            <a href="#d-13-02" onclick="switchTab('tab-cronograma')" class="event-chip c-voo" data-desc="Voo BER 17h40">Voo BER 17h40</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<!-- ABA 2: BERLIM -->
+<div id="tab-berlim" class="tab-content">
+    <h2>Berlim (Treinos, Endereços & Dicas)</h2>
 
-        <!-- Semana 4 -->
-        <div class="calendar-container">
-            <table class="cal-week-table">
-                <thead>
-                    <tr><th>Domingo</th><th>Segunda</th><th>Terça</th><th>Quarta</th><th>Quinta</th><th>Sexta</th><th>Sábado</th></tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td data-date="2027-02-14">
-                            <div class="day-num">14/02</div>
-                            <a href="#d-14-02" onclick="switchTab('tab-cronograma')" class="event-chip c-voo" data-desc="Chegada GRU 05h05">Chegada GRU<br>05h05</a>
-                        </td>
-                        <td data-date="2027-02-15"><div class="day-num">15/02</div></td>
-                        <td data-date="2027-02-16"><div class="day-num">16/02</div></td>
-                        <td data-date="2027-02-17"><div class="day-num">17/02</div></td>
-                        <td data-date="2027-02-18"><div class="day-num">18/02</div></td>
-                        <td data-date="2027-02-19"><div class="day-num">19/02</div></td>
-                        <td data-date="2027-02-20"><div class="day-num">20/02</div></td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="card-box">
+        <h3>🏡 Hospedagens em Berlim</h3>
+        <div class="address-item" style="margin-bottom: 12px;">
+            <strong>Estadia 1 (26/Jan a 04/Fev):</strong> Heinrich-Heine-Straße 1, Berlin, 10179
+            <div style="font-size: 7.5pt; color: var(--text-light); margin-top: 2px;">Check-in: 15h | Check-out: 11h</div>
+            <a href="https://maps.google.com/?q=Heinrich-Heine-Straße+1+Berlin+10179" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
+        </div>
+        <div class="address-item" style="margin-bottom: 12px;">
+            <strong>Estadia 2 (07 a 10/Fev):</strong> Neue Roßstraße 13, 10179 Berlin, Germany
+            <div style="font-size: 7.5pt; color: var(--text-light); margin-top: 2px;">Check-in: ?h | Check-out: ?h</div>
+            <a href="https://maps.google.com/?q=Neue+Roßstraße+13+10179+Berlin" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
+        </div>
+        <div class="address-item">
+            <strong>Estadia 3 (12 a 13/Fev):</strong> <span class="tag-pending">Pendente</span>
         </div>
     </div>
 
-    <!-- ABA 2: BERLIM -->
-    <div id="tab-berlim" class="tab-content">
-        <h2>Berlim (Treinos, Endereços & Dicas)</h2>
-        
-        <div class="card-box">
-            <h3>🏡 Hospedagens em Berlim</h3>
-            <div class="address-item" style="margin-bottom: 12px;">
-                <strong>Estadia 1 (26/Jan a 04/Fev):</strong> Heinrich-Heine-Straße 1, Berlin, 10179
-                <div style="font-size: 7.5pt; color: var(--text-light); margin-top: 2px;">Check-in: 15h | Check-out: 11h</div>
-                <a href="https://maps.google.com/?q=Heinrich-Heine-Straße+1+Berlin+10179" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
-            </div>
-            <div class="address-item" style="margin-bottom: 12px;">
-                <strong>Estadia 2 (07 a 10/Fev):</strong> Neue Roßstraße 13, 10179 Berlin, Germany
-                <div style="font-size: 7.5pt; color: var(--text-light); margin-top: 2px;">Check-in: ?h | Check-out: ?h</div>
-                <a href="https://maps.google.com/?q=Neue+Roßstraße+13+10179+Berlin" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
-            </div>
+    <div class="grid-2">
+        <div class="card-box" id="end-sgosf">
+            <h3>🤾‍♂️ SG - OSF / Treinos</h3>
             <div class="address-item">
-                <strong>Estadia 3 (12 a 13/Fev):</strong> <span class="tag-pending">Pendente</span>
-            </div>
-        </div>
-
-        <div class="grid-2">
-            <div class="card-box" id="end-sgosf">
-                <h3>🤾‍♂️ SG - OSF / Treinos</h3>
-                <div class="address-item">
-                    <strong>Endereço 1:</strong> Sachsendamm 12, 10829 Berlim
-                    <a href="https://maps.google.com/?q=Sachsendamm+12+10829+Berlin" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
-                </div>
-                <div class="address-item" style="margin-top: 10px;">
-                    <strong>Endereço 2:</strong> Dickhardtstraße 21/22, 12161 Berlim
-                    <a href="https://maps.google.com/?q=Dickhardtstraße+21+12161+Berlin" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
-                </div>
-            </div>
-            <div class="card-box" id="end-fuchse">
-                <h3>🤾‍♂️ Fuchse Berlim</h3>
-                <div class="address-item">
-                    <strong>Fuchse 1:</strong> Freiheitsweg 18, 13407 Berlim
-                    <a href="https://maps.google.com/?q=Freiheitsweg+18+13407+Berlin" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
-                </div>
-                <div class="address-item" style="margin-top: 10px;">
-                    <strong>Fuchse 2:</strong> Kienhorstr. 67-69, 13403 Berlim
-                    <a href="https://maps.google.com/?q=Kienhorstr.+67+13403+Berlin" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Novos Links Organizados por Categoria -->
-        <div class="card-box" style="border-left: 4px solid #38a169;">
-            <h3>🍔 Comida (Dicas da Mônica)</h3>
-            <div class="action-links">
-                <a href="https://www.instagram.com/reel/DZesSSiobXz/?igsh=bHE0cDFkaG1lcG4z" target="_blank" class="btn-link">🍽️ Dica de Comida 1</a>
-                <a href="https://www.instagram.com/reel/DbBXLscoowY/?igsh=N2ZvN2Fia2d2aHBu" target="_blank" class="btn-link">🍽️ Dica de Comida 2</a>
-                <a href="https://www.instagram.com/reel/DbJRlctM3IR/?igsh=MTR6Y2xzaWc3d3dvOQ==" target="_blank" class="btn-link">🍽️ Dica de Comida 3</a>
-                <a href="https://www.instagram.com/p/DadgZIiik2L/?img_index=7&igsh=MWx0bTdlYXdhb3lwYw==" target="_blank" class="btn-link">🍽️ Dica de Comida 4</a>
-                <a href="https://www.instagram.com/reel/Da-7YCdu0er/?igsh=MW9yM2wwejBxbWJmZw==" target="_blank" class="btn-link">🍽️ Dica de Comida 5</a>
-                <a href="https://www.instagram.com/reel/DansCTvs3Mq/?igsh=MXA2dnlpcXhrdzV5dg==" target="_blank" class="btn-link">🍽️ Dica de Comida 6</a>
-            </div>
-        </div>
-
-        <div class="card-box" style="border-left: 4px solid #d69e2e;">
-            <h3>🛒 Costumes / Curiosidades (Supermercado)</h3>
-            <div class="action-links">
-                <a href="https://www.instagram.com/p/Da7PtOWDNKM/?img_index=6&igsh=MWxpNXgzM2k4MGJ6ZQ==" target="_blank" class="btn-link" style="background:#feebc8; color:#744210;">🛒 Como usar o Supermercado</a>
-            </div>
-        </div>
-
-        <div class="card-box" style="border-left: 4px solid #3182ce;">
-            <h3>📍 Locais para Visitar</h3>
-            <div class="action-links">
-                <a href="https://www.instagram.com/reel/Da-jERqomCG/?igsh=NXliYTlpbjIzZ3o1" target="_blank" class="btn-link">🏛️ Local para Visitar 1</a>
-                <a href="https://www.instagram.com/p/DbWYhm_Cmhq/?img_index=10&igsh=MXNjamI4aXQ4ZnFtcQ==" target="_blank" class="btn-link">🏛️ Local para Visitar 2</a>
-            </div>
-        </div>
-
-        <div class="card-box" style="border-left: 4px solid #97266d;">
-            <h3>🗺️ Roteiros Sugeridos</h3>
-            <div class="action-links">
-                <a href="https://www.instagram.com/reel/DbWY5DAtQRT/?igsh=MWQ3cTBkbnlicjY0aQ==" target="_blank" class="btn-link" style="background:#fed7e2; color:#97266d;">🗺️ Roteiro Sugerido Instagram</a>
-            </div>
-        </div>
-
-        <div class="card-box" style="margin-top: 12px; border-left: 4px solid #718096;">
-            <h3>📦 Outros (Berlim)</h3>
-            <div class="action-links" style="margin-top:4px;">
-                <a href="https://www.instagram.com/reel/DbQcmYKosz6/?igsh=MXU4cm0yNXJldndlbA==" target="_blank" class="btn-link">📸 U-Bahn-Convertible (Reel)</a>
-                <a href="https://www.instagram.com/reel/DaAurVUsl5r/?igsh=MTNscmt3anZ1ZnBpNw==" target="_blank" class="btn-link">📸 Mall of Berlin (Reel)</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- ABA 3: COPENHAGUE -->
-    <div id="tab-copenhague" class="tab-content">
-        <h2>Copenhague (Dinamarca & Endereços)</h2>
-        <div class="card-box">
-            <h3>🏡 Hospedagem & Logística (04 a 07/Fev)</h3>
-            <div class="address-item">
-                <strong>Endereço:</strong> Kompagnistræde 27 1st floor, Copenhague, 1208, Dinamarca
-                <div style="font-size: 7.5pt; color: var(--text-light); margin-top: 2px;">Check-in: 16h | Check-out: 11h</div>
-                <a href="https://maps.google.com/?q=Kompagnistræde+27+1208+Copenhagen" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
-            </div>
-            <div class="address-item" style="margin-top: 8px;">
-                <strong>Estação Principal:</strong> København H (Ponto de chegada dos trens de Berlim).
-                <a href="https://maps.google.com/?q=Copenhagen+Central+Station" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
-            </div>
-        </div>
-
-        <div class="card-box">
-            <h3>🇩🇰 Roteiro & Principais Pontos (04/02 a 07/02)</h3>
-            <ul style="font-size: 8.5pt; margin-left: 18px; margin-bottom: 10px;">
-                <li><strong>LEGO Store:</strong> Strøget (Vimmelskaftet 37). <a href="https://maps.google.com/?q=LEGO+Store+Copenhagen+Vimmelskaftet" target="_blank" class="btn-link" style="display:inline-flex; margin-left:4px;">🗺️ Mapa</a></li>
-                <li><strong>Palácio de Amalienborg & Igreja de Mármore:</strong> Frederiksgade 4. <a href="https://maps.google.com/?q=Amalienborg+Palace" target="_blank" class="btn-link" style="display:inline-flex; margin-left:4px;">🗺️ Mapa</a></li>
-                <li><strong>Castelo de Rosenborg:</strong> Øster Voldgade 4A. <a href="https://maps.google.com/?q=Rosenborg+Castle+Copenhagen" target="_blank" class="btn-link" style="display:inline-flex; margin-left:4px;">🗺️ Mapa</a></li>
-                <li><strong>Experimentarium:</strong> Tuborg Havnevej 7, Hellerup. <a href="https://maps.google.com/?q=Experimentarium+Hellerup" target="_blank" class="btn-link" style="display:inline-flex; margin-left:4px;">🗺️ Mapa</a></li>
-                <li><strong>A Pequena Sereia:</strong> Langelinie, 2100 København Ø. <a href="https://maps.google.com/?q=The+Little+Mermaid+Copenhagen" target="_blank" class="btn-link" style="display:inline-flex; margin-left:4px;">🗺️ Mapa</a></li>
-            </ul>
-        </div>
-
-        <!-- Categoria Outros -->
-        <div class="card-box" style="border-left: 4px solid #718096;">
-            <h3>📦 Outros (Copenhague)</h3>
-            <p style="font-size: 8pt; color: var(--text-light); margin-bottom: 6px;">Itens e links que serão classificados posteriormente:</p>
-            <div class="action-links">
-                <span style="font-size: 8pt; color: var(--text-light); font-style: italic;">Nenhum item pendente no momento.</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- ABA 4: WROCLAW -->
-    <div id="tab-wroclaw" class="tab-content">
-        <h2>Wroclaw (Polônia & Endereços)</h2>
-        
-        <div class="card-box">
-            <h3>🏡 Hospedagem (10 a 12/Fev)</h3>
-            <div class="address-item">
-                <strong>Endereço:</strong> Wrocław, Dolnośląskie 50-076
-                <div style="font-size: 7.5pt; color: var(--text-light); margin-top: 2px;">Check-in: 15h | Check-out: 11h</div>
-                <a href="https://maps.google.com/?q=Wroclaw+Dolnoslaskie+50-076" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
-            </div>
-        </div>
-
-        <div class="card-box">
-            <h3>🇵🇱 Atrações Imperdíveis (10/02 a 12/02)</h3>
-            <div class="address-item">
-                <strong>Hydropolis (Centro de Ciências da Água):</strong> Na Grobli 19/+48, 50-421 Wrocław
-                <a href="https://maps.google.com/?q=Hydropolis+Wroclaw" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
+                <strong>Endereço 1:</strong> Sachsendamm 12, 10829 Berlim
+                <a href="https://maps.google.com/?q=Sachsendamm+12+10829+Berlin" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
             </div>
             <div class="address-item" style="margin-top: 10px;">
-                <strong>Kolejkowo (Mundo das Miniaturas):</strong> Powstańców Śląskich 95, 53-332 Wrocław
-                <a href="https://maps.google.com/?q=Kolejkowo+Wroclaw" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
-            </div>
-            <div class="address-item" style="margin-top: 10px;">
-                <strong>Ponte dos Penitentes (Igreja Sta. Maria Madalena):</strong> szewska 10, 50-122 Wrocław
-                <a href="https://maps.google.com/?q=St.+Mary+Magdalene+Church+Wroclaw" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
-            </div>
-            <div class="address-item" style="margin-top: 10px;">
-                <strong>Castelo Książ (Bate-volta / Wałbrzych):</strong> Piastów Śląskich 1, 58-306 Wałbrzych
-                <a href="https://maps.google.com/?q=Ksiaz+Castle+Walbrzych" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
+                <strong>Endereço 2:</strong> Dickhardtstraße 21/22, 12161 Berlim
+                <a href="https://maps.google.com/?q=Dickhardtstraße+21+12161+Berlin" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
             </div>
         </div>
+        <div class="card-box" id="end-fuchse">
+            <h3>🤾‍♂️ Fuchse Berlim</h3>
+            <div class="address-item">
+                <strong>Fuchse 1:</strong> Freiheitsweg 18, 13407 Berlim
+                <a href="https://maps.google.com/?q=Freiheitsweg+18+13407+Berlin" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
+            </div>
+            <div class="address-item" style="margin-top: 10px;">
+                <strong>Fuchse 2:</strong> Kienhorstr. 67-69, 13403 Berlim
+                <a href="https://maps.google.com/?q=Kienhorstr.+67+13403+Berlin" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
+            </div>
+        </div>
+    </div>
 
-        <!-- Categoria Outros -->
-        <div class="card-box" style="border-left: 4px solid #718096;">
-            <h3>📦 Outros (Wroclaw)</h3>
-            <p style="font-size: 8pt; color: var(--text-light); margin-bottom: 6px;">Itens e links que serão classificados posteriormente:</p>
+    <!-- Novos Links Organizados por Categoria -->
+    <div class="card-box" style="border-left: 4px solid #38a169;">
+        <h3>🍔 Comida (Dicas da Mônica)</h3>
+        <div class="action-links">
+            <a href="https://www.instagram.com/reel/DZesSSiobXz/?igsh=bHE0cDFkaG1lcG4z" target="_blank" class="btn-link">🍽️ Dica de Comida 1</a>
+            <a href="https://www.instagram.com/reel/DbBXLscoowY/?igsh=N2ZvN2Fia2d2aHBu" target="_blank" class="btn-link">🍽️ Dica de Comida 2</a>
+            <a href="https://www.instagram.com/reel/DbJRlctM3IR/?igsh=MTR6Y2xzaWc3d3dvOQ==" target="_blank" class="btn-link">🍽️ Dica de Comida 3</a>
+            <a href="https://www.instagram.com/p/DadgZIiik2L/?img_index=7&igsh=MWx0bTdlYXdhb3lwYw==" target="_blank" class="btn-link">🍽️ Dica de Comida 4</a>
+            <a href="https://www.instagram.com/reel/Da-7YCdu0er/?igsh=MW9yM2wwejBxbWJmZw==" target="_blank" class="btn-link">🍽️ Dica de Comida 5</a>
+            <a href="https://www.instagram.com/reel/DansCTvs3Mq/?igsh=MXA2dnlpcXhrdzV5dg==" target="_blank" class="btn-link">🍽️ Dica de Comida 6</a>
+        </div>
+    </div>
+
+    <div class="card-box" style="border-left: 4px solid #d69e2e;">
+        <h3>🛒 Costumes / Curiosidades (Supermercado)</h3>
+        <div class="action-links">
+            <a href="https://www.instagram.com/p/Da7PtOWDNKM/?img_index=6&igsh=MWxpNXgzM2k4MGJ6ZQ==" target="_blank" class="btn-link" style="background:#feebc8; color:#744210;">🛒 Como usar o Supermercado</a>
+        </div>
+    </div>
+
+    <div class="card-box" style="border-left: 4px solid #3182ce;">
+        <h3>📍 Locais para Visitar</h3>
+        <div class="action-links">
+            <a href="https://www.instagram.com/reel/Da-jERqomCG/?igsh=NXliYTlpbjIzZ3o1" target="_blank" class="btn-link">🏛️ Local para Visitar 1</a>
+            <a href="https://www.instagram.com/p/DbWYhm_Cmhq/?img_index=10&igsh=MXNjamI4aXQ4ZnFtcQ==" target="_blank" class="btn-link">🏛️ Local para Visitar 2</a>
+        </div>
+    </div>
+
+    <div class="card-box" style="border-left: 4px solid #97266d;">
+        <h3>🗺️ Roteiros Sugeridos</h3>
+        <div class="action-links">
+            <a href="https://www.instagram.com/reel/DbWY5DAtQRT/?igsh=MWQ3cTBkbnlicjY0aQ==" target="_blank" class="btn-link" style="background:#fed7e2; color:#97266d;">🗺️ Roteiro Sugerido Instagram</a>
+        </div>
+    </div>
+
+    <div class="card-box" style="margin-top: 12px; border-left: 4px solid #718096;">
+        <h3>📦 Outros (Berlim)</h3>
+        <div class="action-links" style="margin-top:4px;">
+            <a href="https://www.instagram.com/reel/DbQcmYKosz6/?igsh=MXU4cm0yNXJldndlbA==" target="_blank" class="btn-link">📸 U-Bahn-Convertible (Reel)</a>
+            <a href="https://www.instagram.com/reel/DaAurVUsl5r/?igsh=MTNscmt3anZ1ZnBpNw==" target="_blank" class="btn-link">📸 Mall of Berlin (Reel)</a>
+        </div>
+    </div>
+</div>
+
+<!-- ABA 3: COPENHAGUE -->
+<div id="tab-copenhague" class="tab-content">
+    <h2>Copenhague (Dinamarca & Endereços)</h2>
+
+    <div class="card-box">
+        <h3>🏡 Hospedagem & Logística (04 a 07/Fev)</h3>
+        <div class="address-item">
+            <strong>Endereço:</strong> Kompagnistræde 27 1st floor, Copenhague, 1208, Dinamarca
+            <div style="font-size: 7.5pt; color: var(--text-light); margin-top: 2px;">Check-in: 16h | Check-out: 11h</div>
+            <a href="https://maps.google.com/?q=Kompagnistræde+27+1208+Copenhagen" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
+        </div>
+        <div class="address-item" style="margin-top: 8px;">
+            <strong>Estação Principal:</strong> København H (Ponto de chegada dos trens de Berlim).
+            <a href="https://maps.google.com/?q=Copenhagen+Central+Station" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
+        </div>
+    </div>
+
+    <div class="card-box">
+        <h3>🇩🇰 Roteiro & Principais Pontos (04/02 a 07/02)</h3>
+        <ul style="font-size: 8.5pt; margin-left: 18px; margin-bottom: 10px;">
+            <li><strong>LEGO Store:</strong> Strøget (Vimmelskaftet 37). <a href="https://maps.google.com/?q=LEGO+Store+Copenhagen+Vimmelskaftet" target="_blank" class="btn-link" style="display:inline-flex; margin-left:4px;">🗺️ Mapa</a></li>
+            <li><strong>Palácio de Amalienborg & Igreja de Mármore:</strong> Frederiksgade 4. <a href="https://maps.google.com/?q=Amalienborg+Palace" target="_blank" class="btn-link" style="display:inline-flex; margin-left:4px;">🗺️ Mapa</a></li>
+            <li><strong>Castelo de Rosenborg:</strong> Øster Voldgade 4A. <a href="https://maps.google.com/?q=Rosenborg+Castle+Copenhagen" target="_blank" class="btn-link" style="display:inline-flex; margin-left:4px;">🗺️ Mapa</a></li>
+            <li><strong>Experimentarium:</strong> Tuborg Havnevej 7, Hellerup. <a href="https://maps.google.com/?q=Experimentarium+Hellerup" target="_blank" class="btn-link" style="display:inline-flex; margin-left:4px;">🗺️ Mapa</a></li>
+            <li><strong>A Pequena Sereia:</strong> Langelinie, 2100 København Ø. <a href="https://maps.google.com/?q=The+Little+Mermaid+Copenhagen" target="_blank" class="btn-link" style="display:inline-flex; margin-left:4px;">🗺️ Mapa</a></li>
+        </ul>
+    </div>
+
+    <!-- Categoria Outros -->
+    <div class="card-box" style="border-left: 4px solid #718096;">
+        <h3>📦 Outros (Copenhague)</h3>
+        <p style="font-size: 8pt; color: var(--text-light); margin-bottom: 6px;">Itens e links que serão classificados posteriormente:</p>
+        <div class="action-links">
+            <span style="font-size: 8pt; color: var(--text-light); font-style: italic;">Nenhum item pendente no momento.</span>
+        </div>
+    </div>
+</div>
+
+<!-- ABA 4: WROCLAW -->
+<div id="tab-wroclaw" class="tab-content">
+    <h2>Wroclaw (Polônia & Endereços)</h2>
+
+
+    <div class="card-box">
+        <h3>🏡 Hospedagem (10 a 12/Fev)</h3>
+        <div class="address-item">
+            <strong>Endereço:</strong> Wrocław, Dolnośląskie 50-076
+            <div style="font-size: 7.5pt; color: var(--text-light); margin-top: 2px;">Check-in: 15h | Check-out: 11h</div>
+            <a href="https://maps.google.com/?q=Wroclaw+Dolnoslaskie+50-076" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
+        </div>
+    </div>
+
+    <div class="card-box">
+        <h3>🇵🇱 Atrações Imperdíveis (10/02 a 12/02)</h3>
+        <div class="address-item">
+            <strong>Hydropolis (Centro de Ciências da Água):</strong> Na Grobli 19/+48, 50-421 Wrocław
+            <a href="https://maps.google.com/?q=Hydropolis+Wroclaw" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
+        </div>
+        <div class="address-item" style="margin-top: 10px;">
+            <strong>Kolejkowo (Mundo das Miniaturas):</strong> Powstańców Śląskich 95, 53-332 Wrocław
+            <a href="https://maps.google.com/?q=Kolejkowo+Wroclaw" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
+        </div>
+        <div class="address-item" style="margin-top: 10px;">
+            <strong>Ponte dos Penitentes (Igreja Sta. Maria Madalena):</strong> szewska 10, 50-122 Wrocław
+            <a href="https://maps.google.com/?q=St.+Mary+Magdalene+Church+Wroclaw" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
+        </div>
+        <div class="address-item" style="margin-top: 10px;">
+            <strong>Castelo Książ (Bate-volta / Wałbrzych):</strong> Piastów Śląskich 1, 58-306 Wałbrzych
+            <a href="https://maps.google.com/?q=Ksiaz+Castle+Walbrzych" target="_blank" class="btn-link" style="margin-top:4px;">🗺️ Google Maps</a>
+        </div>
+    </div>
+
+    <!-- Categoria Outros -->
+    <div class="card-box" style="border-left: 4px solid #718096;">
+        <h3>📦 Outros (Wroclaw)</h3>
+        <p style="font-size: 8pt; color: var(--text-light); margin-bottom: 6px;">Itens e links que serão classificados posteriormente:</p>
+        <div class="action-links">
+            <span style="font-size: 8pt; color: var(--text-light); font-style: italic;">Nenhum item pendente no momento.</span>
+        </div>
+    </div>
+</div>
+
+<!-- ABA 5: CHECKLIST -->
+<div id="tab-checklist" class="tab-content">
+    <h2>Checklist de Bagagem & Hospedagem</h2>
+
+    <div class="progress-box">
+        <strong>Progresso da Viagem (Sincronizado)</strong>
+        <div class="progress-bar-container">
+            <div id="progress-bar" class="progress-bar"></div>
+        </div>
+        <div id="progress-text" class="progress-text">Sincronizando com a nuvem...</div>
+    </div>
+
+    <!-- 1. Hospedagem -->
+    <div class="card-box" id="card-hospedagem" style="border-left: 4px solid #d69e2e;">
+        <h3>🏡 Definir Hospedagens nas Cidades</h3>
+        <label class="check-item"><input type="checkbox" data-id="hosp-berlim"> <span>Reservar Airbnb em Berlim</span></label>
+        <label class="check-item"><input type="checkbox" data-id="hosp-copenhague"> <span>Reservar Airbnb em Copenhague</span></label>
+        <label class="check-item"><input type="checkbox" data-id="hosp-wroclaw"> <span>Reservar Airbnb em Wroclaw</span></label>
+        <div id="custom-hospedagem"></div>
+    </div>
+
+    <div class="grid-2">
+        <!-- 2. Geral / Documentos -->
+        <div class="card-box" id="card-documentos">
+            <h3>🧳 Geral / Documentos</h3>
+            <label class="check-item"><input type="checkbox" data-id="doc-passaporte"> <span>Passaportes válidos</span></label>
+            <label class="check-item"><input type="checkbox" data-id="doc-seguro"> <span>Seguro viagem</span></label>
+            <label class="check-item"><input type="checkbox" data-id="doc-reservas"> <span>Reservas de Voos</span></label>
+            <label class="check-item"><input type="checkbox" data-id="doc-cartoes"> <span>Cartões internacionais / Dinheiro</span></label>
+            <div id="custom-documentos"></div>
+        </div>
+
+        <!-- 3. Erick -->
+        <div class="card-box" id="card-erick">
+            <h3>👓 Erick</h3>
+            <label class="check-item"><input type="checkbox" data-id="erick-oculos"> <span>Óculos de grau / Sol</span></label>
+            <label class="check-item"><input type="checkbox" data-id="erick-roupas"> <span>Roupas térmicas / Inverno</span></label>
+            <label class="check-item"><input type="checkbox" data-id="erick-calcados"> <span>Calçados confortáveis / Neve</span></label>
+            <label class="check-item"><input type="checkbox" data-id="erick-eletronicos"> <span>Carregadores e adaptadores</span></label>
+            <div id="custom-erick"></div>
+        </div>
+
+        <!-- 4. Mônica -->
+        <div class="card-box" id="card-monica">
+            <h3>👜 Mônica</h3>
+            <label class="check-item"><input type="checkbox" data-id="monica-oculos"> <span>Óculos</span></label>
+            <label class="check-item"><input type="checkbox" data-id="monica-roupas"> <span>Roupas térmicas / Inverno</span></label>
+            <label class="check-item"><input type="checkbox" data-id="monica-calcados"> <span>Calçados confortáveis</span></label>
+            <label class="check-item"><input type="checkbox" data-id="monica-higiene"> <span>Itens de higiene pessoal</span></label>
+            <div id="custom-monica"></div>
+        </div>
+
+        <!-- 5. Milena -->
+        <div class="card-box" id="card-milena">
+            <h3>🤾‍♀️ Milena</h3>
+            <label class="check-item"><input type="checkbox" data-id="milena-esporte"> <span>Tênis e material de handebol</span></label>
+            <label class="check-item"><input type="checkbox" data-id="milena-roupas"> <span>Roupas de frio / Térmicas</span></label>
+            <label class="check-item"><input type="checkbox" data-id="milena-pessoal"> <span>Itens pessoais e documentos</span></label>
+            <div id="custom-milena"></div>
+        </div>
+    </div>
+
+    <!-- Sugerir Novo Item -->
+    <div class="add-custom-box">
+        <h3>➕ Sugerir Novo Item (Família)</h3>
+        <p style="font-size: 8pt; color: var(--text-light); margin-bottom: 6px;">Lembrou de algo? Escolha o membro ou categoria e adicione:</p>
+        <select id="custom-category-select">
+            <option value="hospedagem">🏡 Hospedagem</option>
+            <option value="documentos">🧳 Geral / Documentos</option>
+            <option value="erick">👓 Erick</option>
+            <option value="monica">👜 Mônica</option>
+            <option value="milena">🤾‍♀️ Milena</option>
+        </select>
+        <input type="text" id="custom-item-input" placeholder="Nome do item (ex: Cabo de aço)...">
+        <button class="btn-link" onclick="addNewCustomItem()" style="padding: 6px 12px; font-size: 8.5pt;">✨ Adicionar à Categoria</button>
+    </div>
+</div>
+
+<!-- ABA 6: VOOS -->
+<div id="tab-voos" class="tab-content">
+    <h2>Informações de Voos (Localizador: GJECNQ)</h2>
+
+    <div class="card-box" style="margin-bottom: 12px; border-left: 4px solid #dd6b20;">
+        <h3>🛫 Trecho de Ida (25/01/2027 a 26/01/2027)</h3>
+        <p style="font-size: 8.5pt; margin-bottom: 8px; font-weight: bold; color: var(--secondary);">Apresentação / Check-in: Guarulhos - Balcão TAM - 25/01/2027 às 20:40</p>
+
+        <div class="flight-card">
+            <div class="flight-header"><span>Voo 1: TAM 8084</span><span>25/01/2027</span></div>
+            <div><strong>De:</strong> Guarulhos (GRU) — 23:40</div>
+            <div><strong>Para:</strong> London Heathrow (LHR) — 26/01/2027 às 14:05</div>
+        </div>
+
+        <div class="flight-card">
+            <div class="flight-header"><span>Voo 2: Eurowings Luftverkehrs 8465</span><span>26/01/2027</span></div>
+            <div><strong>De:</strong> London Heathrow (LHR) — 18:35</div>
+            <div><strong>Para:</strong> Berlim (BER) — 21:30</div>
+        </div>
+    </div>
+
+    <div class="card-box" style="border-left: 4px solid #38a169;">
+        <h3>🛬 Trecho de Volta (13/02/2027 a 14/02/2027)</h3>
+
+        <div class="flight-card">
+            <div class="flight-header"><span>Voo 3: Lufthansa 193</span><span>13/02/2027</span></div>
+            <div><strong>De:</strong> Berlim (BER) — 17:40</div>
+            <div><strong>Para:</strong> Frankfurt (FRA) — 18:50</div>
+        </div>
+
+        <div class="flight-card">
+            <div class="flight-header"><span>Voo 4: TAM 8071</span><span>13/02/2027 a 14/02/2027</span></div>
+            <div><strong>De:</strong> Frankfurt (FRA) — 20:50</div>
+            <div><strong>Para:</strong> Guarulhos (GRU) — 14/02/2027 às 05:05</div>
+        </div>
+    </div>
+</div>
+
+<!-- ABA 7: ALEMÃO -->
+<div id="tab-alemao" class="tab-content">
+    <h2>Tradutor Rápido (Português → Alemão)</h2>
+    <div class="translator-box">
+        <p style="font-size: 8.5pt; margin-bottom: 8px; color: var(--text-light);">Digite o que você quer dizer (ex: "Onde fica o banheiro?", "Quanto custa?"):</p>
+        <textarea id="source-text" placeholder="Digite aqui em português..."></textarea>
+        <button class="btn-link" onclick="translateText()" style="padding: 6px 14px; font-size: 8.5pt;">🌐 Traduzir para Alemão</button>
+
+        <div id="translator-output" class="translator-result" style="display: none;">
+            <span id="translated-text">...</span>
+            <button class="audio-btn" onclick="speakGerman()" title="Ouvir pronúncia">🔊 Ouvir</button>
+        </div>
+    </div>
+
+    <h2>Guia de Sobrevivência: Português x Alemão</h2>
+
+    <div class="card-box" style="margin-bottom: 15px;">
+        <h3>✈️ Educação & Básico</h3>
+        <table class="dict-table">
+            <tr><th>Português</th><th>Alemão</th><th>Pronúncia / Áudio</th></tr>
+            <tr><td>Olá / Bom dia</td><td>Guten Tag</td><td><button class="audio-btn" onclick="speakWord('Guten Tag')">🔊 Ouvir</button></td></tr>
+            <tr><td>Boa noite</td><td>Guten Abend</td><td><button class="audio-btn" onclick="speakWord('Guten Abend')">🔊 Ouvir</button></td></tr>
+            <tr><td>Por favor</td><td>Bitte</td><td><button class="audio-btn" onclick="speakWord('Bitte')">🔊 Ouvir</button></td></tr>
+            <tr><td>Obrigado(a)</td><td>Danke</td><td><button class="audio-btn" onclick="speakWord('Danke')">🔊 Ouvir</button></td></tr>
+            <tr><td>Sim / Não</td><td>Ja / Nein</td><td><button class="audio-btn" onclick="speakWord('Ja Nein')">🔊 Ouvir</button></td></tr>
+            <tr><td>Com licença / Desculpa</td><td>Entschuldigung</td><td><button class="audio-btn" onclick="speakWord('Entschuldigung')">🔊 Ouvir</button></td></tr>
+            <tr><td>Você fala inglês?</td><td>Sprechen Sie Englisch?</td><td><button class="audio-btn" onclick="speakWord('Sprechen Sie Englisch?')">🔊 Ouvir</button></td></tr>
+        </table>
+    </div>
+
+    <div class="card-box" style="margin-bottom: 15px;">
+        <h3>🍽️ Restaurantes & Comida</h3>
+        <table class="dict-table">
+            <tr><th>Português</th><th>Alemão</th><th>Áudio</th></tr>
+            <tr><td>Uma cerveja, por favor</td><td>Ein Bier, bitte</td><td><button class="audio-btn" onclick="speakWord('Ein Bier, bitte')">🔊 Ouvir</button></td></tr>
+            <tr><td>A conta, por favor</td><td>Die Rechnung, bitte</td><td><button class="audio-btn" onclick="speakWord('Die Rechnung, bitte')">🔊 Ouvir</button></td></tr>
+            <tr><td>Água sem gás / com gás</td><td>Wasser ohne / mit Kohlensäure</td><td><button class="audio-btn" onclick="speakWord('Wasser ohne Kohlensäure')">🔊 Ouvir</button></td></tr>
+            <tr><td>Comida vegetariana</td><td>Vegetarisches Essen</td><td><button class="audio-btn" onclick="speakWord('Vegetarisches Essen')">🔊 Ouvir</button></td></tr>
+            <tr><td>Está delicioso!</td><td>Es schmeckt lecker!</td><td><button class="audio-btn" onclick="speakWord('Es schmeckt lecker!')">🔊 Ouvir</button></td></tr>
+        </table>
+    </div>
+
+    <div class="card-box" style="margin-bottom: 15px;">
+        <h3>🗺️ Direções & Transporte</h3>
+        <table class="dict-table">
+            <tr><th>Português</th><th>Alemão</th><th>Áudio</th></tr>
+            <tr><td>Onde fica o banheiro?</td><td>Wo ist die Toilette?</td><td><button class="audio-btn" onclick="speakWord('Wo ist die Toilette?')">🔊 Ouvir</button></td></tr>
+            <tr><td>Estação de trem</td><td>Bahnhof</td><td><button class="audio-btn" onclick="speakWord('Bahnhof')">🔊 Ouvir</button></td></tr>
+            <tr><td>Aeroporto</td><td>Flughafen</td><td><button class="audio-btn" onclick="speakWord('Flughafen')">🔊 Ouvir</button></td></tr>
+            <tr><td>Saída</td><td>Ausgang</td><td><button class="audio-btn" onclick="speakWord('Ausgang')">🔊 Ouvir</button></td></tr>
+            <tr><td>Quanto custa?</td><td>Wie viel kostet das?</td><td><button class="audio-btn" onclick="speakWord('Wie viel kostet das?')">🔊 Ouvir</button></td></tr>
+        </table>
+    </div>
+</div>
+
+<!-- ABA 8: CRONOGRAMA DETALHADO -->
+<div id="tab-cronograma" class="tab-content">
+    <h2>
+        <span>Cronograma Detalhado</span>
+        <button class="back-to-top" onclick="switchTab('tab-calendario')">📅 Ir ao Calendário</button>
+    </h2>
+
+    <div id="d-25-01" class="day-card">
+        <div class="day-header"><span class="day-date">Seg, 25/01/2027</span><span class="badge b-voo">Voo</span></div>
+        <div class="day-content">Apresentação balcão TAM (GRU) 20:40 | Voo TAM 8084 para Londres (23:40).</div>
+    </div>
+
+    <div id="d-26-01" class="day-card">
+        <div class="day-header"><span class="day-date">Ter, 26/01/2027</span><span class="badge b-viagem">Chegada</span></div>
+        <div class="day-content">Conexão em Heathrow (LHR) → Voo Eurowings para Berlim (Chegada 21:30) | Check-in Airbnb Heinrich-Heine-Straße.</div>
+    </div>
+
+    <div id="d-27-01" class="day-card">
+        <div class="day-header"><span class="day-date">Qua, 27/01/2027</span><span class="badge b-treino">Treino</span></div>
+        <div class="day-content">
+            Treino: SG - OSF (18:45 - 20:15).
             <div class="action-links">
-                <span style="font-size: 8pt; color: var(--text-light); font-style: italic;">Nenhum item pendente no momento.</span>
+                <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-sgosf');">📍 Ver Endereços SG - OSF</button>
             </div>
         </div>
     </div>
 
-    <!-- ABA 5: CHECKLIST -->
-    <div id="tab-checklist" class="tab-content">
-        <h2>Checklist de Bagagem & Hospedagem</h2>
-        
-        <div class="progress-box">
-            <strong>Progresso da Viagem (Sincronizado)</strong>
-            <div class="progress-bar-container">
-                <div id="progress-bar" class="progress-bar"></div>
-            </div>
-            <div id="progress-text" class="progress-text">Sincronizando com a nuvem...</div>
-        </div>
-
-        <!-- 1. Hospedagem -->
-        <div class="card-box" id="card-hospedagem" style="border-left: 4px solid #d69e2e;">
-            <h3>🏡 Definir Hospedagens nas Cidades</h3>
-            <label class="check-item"><input type="checkbox" data-id="hosp-berlim"> <span>Reservar Airbnb em Berlim</span></label>
-            <label class="check-item"><input type="checkbox" data-id="hosp-copenhague"> <span>Reservar Airbnb em Copenhague</span></label>
-            <label class="check-item"><input type="checkbox" data-id="hosp-wroclaw"> <span>Reservar Airbnb em Wroclaw</span></label>
-            <div id="custom-hospedagem"></div>
-        </div>
-
-        <div class="grid-2">
-            <!-- 2. Geral / Documentos -->
-            <div class="card-box" id="card-documentos">
-                <h3>🧳 Geral / Documentos</h3>
-                <label class="check-item"><input type="checkbox" data-id="doc-passaporte"> <span>Passaportes válidos</span></label>
-                <label class="check-item"><input type="checkbox" data-id="doc-seguro"> <span>Seguro viagem</span></label>
-                <label class="check-item"><input type="checkbox" data-id="doc-reservas"> <span>Reservas de Voos</span></label>
-                <label class="check-item"><input type="checkbox" data-id="doc-cartoes"> <span>Cartões internacionais / Dinheiro</span></label>
-                <div id="custom-documentos"></div>
-            </div>
-
-            <!-- 3. Erick -->
-            <div class="card-box" id="card-erick">
-                <h3>👓 Erick</h3>
-                <label class="check-item"><input type="checkbox" data-id="erick-oculos"> <span>Óculos de grau / Sol</span></label>
-                <label class="check-item"><input type="checkbox" data-id="erick-roupas"> <span>Roupas térmicas / Inverno</span></label>
-                <label class="check-item"><input type="checkbox" data-id="erick-calcados"> <span>Calçados confortáveis / Neve</span></label>
-                <label class="check-item"><input type="checkbox" data-id="erick-eletronicos"> <span>Carregadores e adaptadores</span></label>
-                <div id="custom-erick"></div>
-            </div>
-
-            <!-- 4. Mônica -->
-            <div class="card-box" id="card-monica">
-                <h3>👜 Mônica</h3>
-                <label class="check-item"><input type="checkbox" data-id="monica-oculos"> <span>Óculos</span></label>
-                <label class="check-item"><input type="checkbox" data-id="monica-roupas"> <span>Roupas térmicas / Inverno</span></label>
-                <label class="check-item"><input type="checkbox" data-id="monica-calcados"> <span>Calçados confortáveis</span></label>
-                <label class="check-item"><input type="checkbox" data-id="monica-higiene"> <span>Itens de higiene pessoal</span></label>
-                <div id="custom-monica"></div>
-            </div>
-
-            <!-- 5. Milena -->
-            <div class="card-box" id="card-milena">
-                <h3>🤾‍♀️ Milena</h3>
-                <label class="check-item"><input type="checkbox" data-id="milena-esporte"> <span>Tênis e material de handebol</span></label>
-                <label class="check-item"><input type="checkbox" data-id="milena-roupas"> <span>Roupas de frio / Térmicas</span></label>
-                <label class="check-item"><input type="checkbox" data-id="milena-pessoal"> <span>Itens pessoais e documentos</span></label>
-                <div id="custom-milena"></div>
-            </div>
-        </div>
-
-        <!-- Sugerir Novo Item -->
-        <div class="add-custom-box">
-            <h3>➕ Sugerir Novo Item (Família)</h3>
-            <p style="font-size: 8pt; color: var(--text-light); margin-bottom: 6px;">Lembrou de algo? Escolha o membro ou categoria e adicione:</p>
-            <select id="custom-category-select">
-                <option value="hospedagem">🏡 Hospedagem</option>
-                <option value="documentos">🧳 Geral / Documentos</option>
-                <option value="erick">👓 Erick</option>
-                <option value="monica">👜 Mônica</option>
-                <option value="milena">🤾‍♀️ Milena</option>
-            </select>
-            <input type="text" id="custom-item-input" placeholder="Nome do item (ex: Cabo de aço)...">
-            <button class="btn-link" onclick="addNewCustomItem()" style="padding: 6px 12px; font-size: 8.5pt;">✨ Adicionar à Categoria</button>
-        </div>
-    </div>
-
-    <!-- ABA 6: VOOS -->
-    <div id="tab-voos" class="tab-content">
-        <h2>Informações de Voos (Localizador: GJECNQ)</h2>
-        
-        <div class="card-box" style="margin-bottom: 12px; border-left: 4px solid #dd6b20;">
-            <h3>🛫 Trecho de Ida (25/01/2027 a 26/01/2027)</h3>
-            <p style="font-size: 8.5pt; margin-bottom: 8px; font-weight: bold; color: var(--secondary);">Apresentação / Check-in: Guarulhos - Balcão TAM - 25/01/2027 às 20:40</p>
-            
-            <div class="flight-card">
-                <div class="flight-header"><span>Voo 1: TAM 8084</span><span>25/01/2027</span></div>
-                <div><strong>De:</strong> Guarulhos (GRU) — 23:40</div>
-                <div><strong>Para:</strong> London Heathrow (LHR) — 26/01/2027 às 14:05</div>
-            </div>
-
-            <div class="flight-card">
-                <div class="flight-header"><span>Voo 2: Eurowings Luftverkehrs 8465</span><span>26/01/2027</span></div>
-                <div><strong>De:</strong> London Heathrow (LHR) — 18:35</div>
-                <div><strong>Para:</strong> Berlim (BER) — 21:30</div>
-            </div>
-        </div>
-
-        <div class="card-box" style="border-left: 4px solid #38a169;">
-            <h3>🛬 Trecho de Volta (13/02/2027 a 14/02/2027)</h3>
-            
-            <div class="flight-card">
-                <div class="flight-header"><span>Voo 3: Lufthansa 193</span><span>13/02/2027</span></div>
-                <div><strong>De:</strong> Berlim (BER) — 17:40</div>
-                <div><strong>Para:</strong> Frankfurt (FRA) — 18:50</div>
-            </div>
-
-            <div class="flight-card">
-                <div class="flight-header"><span>Voo 4: TAM 8071</span><span>13/02/2027 a 14/02/2027</span></div>
-                <div><strong>De:</strong> Frankfurt (FRA) — 20:50</div>
-                <div><strong>Para:</strong> Guarulhos (GRU) — 14/02/2027 às 05:05</div>
+    <div id="d-28-01" class="day-card">
+        <div class="day-header"><span class="day-date">Qui, 28/01/2027</span><span class="badge b-treino">Treino</span></div>
+        <div class="day-content">
+            Treino: Fuchse 1 (17:00 - 18:30).
+            <div class="action-links">
+                <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-fuchse');">📍 Ver Endereço Fuchse 1</button>
             </div>
         </div>
     </div>
 
-    <!-- ABA 7: ALEMÃO -->
-    <div id="tab-alemao" class="tab-content">
-        <h2>Tradutor Rápido (Português → Alemão)</h2>
-        <div class="translator-box">
-            <p style="font-size: 8.5pt; margin-bottom: 8px; color: var(--text-light);">Digite o que você quer dizer (ex: "Onde fica o banheiro?", "Quanto custa?"):</p>
-            <textarea id="source-text" placeholder="Digite aqui em português..."></textarea>
-            <button class="btn-link" onclick="translateText()" style="padding: 6px 14px; font-size: 8.5pt;">🌐 Traduzir para Alemão</button>
-            
-            <div id="translator-output" class="translator-result" style="display: none;">
-                <span id="translated-text">...</span>
-                <button class="audio-btn" onclick="speakGerman()" title="Ouvir pronúncia">🔊 Ouvir</button>
+    <div id="d-29-01" class="day-card">
+        <div class="day-header"><span class="day-date">Sex, 29/01/2027</span><span class="badge b-treino">Treino</span></div>
+        <div class="day-content">
+            Treino: Fuchse 2 (18:30 - 20:00).
+            <div class="action-links">
+                <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-fuchse');">📍 Ver Endereço Fuchse 2</button>
             </div>
-        </div>
-
-        <h2>Guia de Sobrevivência: Português x Alemão</h2>
-        
-        <div class="card-box" style="margin-bottom: 15px;">
-            <h3>✈️ Educação & Básico</h3>
-            <table class="dict-table">
-                <tr><th>Português</th><th>Alemão</th><th>Pronúncia / Áudio</th></tr>
-                <tr><td>Olá / Bom dia</td><td>Guten Tag</td><td><button class="audio-btn" onclick="speakWord('Guten Tag')">🔊 Ouvir</button></td></tr>
-                <tr><td>Boa noite</td><td>Guten Abend</td><td><button class="audio-btn" onclick="speakWord('Guten Abend')">🔊 Ouvir</button></td></tr>
-                <tr><td>Por favor</td><td>Bitte</td><td><button class="audio-btn" onclick="speakWord('Bitte')">🔊 Ouvir</button></td></tr>
-                <tr><td>Obrigado(a)</td><td>Danke</td><td><button class="audio-btn" onclick="speakWord('Danke')">🔊 Ouvir</button></td></tr>
-                <tr><td>Sim / Não</td><td>Ja / Nein</td><td><button class="audio-btn" onclick="speakWord('Ja Nein')">🔊 Ouvir</button></td></tr>
-                <tr><td>Com licença / Desculpa</td><td>Entschuldigung</td><td><button class="audio-btn" onclick="speakWord('Entschuldigung')">🔊 Ouvir</button></td></tr>
-                <tr><td>Você fala inglês?</td><td>Sprechen Sie Englisch?</td><td><button class="audio-btn" onclick="speakWord('Sprechen Sie Englisch?')">🔊 Ouvir</button></td></tr>
-            </table>
-        </div>
-
-        <div class="card-box" style="margin-bottom: 15px;">
-            <h3>🍽️ Restaurantes & Comida</h3>
-            <table class="dict-table">
-                <tr><th>Português</th><th>Alemão</th><th>Áudio</th></tr>
-                <tr><td>Uma cerveja, por favor</td><td>Ein Bier, bitte</td><td><button class="audio-btn" onclick="speakWord('Ein Bier, bitte')">🔊 Ouvir</button></td></tr>
-                <tr><td>A conta, por favor</td><td>Die Rechnung, bitte</td><td><button class="audio-btn" onclick="speakWord('Die Rechnung, bitte')">🔊 Ouvir</button></td></tr>
-                <tr><td>Água sem gás / com gás</td><td>Wasser ohne / mit Kohlensäure</td><td><button class="audio-btn" onclick="speakWord('Wasser ohne Kohlensäure')">🔊 Ouvir</button></td></tr>
-                <tr><td>Comida vegetariana</td><td>Vegetarisches Essen</td><td><button class="audio-btn" onclick="speakWord('Vegetarisches Essen')">🔊 Ouvir</button></td></tr>
-                <tr><td>Está delicioso!</td><td>Es schmeckt lecker!</td><td><button class="audio-btn" onclick="speakWord('Es schmeckt lecker!')">🔊 Ouvir</button></td></tr>
-            </table>
-        </div>
-
-        <div class="card-box" style="margin-bottom: 15px;">
-            <h3>🗺️ Direções & Transporte</h3>
-            <table class="dict-table">
-                <tr><th>Português</th><th>Alemão</th><th>Áudio</th></tr>
-                <tr><td>Onde fica o banheiro?</td><td>Wo ist die Toilette?</td><td><button class="audio-btn" onclick="speakWord('Wo ist die Toilette?')">🔊 Ouvir</button></td></tr>
-                <tr><td>Estação de trem</td><td>Bahnhof</td><td><button class="audio-btn" onclick="speakWord('Bahnhof')">🔊 Ouvir</button></td></tr>
-                <tr><td>Aeroporto</td><td>Flughafen</td><td><button class="audio-btn" onclick="speakWord('Flughafen')">🔊 Ouvir</button></td></tr>
-                <tr><td>Saída</td><td>Ausgang</td><td><button class="audio-btn" onclick="speakWord('Ausgang')">🔊 Ouvir</button></td></tr>
-                <tr><td>Quanto custa?</td><td>Wie viel kostet das?</td><td><button class="audio-btn" onclick="speakWord('Wie viel kostet das?')">🔊 Ouvir</button></td></tr>
-            </table>
         </div>
     </div>
 
-    <!-- ABA 8: CRONOGRAMA DETALHADO -->
-    <div id="tab-cronograma" class="tab-content">
-        <h2>
-            <span>Cronograma Detalhado</span>
-            <button class="back-to-top" onclick="switchTab('tab-calendario')">📅 Ir ao Calendário</button>
-        </h2>
-
-        <div id="d-25-01" class="day-card">
-            <div class="day-header"><span class="day-date">Seg, 25/01/2027</span><span class="badge b-voo">Voo</span></div>
-            <div class="day-content">Apresentação balcão TAM (GRU) 20:40 | Voo TAM 8084 para Londres (23:40).</div>
-        </div>
-
-        <div id="d-26-01" class="day-card">
-            <div class="day-header"><span class="day-date">Ter, 26/01/2027</span><span class="badge b-viagem">Chegada</span></div>
-            <div class="day-content">Conexão em Heathrow (LHR) → Voo Eurowings para Berlim (Chegada 21:30) | Check-in Airbnb Heinrich-Heine-Straße.</div>
-        </div>
-
-        <div id="d-27-01" class="day-card">
-            <div class="day-header"><span class="day-date">Qua, 27/01/2027</span><span class="badge b-treino">Treino</span></div>
-            <div class="day-content">
-                Treino: SG - OSF (18:45 - 20:15).
-                <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-sgosf');">📍 Ver Endereços SG - OSF</button>
-                </div>
+    <div id="d-01-02" class="day-card">
+        <div class="day-header"><span class="day-date">Seg, 01/02/2027</span><span class="badge b-treino">Treino</span></div>
+        <div class="day-content">
+            Treinos: Fuchse 1 (17:00) & SG - OSF Goleira (18:30).
+            <div class="action-links">
+                <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-fuchse');">📍 Fuchse 1</button>
+                <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-sgosf');">📍 SG - OSF</button>
             </div>
-        </div>
-
-        <div id="d-28-01" class="day-card">
-            <div class="day-header"><span class="day-date">Qui, 28/01/2027</span><span class="badge b-treino">Treino</span></div>
-            <div class="day-content">
-                Treino: Fuchse 1 (17:00 - 18:30).
-                <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-fuchse');">📍 Ver Endereço Fuchse 1</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="d-29-01" class="day-card">
-            <div class="day-header"><span class="day-date">Sex, 29/01/2027</span><span class="badge b-treino">Treino</span></div>
-            <div class="day-content">
-                Treino: Fuchse 2 (18:30 - 20:00).
-                <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-fuchse');">📍 Ver Endereço Fuchse 2</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="d-01-02" class="day-card">
-            <div class="day-header"><span class="day-date">Seg, 01/02/2027</span><span class="badge b-treino">Treino</span></div>
-            <div class="day-content">
-                Treinos: Fuchse 1 (17:00) & SG - OSF Goleira (18:30).
-                <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-fuchse');">📍 Fuchse 1</button>
-                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-sgosf');">📍 SG - OSF</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="d-02-02" class="day-card">
-            <div class="day-header"><span class="day-date">Ter, 02/02/2027</span><span class="badge b-treino">Treino</span></div>
-            <div class="day-content">
-                Treino: SG - OSF (18:30 - 20:00).
-                <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-sgosf');">📍 Ver Endereços SG - OSF</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="d-03-02" class="day-card">
-            <div class="day-header"><span class="day-date">Qua, 03/02/2027</span><span class="badge b-treino">Treino</span></div>
-            <div class="day-content">
-                Treinos: Fuchse 1 (17:00) & SG - OSF (18:45).
-                <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-fuchse');">📍 Fuchse 1</button>
-                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-sgosf');">📍 SG - OSF</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="d-04-02" class="day-card">
-            <div class="day-header"><span class="day-date">Qui, 04/02/2027</span><span class="badge b-viagem">Viagem & Copenhague</span></div>
-            <div class="day-content">
-                Trem Berlim Hbf → København H | Check-in Airbnb | Final da tarde: Passeio por Nyhavn (canal colorido) e caminhada leve pela região central.
-            </div>
-        </div>
-
-        <div id="d-05-02" class="day-card">
-            <div class="day-header"><span class="day-date">Sex, 05/02/2027</span><span class="badge b-viagem">Copenhague</span></div>
-            <div class="day-content">
-                Manhã: Palácio de Amalienborg (troca da guarda ao meio-dia) e Igreja de Mármore.<br>
-                Tarde: Caminhada pela Strøget e visita à <b>LEGO Store Copenhagen</b> (Vimmelskaftet 37).<br>
-                Final do dia: Rundetaarn (Torre Redonda) e jantar no centro.
-            </div>
-        </div>
-
-        <div id="d-06-02" class="day-card">
-            <div class="day-header"><span class="day-date">Sáb, 06/02/2027</span><span class="badge b-viagem">Copenhague</span></div>
-            <div class="day-content">
-                Manhã / Início da tarde: Experimentarium (museu de ciência super interativo).<br>
-                Tarde: Visita à estátua da Pequena Sereia e caminhada pelo Kastellet.
-            </div>
-        </div>
-
-        <div id="d-07-02" class="day-card">
-            <div class="day-header"><span class="day-date">Dom, 07/02/2027</span><span class="badge b-viagem">Retorno</span></div>
-            <div class="day-content">
-                Manhã: Castelo de Rosenborg.<br>
-                Tarde: Museu Nacional da Dinamarca (história viking, gratuito para menores de 18 anos) → Retorno à København H e trem de volta para Berlim.
-            </div>
-        </div>
-
-        <div id="d-08-02" class="day-card">
-            <div class="day-header"><span class="day-date">Seg, 08/02/2027</span><span class="badge b-treino">Treino</span></div>
-            <div class="day-content">
-                Treinos: Fuchse 1 (17:00) & SG - OSF Goleira (18:30).
-                <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-fuchse');">📍 Fuchse 1</button>
-                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-sgosf');">📍 SG - OSF</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="d-09-02" class="day-card">
-            <div class="day-header"><span class="day-date">Ter, 09/02/2027</span><span class="badge b-treino">Treino</span></div>
-            <div class="day-content">
-                Treino: SG - OSF (18:30 - 20:00).
-                <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-sgosf');">📍 Ver Endereços SG - OSF</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="d-10-02" class="day-card">
-            <div class="day-header"><span class="day-date">Qua, 10/02/2027</span><span class="badge b-viagem">Wroclaw</span></div>
-            <div class="day-content">
-                Ida para <b>Wroclaw (Polônia)</b> → Check-in Airbnb.<br>
-                Tarde/Início da noite: Iniciar caça aos gnomos (Dwarf-Hunting) pelas ruas e acompanhar o tradicional acendedor de lampiões na Ilha da Catedral (por volta das 15h30/16h).
-                <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-wroclaw');">🇵🇱 Ver Wrocław</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="d-11-02" class="day-card">
-            <div class="day-header"><span class="day-date">Qui, 11/02/2027</span><span class="badge b-viagem">Wroclaw</span></div>
-            <div class="day-content">
-                Manhã: <b>Hydropolis</b> (centro de água ultra-interativo).<br>
-                Tarde: <b>Kolejkowo</b> (incrível mundo de miniaturas e ferromodelismo) e subida na <b>Ponte dos Penitentes</b> para vista panorâmica.
-                <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-wroclaw');">🇵🇱 Ver Wrocław</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="d-12-02" class="day-card">
-            <div class="day-header"><span class="day-date">Sex, 12/02/2027</span><span class="badge b-viagem">Retorno</span></div>
-            <div class="day-content">
-                Manhã: Bate-volta épico ao <b>Castelo Książ</b> (o Castelo Cor de Rosa da Polônia).<br>
-                Tarde: Retorno para <b>Berlim</b> e check-in Airbnb.
-                <div class="action-links">
-                    <button class="btn-link" onclick="switchTab('tab-wroclaw');">🇵🇱 Ver Wrocław</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="d-13-02" class="day-card">
-            <div class="day-header"><span class="day-date">Sáb, 13/02/2027</span><span class="badge b-voo">Retorno</span></div>
-            <div class="day-content">
-                Checkout Airbnb Berlim | Voo Lufthansa BER→FRA (17:40) e Voo TAM 8071 FRA→GRU (20:50).
-                <div class="action-links">
-                    <a href="https://maps.google.com/?q=Berlin+Brandenburg+Airport" target="_blank" class="btn-link">✈️ Aeroporto BER</a>
-                </div>
-            </div>
-        </div>
-
-        <div id="d-14-02" class="day-card">
-            <div class="day-header"><span class="day-date">Dom, 14/02/2027</span><span class="badge b-voo">Fim</span></div>
-            <div class="day-content">Chegada em São Paulo (GRU) às 05:05.</div>
         </div>
     </div>
 
-    <footer>
-        Criado por Adora para Família Nogueira • 2027
-    </footer>
+    <div id="d-02-02" class="day-card">
+        <div class="day-header"><span class="day-date">Ter, 02/02/2027</span><span class="badge b-treino">Treino</span></div>
+        <div class="day-content">
+            Treino: SG - OSF (18:30 - 20:00).
+            <div class="action-links">
+                <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-sgosf');">📍 Ver Endereços SG - OSF</button>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycbwQDWrMBSEMtATAoK8DXY36q_YIf0GOC1bK0ZAaOh55LHy4rDcR-fGKtXjIWeavXgxW/exec";
+    <div id="d-03-02" class="day-card">
+        <div class="day-header"><span class="day-date">Qua, 03/02/2027</span><span class="badge b-treino">Treino</span></div>
+        <div class="day-content">
+            Treinos: Fuchse 1 (17:00) & SG - OSF (18:45).
+            <div class="action-links">
+                <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-fuchse');">📍 Fuchse 1</button>
+                <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-sgosf');">📍 SG - OSF</button>
+            </div>
+        </div>
+    </div>
 
-        const fixedIds = [
-            'hosp-berlim', 'hosp-copenhague', 'hosp-wroclaw',
-            'doc-passaporte', 'doc-seguro', 'doc-reservas', 'doc-cartoes',
-            'erick-oculos', 'erick-roupas', 'erick-calcados', 'erick-eletronicos',
-            'monica-oculos', 'monica-roupas', 'monica-calcados', 'monica-higiene',
-            'milena-esporte', 'milena-roupas', 'milena-pessoal'
-        ];
+    <div id="d-04-02" class="day-card">
+        <div class="day-header"><span class="day-date">Qui, 04/02/2027</span><span class="badge b-viagem">Viagem & Copenhague</span></div>
+        <div class="day-content">
+            Trem Berlim Hbf → København H | Check-in Airbnb | Final da tarde: Passeio por Nyhavn (canal colorido) e caminhada leve pela região central.
+        </div>
+    </div>
 
-        function toggleTheme() {
-            const body = document.body;
-            body.classList.toggle('dark-mode');
-            const btn = document.getElementById('theme-btn');
-            if (body.classList.contains('dark-mode')) {
-                btn.innerText = "☀️";
-                localStorage.setItem('theme', 'dark');
-            } else {
-                btn.innerText = "🌙";
-                localStorage.setItem('theme', 'light');
-            }
+    <div id="d-05-02" class="day-card">
+        <div class="day-header"><span class="day-date">Sex, 05/02/2027</span><span class="badge b-viagem">Copenhague</span></div>
+        <div class="day-content">
+            Manhã: Palácio de Amalienborg (troca da guarda ao meio-dia) e Igreja de Mármore.<br>
+            Tarde: Caminhada pela Strøget e visita à <b>LEGO Store Copenhagen</b> (Vimmelskaftet 37).<br>
+            Final do dia: Rundetaarn (Torre Redonda) e jantar no centro.
+        </div>
+    </div>
+
+    <div id="d-06-02" class="day-card">
+        <div class="day-header"><span class="day-date">Sáb, 06/02/2027</span><span class="badge b-viagem">Copenhague</span></div>
+        <div class="day-content">
+            Manhã / Início da tarde: Experimentarium (museu de ciência super interativo).<br>
+            Tarde: Visita à estátua da Pequena Sereia e caminhada pelo Kastellet.
+        </div>
+    </div>
+
+    <div id="d-07-02" class="day-card">
+        <div class="day-header"><span class="day-date">Dom, 07/02/2027</span><span class="badge b-viagem">Retorno</span></div>
+        <div class="day-content">
+            Manhã: Castelo de Rosenborg.<br>
+            Tarde: Museu Nacional da Dinamarca (história viking, gratuito para menores de 18 anos) → Retorno à København H e trem de volta para Berlim.
+        </div>
+    </div>
+
+    <div id="d-08-02" class="day-card">
+        <div class="day-header"><span class="day-date">Seg, 08/02/2027</span><span class="badge b-treino">Treino</span></div>
+        <div class="day-content">
+            Treinos: Fuchse 1 (17:00) & SG - OSF Goleira (18:30).
+            <div class="action-links">
+                <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-fuchse');">📍 Fuchse 1</button>
+                <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-sgosf');">📍 SG - OSF</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="d-09-02" class="day-card">
+        <div class="day-header"><span class="day-date">Ter, 09/02/2027</span><span class="badge b-treino">Treino</span></div>
+        <div class="day-content">
+            Treino: SG - OSF (18:30 - 20:00).
+            <div class="action-links">
+                <button class="btn-link" onclick="switchTab('tab-berlim'); scrollToId('end-sgosf');">📍 Ver Endereços SG - OSF</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="d-10-02" class="day-card">
+        <div class="day-header"><span class="day-date">Qua, 10/02/2027</span><span class="badge b-viagem">Wroclaw</span></div>
+        <div class="day-content">
+            Ida para <b>Wroclaw (Polônia)</b> → Check-in Airbnb.<br>
+            Tarde/Início da noite: Iniciar caça aos gnomos (Dwarf-Hunting) pelas ruas e acompanhar o tradicional acendedor de lampiões na Ilha da Catedral (por volta das 15h30/16h).
+            <div class="action-links">
+                <button class="btn-link" onclick="switchTab('tab-wroclaw');">🇵🇱 Ver Wrocław</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="d-11-02" class="day-card">
+        <div class="day-header"><span class="day-date">Qui, 11/02/2027</span><span class="badge b-viagem">Wroclaw</span></div>
+        <div class="day-content">
+            Manhã: <b>Hydropolis</b> (centro de água ultra-interativo).<br>
+            Tarde: <b>Kolejkowo</b> (incrível mundo de miniaturas e ferromodelismo) e subida na <b>Ponte dos Penitentes</b> para vista panorâmica.
+            <div class="action-links">
+                <button class="btn-link" onclick="switchTab('tab-wroclaw');">🇵🇱 Ver Wrocław</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="d-12-02" class="day-card">
+        <div class="day-header"><span class="day-date">Sex, 12/02/2027</span><span class="badge b-viagem">Retorno</span></div>
+        <div class="day-content">
+            Manhã: Bate-volta épico ao <b>Castelo Książ</b> (o Castelo Cor de Rosa da Polônia).<br>
+            Tarde: Retorno para <b>Berlim</b> e check-in Airbnb.
+            <div class="action-links">
+                <button class="btn-link" onclick="switchTab('tab-wroclaw');">🇵🇱 Ver Wrocław</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="d-13-02" class="day-card">
+        <div class="day-header"><span class="day-date">Sáb, 13/02/2027</span><span class="badge b-voo">Retorno</span></div>
+        <div class="day-content">
+            Checkout Airbnb Berlim | Voo Lufthansa BER→FRA (17:40) e Voo TAM 8071 FRA→GRU (20:50).
+            <div class="action-links">
+                <a href="https://maps.google.com/?q=Berlin+Brandenburg+Airport" target="_blank" class="btn-link">✈️ Aeroporto BER</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="d-14-02" class="day-card">
+        <div class="day-header"><span class="day-date">Dom, 14/02/2027</span><span class="badge b-voo">Fim</span></div>
+        <div class="day-content">Chegada em São Paulo (GRU) às 05:05.</div>
+    </div>
+</div>
+
+<footer>
+    Criado por Adora para Mi, Mô e Erick • 2027
+</footer>
+
+<!-- Janela "Adicionar link" (também abre quando alguém compartilha um link para o app) -->
+<div id="fl-modal" class="fl-modal" onclick="if(event.target===this) closeLinkForm()">
+    <div class="fl-sheet fl-form">
+        <h3>🔗 Adicionar link</h3>
+        <label for="fl-url">Link</label>
+        <input type="url" id="fl-url" placeholder="Cole aqui o link (Instagram, site, mapa...)">
+        <label for="fl-title">Título</label>
+        <input type="text" id="fl-title" maxlength="60" placeholder="Ex: Restaurante de schnitzel">
+        <label for="fl-city">Cidade</label>
+        <select id="fl-city"></select>
+        <label for="fl-cat">Categoria</label>
+        <select id="fl-cat"></select>
+        <label for="fl-who">Quem indicou</label>
+        <select id="fl-who">
+            <option value="Mônica">Mônica</option>
+            <option value="Milena">Milena</option>
+            <option value="Erick">Erick</option>
+        </select>
+        <div class="fl-actions">
+            <button class="btn-link" onclick="closeLinkForm()">Cancelar</button>
+            <button class="btn-link fl-save" id="fl-save" onclick="saveFamilyLink()">Salvar</button>
+        </div>
+    </div>
+</div>
+<div id="fl-toast" class="fl-toast"></div>
+
+<script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbwQDWrMBSEMtATAoK8DXY36q_YIf0GOC1bK0ZAaOh55LHy4rDcR-fGKtXjIWeavXgxW/exec";
+    let activeCity = { id: 'berlim', name: 'Berlim', flag: '🇩🇪', lat: 52.52, lon: 13.41, tz: 'Europe/Berlin' };
+
+    const fixedIds = [
+        'hosp-berlim', 'hosp-copenhague', 'hosp-wroclaw',
+        'doc-passaporte', 'doc-seguro', 'doc-reservas', 'doc-cartoes',
+        'erick-oculos', 'erick-roupas', 'erick-calcados', 'erick-eletronicos',
+        'monica-oculos', 'monica-roupas', 'monica-calcados', 'monica-higiene',
+        'milena-esporte', 'milena-roupas', 'milena-pessoal'
+    ];
+
+    function toggleTheme() {
+        const body = document.body;
+        body.classList.toggle('dark-mode');
+        const btn = document.getElementById('theme-btn');
+        if (body.classList.contains('dark-mode')) {
+            btn.innerText = "☀️";
+            localStorage.setItem('theme', 'dark');
+        } else {
+            btn.innerText = "🌙";
+            localStorage.setItem('theme', 'light');
         }
+    }
 
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark-mode');
-            document.getElementById('theme-btn').innerText = "☀️";
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('theme-btn').innerText = "☀️";
+    }
+
+    function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+    document.getElementById(tabId).classList.add('active');
+
+    const btnIndex = {'tab-calendario': 0, 'tab-berlim': 1, 'tab-copenhague': 2, 'tab-wroclaw': 3, 'tab-checklist': 4, 'tab-voos': 5, 'tab-alemao': 6, 'tab-cronograma': 7}[tabId];
+    if(btnIndex !== undefined) {
+        document.querySelectorAll('.tab-btn')[btnIndex].classList.add('active');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Lógica para trocar a cidade do topo
+    if (tabId === 'tab-copenhague') {
+        activeCity = { id: 'copenhague', name: 'Copenhague', flag: '🇩🇰', lat: 55.6761, lon: 12.5683, tz: 'Europe/Copenhagen' };
+    } else if (tabId === 'tab-wroclaw') {
+        activeCity = { id: 'wroclaw', name: 'Wroclaw', flag: '🇵🇱', lat: 51.1079, lon: 17.0385, tz: 'Europe/Warsaw' };
+    } else if (tabId === 'tab-berlim') {
+        activeCity = { id: 'berlim', name: 'Berlim', flag: '🇩🇪', lat: 52.52, lon: 13.41, tz: 'Europe/Berlin' };
+    }
+
+    if (['tab-berlim', 'tab-copenhague', 'tab-wroclaw'].includes(tabId)) {
+        document.getElementById('top-city-title').innerText = `${activeCity.flag} ${activeCity.name}`;
+        fetchWeather();
+        updateClocks();
+    }
+}
+
+    function scrollToId(elementId) {
+        const el = document.getElementById(elementId);
+        if(el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            el.style.transition = 'background-color 0.5s';
+            const originalBg = el.style.backgroundColor;
+            el.style.backgroundColor = 'rgba(49, 130, 206, 0.2)';
+            setTimeout(() => { el.style.backgroundColor = originalBg; }, 1000);
         }
+    }
 
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            
-            document.getElementById(tabId).classList.add('active');
-            
-            const btnIndex = {'tab-calendario': 0, 'tab-berlim': 1, 'tab-copenhague': 2, 'tab-wroclaw': 3, 'tab-checklist': 4, 'tab-voos': 5, 'tab-alemao': 6, 'tab-cronograma': 7}[tabId];
-            if(btnIndex !== undefined) {
-                document.querySelectorAll('.tab-btn')[btnIndex].classList.add('active');
-            }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+    function updateProgress() {
+        const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
 
-        function scrollToId(elementId) {
-            const el = document.getElementById(elementId);
-            if(el) {
-                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                el.style.transition = 'background-color 0.5s';
-                const originalBg = el.style.backgroundColor;
-                el.style.backgroundColor = 'rgba(49, 130, 206, 0.2)';
-                setTimeout(() => { el.style.backgroundColor = originalBg; }, 1000);
-            }
-        }
+        const total = checkboxes.length;
+        const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+        const percent = total > 0 ? Math.round((checkedCount / total) * 100) : 0;
 
-        function updateProgress() {
-            const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
-            const progressBar = document.getElementById('progress-bar');
-            const progressText = document.getElementById('progress-text');
-            
-            const total = checkboxes.length;
-            const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
-            const percent = total > 0 ? Math.round((checkedCount / total) * 100) : 0;
-            
-            if(progressBar) progressBar.style.width = percent + '%';
-            if(progressText) progressText.innerText = `${checkedCount} de ${total} concluídos (${percent}%)`;
-        }
+        if(progressBar) progressBar.style.width = percent + '%';
+        if(progressText) progressText.innerText = `${checkedCount} de ${total} concluídos (${percent}%)`;
+    }
 
-        function renderCustomItems(serverData) {
-            ['hospedagem', 'documentos', 'erick', 'monica', 'milena'].forEach(cat => {
-                const container = document.getElementById(`custom-${cat}`);
-                if (container) container.innerHTML = '';
-            });
+    function renderCustomItems(serverData) {
+        ['hospedagem', 'documentos', 'erick', 'monica', 'milena'].forEach(cat => {
+            const container = document.getElementById(`custom-${cat}`);
+            if (container) container.innerHTML = '';
+        });
 
-            const allKeys = Object.keys(serverData);
-            const customKeys = allKeys.filter(key => !fixedIds.includes(key) && !key.endsWith('_text'));
+        const allKeys = Object.keys(serverData);
+        const customKeys = allKeys.filter(key => !fixedIds.includes(key) && !key.endsWith('_text') && !key.startsWith(LINK_PREFIX));
 
-            customKeys.forEach(id => {
-                const parts = id.replace(/^custom-/, '').split('-');
-                const category = parts[0];
-                
-                let labelText = serverData[id + '_text'] || parts.slice(1).join(' ');
-                
-                const targetContainer = document.getElementById(`custom-${category}`);
-                if (targetContainer) {
-                    const isChecked = serverData[id] === true;
-                    let existingLabel = document.querySelector(`input[data-id="${id}"]`);
-                    
-                    if (!existingLabel) {
-                        const label = document.createElement('label');
-                        label.className = `check-item ${isChecked ? 'completed' : ''}`;
-                        label.style.marginTop = '6px';
-                        label.innerHTML = `<input type="checkbox" data-id="${id}" ${isChecked ? 'checked' : ''}> <span>${labelText}</span>`;
-                        
-                        const checkbox = label.querySelector('input');
-                        checkbox.addEventListener('change', () => {
-                            if (checkbox.checked) {
-                                label.classList.add('completed');
-                            } else {
-                                label.classList.remove('completed');
-                            }
-                            updateProgress();
-                            saveChecklistState(id, checkbox.checked);
-                        });
+        customKeys.forEach(id => {
+            const parts = id.replace(/^custom-/, '').split('-');
+            const category = parts[0];
 
-                        targetContainer.appendChild(label);
-                    }
+            let labelText = serverData[id + '_text'] || parts.slice(1).join(' ');
+
+            const targetContainer = document.getElementById(`custom-${category}`);
+            if (targetContainer) {
+                const isChecked = serverData[id] === true;
+                let existingLabel = document.querySelector(`input[data-id="${id}"]`);
+
+                if (!existingLabel) {
+                    const label = document.createElement('label');
+                    label.className = `check-item ${isChecked ? 'completed' : ''}`;
+                    label.style.marginTop = '6px';
+                    label.innerHTML = `<input type="checkbox" data-id="${id}" ${isChecked ? 'checked' : ''}> <span>${labelText}</span>`;
+
+                    const checkbox = label.querySelector('input');
+                    checkbox.addEventListener('change', () => {
+                        if (checkbox.checked) {
+                            label.classList.add('completed');
+                        } else {
+                            label.classList.remove('completed');
+                        }
+                        updateProgress();
+                        saveChecklistState(id, checkbox.checked);
+                    });
+
+                    targetContainer.appendChild(label);
                 }
-            });
-        }
-
-        async function loadChecklistState() {
-            try {
-                const response = await fetch(API_URL);
-                const data = await response.json();
-                
-                const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
-                checkboxes.forEach(cb => {
-                    const id = cb.getAttribute('data-id');
-                    if (data[id] === true) {
-                        cb.checked = true;
-                        cb.closest('.check-item').classList.add('completed');
-                    } else if (data[id] === false) {
-                        cb.checked = false;
-                        cb.closest('.check-item').classList.remove('completed');
-                    }
-                });
-
-                renderCustomItems(data);
-                updateProgress();
-            } catch (error) {
-                console.error("Erro ao carregar checklist:", error);
             }
-        }
+        });
+    }
 
-        async function saveChecklistState(id, status) {
-            try {
-                await fetch(API_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id: id, status: status })
-                });
-            } catch (error) {
-                console.error("Erro ao salvar:", error);
-            }
-        }
-
-        async function addNewCustomItem() {
-            const select = document.getElementById('custom-category-select');
-            const input = document.getElementById('custom-item-input');
-            const category = select.value;
-            const text = input.value.trim();
-
-            if (!text) {
-                alert("Digite o nome do item!");
-                return;
-            }
-
-            const slug = text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').substring(0, 25);
-            const cleanId = `custom-${category}-${slug}`;
-            
-            await saveChecklistState(cleanId, false);
-            await saveChecklistState(cleanId + '_text', text);
-            
-            input.value = '';
-            loadChecklistState();
-        }
-
-        async function translateText() {
-            const text = document.getElementById('source-text').value.trim();
-            const outputDiv = document.getElementById('translator-output');
-            const translatedSpan = document.getElementById('translated-text');
-
-            if(!text) {
-                alert("Digite algo para traduzir!");
-                return;
-            }
-
-            translatedSpan.innerText = "Traduzindo...";
-            outputDiv.style.display = "flex";
-
-            try {
-                const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=pt|de`);
-                const data = await res.json();
-                if(data && data.responseData) {
-                    translatedSpan.innerText = data.responseData.translatedText;
-                } else {
-                    translatedSpan.innerText = "Erro na tradução.";
-                }
-            } catch(e) {
-                translatedSpan.innerText = "Erro de conexão com o tradutor.";
-            }
-        }
-
-        function speakGerman() {
-            const text = document.getElementById('translated-text').innerText;
-            if(text && text !== "Traduzindo...") {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'de-DE';
-                window.speechSynthesis.speak(utterance);
-            }
-        }
-
-        function speakWord(word) {
-            const utterance = new SpeechSynthesisUtterance(word);
-            utterance.lang = 'de-DE';
-            window.speechSynthesis.speak(utterance);
-        }
-
-        function updateClocks() {
-            const now = new Date();
-            const optionsBerlin = { timeZone: 'Europe/Berlin', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-            const timeBerlin = new Intl.DateTimeFormat('pt-BR', optionsBerlin).format(now);
-            const clockBerlinEl = document.getElementById('clock-berlin');
-            if (clockBerlinEl) clockBerlinEl.innerText = timeBerlin;
-
-            const optionsBrasil = { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-            const timeBrasil = new Intl.DateTimeFormat('pt-BR', optionsBrasil).format(now);
-            const clockBrasilEl = document.getElementById('clock-brasil');
-            if (clockBrasilEl) clockBrasilEl.innerText = timeBrasil;
-        }
-
-        async function fetchWeather() {
-            const weatherEl = document.getElementById('weather-val');
-            if (!weatherEl) return;
-            try {
-                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m');
-                const data = await res.json();
-                if (data && data.current) {
-                    const temp = data.current.temperature_2m;
-                    weatherEl.innerText = `🌡️ Berlim: ${temp}°C`;
-                }
-            } catch (e) {
-                weatherEl.innerText = `🌡️ Berlim: Indisponível`;
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            loadChecklistState();
-            setInterval(loadChecklistState, 10000);
-            
-            updateClocks();
-            setInterval(updateClocks, 1000);
-
-            fetchWeather();
+    async function loadChecklistState() {
+        try {
+            const response = await fetch(API_URL);
+            const data = await response.json();
 
             const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
             checkboxes.forEach(cb => {
-                cb.addEventListener('change', () => {
-                    const id = cb.getAttribute('data-id');
-                    const status = cb.checked;
-                    if (status) {
-                        cb.closest('.check-item').classList.add('completed');
-                    } else {
-                        cb.closest('.check-item').classList.remove('completed');
+                const id = cb.getAttribute('data-id');
+                if (data[id] === true) {
+                    cb.checked = true;
+                    cb.closest('.check-item').classList.add('completed');
+                } else if (data[id] === false) {
+                    cb.checked = false;
+                    cb.closest('.check-item').classList.remove('completed');
+                }
+            });
+
+            renderCustomItems(data);
+            updateProgress();
+            renderFamilyLinks(data);
+        } catch (error) {
+            console.error("Erro ao carregar checklist:", error);
+        }
+    }
+
+    async function saveChecklistState(id, status) {
+        try {
+            await fetch(API_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: id, status: status })
+            });
+        } catch (error) {
+            console.error("Erro ao salvar:", error);
+        }
+    }
+
+    async function addNewCustomItem() {
+        const select = document.getElementById('custom-category-select');
+        const input = document.getElementById('custom-item-input');
+        const category = select.value;
+        const text = input.value.trim();
+
+        if (!text) {
+            alert("Digite o nome do item!");
+            return;
+        }
+
+        const slug = text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').substring(0, 25);
+        const cleanId = `custom-${category}-${slug}`;
+
+        await saveChecklistState(cleanId, false);
+        await saveChecklistState(cleanId + '_text', text);
+
+        input.value = '';
+        loadChecklistState();
+    }
+
+    // ================= LINKS DA FAMÍLIA =================
+    // O Apps Script só guarda verdadeiro/falso por chave. Por isso cada link vai codificado
+    // na própria chave: "link-" + base64url(JSON). Valor true = visível; false = removido.
+    const LINK_PREFIX = 'link-';
+    const FL_CITIES = [
+        { id: 'berlim', label: '🇩🇪 Berlim' },
+        { id: 'copenhague', label: '🇩🇰 Copenhague' },
+        { id: 'wroclaw', label: '🇵🇱 Wroclaw' }
+    ];
+    const FL_CATS = [
+        { id: 'comida', label: '🍔 Comida', icon: '🍽️' },
+        { id: 'visitar', label: '📍 Locais para visitar', icon: '🏛️' },
+        { id: 'roteiro', label: '🗺️ Roteiros', icon: '🗺️' },
+        { id: 'compras', label: '🛒 Compras / Mercado', icon: '🛒' },
+        { id: 'outros', label: '📦 Outros', icon: '🔗' }
+    ];
+    let flServerData = {};
+    const flPendingAdd = new Map();   // chave -> {rec, until}: aparece já, antes da nuvem confirmar
+    const flPendingDel = new Map();   // chave -> until: some já, antes da nuvem confirmar
+
+    function b64urlEncode(str) {
+        const bytes = new TextEncoder().encode(str);
+        let bin = '';
+        bytes.forEach(b => bin += String.fromCharCode(b));
+        return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    }
+    function b64urlDecode(s) {
+        s = s.replace(/-/g, '+').replace(/_/g, '/');
+        while (s.length % 4) s += '=';
+        const bin = atob(s);
+        return new TextDecoder().decode(Uint8Array.from(bin, c => c.charCodeAt(0)));
+    }
+    function decodeLinkKey(key) {
+        try {
+            const r = JSON.parse(b64urlDecode(key.slice(LINK_PREFIX.length)));
+            return (r && /^https?:\/\//i.test(r.u)) ? r : null;
+        } catch (e) { return null; }
+    }
+
+    function flToast(msg) {
+        const t = document.getElementById('fl-toast');
+        t.innerText = msg;
+        t.style.display = 'block';
+        clearTimeout(t._h);
+        t._h = setTimeout(() => t.style.display = 'none', 2500);
+    }
+
+    function buildFamilyLinkCards() {
+        FL_CITIES.forEach(city => {
+            const tab = document.getElementById(`tab-${city.id}`);
+            if (!tab || document.getElementById(`fl-card-${city.id}`)) return;
+            const card = document.createElement('div');
+            card.className = 'card-box family-links';
+            card.id = `fl-card-${city.id}`;
+            card.innerHTML = `<h3>🔗 Links da Família</h3><div class="fl-list"><div class="fl-empty">Carregando...</div></div>`;
+            const btn = document.createElement('button');
+            btn.className = 'btn-link fl-open-btn';
+            btn.innerText = '➕ Adicionar link';
+            btn.onclick = () => openLinkForm({ city: city.id });
+            card.appendChild(btn);
+            // fica logo depois do primeiro card (hospedagem), fácil de achar
+            const first = tab.querySelector('.card-box');
+            if (first && first.nextSibling) tab.insertBefore(card, first.nextSibling); else tab.appendChild(card);
+        });
+    }
+
+    function renderFamilyLinks(serverData) {
+        if (serverData) flServerData = serverData;
+        const now = Date.now();
+        const records = {};
+        Object.keys(flServerData).forEach(k => {
+            if (k.startsWith(LINK_PREFIX) && flServerData[k] === true) records[k] = decodeLinkKey(k);
+        });
+        flPendingAdd.forEach((p, k) => {
+            if (flServerData[k] === true || p.until < now) flPendingAdd.delete(k);
+            else records[k] = p.rec;
+        });
+        flPendingDel.forEach((until, k) => {
+            if (flServerData[k] !== true || until < now) flPendingDel.delete(k);
+            else delete records[k];
+        });
+
+        FL_CITIES.forEach(city => {
+            const list = document.querySelector(`#fl-card-${city.id} .fl-list`);
+            if (!list) return;
+            list.innerHTML = '';
+            const mine = Object.entries(records).filter(([, r]) => r && r.c === city.id).sort((a, b) => (a[1].d || 0) - (b[1].d || 0));
+            if (!mine.length) {
+                list.innerHTML = '<div class="fl-empty">Nenhum link ainda. Toque em "Adicionar link" ou compartilhe do Instagram direto para o app.</div>';
+                return;
+            }
+            FL_CATS.forEach(cat => {
+                const items = mine.filter(([, r]) => (FL_CATS.some(c => c.id === r.k) ? r.k : 'outros') === cat.id);
+                if (!items.length) return;
+                const group = document.createElement('div');
+                group.className = 'fl-group';
+                const title = document.createElement('div');
+                title.className = 'fl-group-title';
+                title.innerText = cat.label;
+                group.appendChild(title);
+                items.forEach(([key, r]) => {
+                    const wrap = document.createElement('span');
+                    wrap.className = 'fl-item' + (flPendingAdd.has(key) ? ' fl-pending' : '');
+                    const a = document.createElement('a');
+                    a.className = 'btn-link';
+                    a.href = r.u;
+                    a.target = '_blank';
+                    a.rel = 'noopener';
+                    const txt = document.createElement('span');
+                    txt.innerText = `${cat.icon} ${r.t}`;
+                    a.appendChild(txt);
+                    if (r.p) {
+                        const who = document.createElement('span');
+                        who.className = 'fl-who';
+                        who.innerText = `· ${r.p}`;
+                        a.appendChild(who);
                     }
-                    updateProgress();
-                    saveChecklistState(id, status);
+                    const del = document.createElement('button');
+                    del.className = 'fl-del';
+                    del.title = 'Remover';
+                    del.innerText = '×';
+                    del.onclick = () => removeFamilyLink(key, r.t);
+                    wrap.appendChild(a);
+                    wrap.appendChild(del);
+                    group.appendChild(wrap);
                 });
+                list.appendChild(group);
             });
         });
-    </script>
+    }
+
+    function openLinkForm(prefill = {}) {
+        const citySel = document.getElementById('fl-city');
+        const catSel = document.getElementById('fl-cat');
+        if (!citySel.options.length) {
+            FL_CITIES.forEach(c => citySel.add(new Option(c.label, c.id)));
+            FL_CATS.forEach(c => catSel.add(new Option(c.label, c.id)));
+        }
+        const visibleCity = FL_CITIES.find(c => document.getElementById(`tab-${c.id}`)?.classList.contains('active'));
+        citySel.value = prefill.city || (visibleCity ? visibleCity.id : 'berlim');
+        catSel.value = 'comida';
+        document.getElementById('fl-url').value = prefill.url || '';
+        document.getElementById('fl-title').value = prefill.title || '';
+        try { document.getElementById('fl-who').value = localStorage.getItem('fl-who') || 'Mônica'; } catch (e) {}
+        document.getElementById('fl-modal').classList.add('open');
+        setTimeout(() => document.getElementById(prefill.url ? 'fl-title' : 'fl-url').focus(), 50);
+    }
+    function closeLinkForm() {
+        document.getElementById('fl-modal').classList.remove('open');
+    }
+
+    async function saveFamilyLink() {
+        const url = document.getElementById('fl-url').value.trim();
+        if (!/^https?:\/\/\S+$/i.test(url)) { alert('Cole um link válido (começando com http).'); return; }
+        let title = document.getElementById('fl-title').value.trim();
+        if (!title) {
+            try { title = new URL(url).hostname.replace(/^www\./, ''); } catch (e) { title = 'Link'; }
+        }
+        const rec = {
+            c: document.getElementById('fl-city').value,
+            k: document.getElementById('fl-cat').value,
+            t: title.substring(0, 60),
+            u: url,
+            p: document.getElementById('fl-who').value,
+            d: Date.now()
+        };
+        try { localStorage.setItem('fl-who', rec.p); } catch (e) {}
+        const key = LINK_PREFIX + b64urlEncode(JSON.stringify(rec));
+        flPendingAdd.set(key, { rec, until: Date.now() + 120000 });
+        closeLinkForm();
+        switchTab(`tab-${rec.c}`);
+        renderFamilyLinks();
+        document.getElementById(`fl-card-${rec.c}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        await saveChecklistState(key, true);
+        flToast('Link salvo para a família ✔');
+        setTimeout(loadChecklistState, 2000);
+    }
+
+    async function removeFamilyLink(key, title) {
+        if (!confirm(`Remover o link "${title}" para todos?`)) return;
+        flPendingAdd.delete(key);
+        flPendingDel.set(key, Date.now() + 120000);
+        renderFamilyLinks();
+        await saveChecklistState(key, false);
+        flToast('Link removido');
+        setTimeout(loadChecklistState, 2000);
+    }
+
+    // Quando alguém usa "Compartilhar → Alemanha 27" no celular, o app abre com ?share_url=...
+    function handleSharedLink() {
+        const params = new URLSearchParams(location.search);
+        if (!params.has('share_url') && !params.has('share_text') && !params.has('share_title')) return;
+        const text = params.get('share_text') || '';
+        const found = (params.get('share_url') || '').trim() || ((text.match(/https?:\/\/\S+/i) || [])[0] || '');
+        let title = (params.get('share_title') || '').trim();
+        if (!title) title = text.replace(found, '').trim();
+        history.replaceState(null, '', location.pathname);
+        openLinkForm({ url: found, title: title.substring(0, 60) });
+    }
+
+    async function translateText() {
+        const text = document.getElementById('source-text').value.trim();
+        const outputDiv = document.getElementById('translator-output');
+        const translatedSpan = document.getElementById('translated-text');
+
+        if(!text) {
+            alert("Digite algo para traduzir!");
+            return;
+        }
+
+        translatedSpan.innerText = "Traduzindo...";
+        outputDiv.style.display = "flex";
+
+        try {
+            const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=pt|de`);
+            const data = await res.json();
+            if(data && data.responseData) {
+                translatedSpan.innerText = data.responseData.translatedText;
+            } else {
+                translatedSpan.innerText = "Erro na tradução.";
+            }
+        } catch(e) {
+            translatedSpan.innerText = "Erro de conexão com o tradutor.";
+        }
+    }
+
+    function speakGerman() {
+        const text = document.getElementById('translated-text').innerText;
+        if(text && text !== "Traduzindo...") {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'de-DE';
+            window.speechSynthesis.speak(utterance);
+        }
+    }
+
+    function speakWord(word) {
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.lang = 'de-DE';
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function updateCountdown() {
+        const tripDate = new Date("2027-01-25T00:00:00");
+        const now = new Date();
+        const diff = tripDate - now;
+        const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+        const el = document.getElementById('countdown-top');
+        if(el) el.innerText = days > 0 ? `Faltam ${days} dias` : "Chegou o dia!";
+    }
+
+    function updateClocks() {
+    const now = new Date();
+
+    // Usa o fuso horário da cidade que estiver ativa no momento
+    const tzLocal = typeof activeCity !== 'undefined' ? activeCity.tz : 'Europe/Berlin';
+
+    const optionsLocal = { timeZone: tzLocal, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+    const timeLocal = new Intl.DateTimeFormat('pt-BR', optionsLocal).format(now);
+    const clockLocalEl = document.getElementById('clock-berlin');
+    if (clockLocalEl) clockLocalEl.innerText = timeLocal;
+
+    const optionsBrasil = { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+    const timeBrasil = new Intl.DateTimeFormat('pt-BR', optionsBrasil).format(now);
+    const clockBrasilEl = document.getElementById('clock-brasil');
+    if (clockBrasilEl) clockBrasilEl.innerText = timeBrasil;
+}
+
+    async function fetchWeather() {
+    const weatherEl = document.getElementById('weather-val');
+    if (!weatherEl) return;
+
+    weatherEl.innerText = `🌡️ ${activeCity.name}: Buscando...`;
+    try {
+        const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${activeCity.lat}&longitude=${activeCity.lon}&current=temperature_2m`);
+        const data = await res.json();
+        if (data && data.current) {
+            const temp = data.current.temperature_2m;
+            weatherEl.innerText = `🌡️ ${activeCity.name}: ${temp}°C`;
+        }
+    } catch (e) {
+        weatherEl.innerText = `🌡️ ${activeCity.name}: Indisponível`;
+    }
+}
+
+    if ('serviceWorker' in navigator && location.protocol === 'https:') {
+        navigator.serviceWorker.register('sw.js').catch(err => console.warn('SW:', err));
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        updateCountdown();
+        buildFamilyLinkCards();
+        handleSharedLink();
+        loadChecklistState();
+        setInterval(loadChecklistState, 10000);
+
+        updateClocks();
+        setInterval(updateClocks, 1000);
+
+        fetchWeather();
+
+        const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', () => {
+                const id = cb.getAttribute('data-id');
+                const status = cb.checked;
+                if (status) {
+                    cb.closest('.check-item').classList.add('completed');
+                } else {
+                    cb.closest('.check-item').classList.remove('completed');
+                }
+                updateProgress();
+                saveChecklistState(id, status);
+            });
+        });
+    });
+</script>
 </body>
 </html>
