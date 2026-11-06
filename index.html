@@ -526,6 +526,33 @@
         .fl-modal.open { display: flex; }
         .fl-sheet { background: var(--card-bg); color: var(--text); width: 100%; max-width: 560px; border-radius: 16px 16px 0 0; padding: 18px 16px 24px; box-shadow: 0 -4px 20px rgba(0,0,0,0.3); }
         .fl-sheet h3 { font-size: 11pt; color: var(--primary); margin-bottom: 10px; }
+        /* CRONOGRAMA: feito + atividades da família */
+        .day-header { gap: 6px; }
+        .day-header .day-date { flex: 1; }
+        .cr-check {
+            width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border);
+            background: var(--card-bg); color: transparent; font-size: 11pt; font-weight: bold;
+            cursor: pointer; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 0;
+        }
+        .cr-check.on { background: #38a169; border-color: #38a169; color: #fff; }
+        .cr-check.small { width: 22px; height: 22px; font-size: 9pt; }
+        .day-card.cr-done { opacity: 0.6; border-left: 4px solid #38a169; }
+        .day-card.cr-done .day-content { text-decoration: line-through; }
+        .day-card.cr-done .cr-acts { text-decoration: none; }
+        .cr-acts { margin-top: 8px; border-top: 1px dashed var(--border); padding-top: 6px; }
+        .cr-act { display: flex; align-items: center; gap: 8px; font-size: 9pt; padding: 3px 0; }
+        .cr-act .cr-time { font-weight: bold; color: #6b46c1; min-width: 40px; }
+        body.dark-mode .cr-act .cr-time { color: #b794f4; }
+        .cr-act .cr-text { flex: 1; }
+        .cr-act.done .cr-text, .cr-act.done .cr-time { text-decoration: line-through; color: var(--text-light); }
+        .cr-add-day { margin-top: 6px; background: none; border: none; color: var(--secondary); font-size: 8pt; font-weight: 600; cursor: pointer; padding: 2px 0; }
+        .cr-add-top { width: 100%; justify-content: center; padding: 9px; font-size: 9.5pt; cursor: pointer; margin-bottom: 12px; }
+        .c-familia { background-color: #e9d8fd; color: #553c9a; border-left: 2px solid #805ad5; }
+        .event-chip.chip-done { text-decoration: line-through; opacity: 0.55; }
+        .fl-form input[type="date"], .fl-form input[type="time"] {
+            width: 100%; padding: 9px; border: 1px solid var(--border); border-radius: 6px;
+            background: var(--bg); color: var(--text); font-size: 10pt; margin-bottom: 8px;
+        }
         .fl-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: #111; color: #fff; padding: 9px 16px; border-radius: 20px; font-size: 9pt; z-index: 1100; display: none; }
 
         footer {
@@ -598,6 +625,7 @@
         <div class="legend-item"><div class="legend-color" style="background:#bee3f8;"></div> SG - OSF</div>
         <div class="legend-item"><div class="legend-color" style="background:#c6f6d5;"></div> Fuchse 2</div>
         <div class="legend-item"><div class="legend-color" style="background:#e6fffa;"></div> Viagem / Turismo</div>
+        <div class="legend-item"><div class="legend-color" style="background:#e9d8fd;"></div> Família</div>
     </div>
 
     <!-- Semana 1 -->
@@ -1090,6 +1118,7 @@
         <span>Cronograma Detalhado</span>
         <button class="back-to-top" onclick="switchTab('tab-calendario')">📅 Ir ao Calendário</button>
     </h2>
+    <button class="btn-link cr-add-top" onclick="openActivityForm()">➕ Adicionar atividade</button>
 
     <div id="d-25-01" class="day-card">
         <div class="day-header"><span class="day-date">Seg, 25/01/2027</span><span class="badge b-voo">Voo</span></div>
@@ -1265,9 +1294,28 @@
     </div>
 </div>
 
-<footer>
-    Criado por Adora para Mi, Mô e Erick • 2027
-</footer>
+<!-- Janela "Adicionar atividade" (cronograma + calendário) -->
+<div id="cr-modal" class="fl-modal" onclick="if(event.target===this) closeActivityForm()">
+    <div class="fl-sheet fl-form">
+        <h3>🗓️ Adicionar atividade</h3>
+        <label for="cr-date">Dia</label>
+        <input type="date" id="cr-date" min="2027-01-25" max="2027-02-14">
+        <label for="cr-time">Horário (opcional)</label>
+        <input type="time" id="cr-time">
+        <label for="cr-title">Atividade</label>
+        <input type="text" id="cr-title" maxlength="60" placeholder="Ex: Museu de Pergamon">
+        <label for="cr-who">Quem adicionou</label>
+        <select id="cr-who">
+            <option value="Mônica">Mônica</option>
+            <option value="Milena">Milena</option>
+            <option value="Erick">Erick</option>
+        </select>
+        <div class="fl-actions">
+            <button class="btn-link" onclick="closeActivityForm()">Cancelar</button>
+            <button class="btn-link fl-save" onclick="saveActivity()">Salvar</button>
+        </div>
+    </div>
+</div>
 
 <!-- Janela "Adicionar link" (também abre quando alguém compartilha um link para o app) -->
 <div id="fl-modal" class="fl-modal" onclick="if(event.target===this) closeLinkForm()">
@@ -1384,7 +1432,7 @@
         });
 
         const allKeys = Object.keys(serverData);
-        const customKeys = allKeys.filter(key => !fixedIds.includes(key) && !key.endsWith('_text') && !key.startsWith(LINK_PREFIX));
+        const customKeys = allKeys.filter(key => !fixedIds.includes(key) && !key.endsWith('_text') && !key.startsWith(LINK_PREFIX) && !key.startsWith(ACT_PREFIX) && !key.startsWith(DONE_PREFIX));
 
         customKeys.forEach(id => {
             const parts = id.replace(/^custom-/, '').split('-');
@@ -1440,6 +1488,7 @@
             renderCustomItems(data);
             updateProgress();
             renderFamilyLinks(data);
+            renderSchedule(data);
         } catch (error) {
             console.error("Erro ao carregar checklist:", error);
         }
@@ -1667,6 +1716,205 @@
         setTimeout(loadChecklistState, 2000);
     }
 
+    // ================= CRONOGRAMA: FEITO + ATIVIDADES DA FAMÍLIA =================
+    // Mesmo esquema dos links (o Apps Script só guarda true/false):
+    //   atividade: "ativ-" + base64url(JSON {dt: 'AAAA-MM-DD', h: 'HH:MM', t: título, p: quem, d: criado em})
+    //   feito:     "feito-d-27-01" (dia fixo do cronograma) ou "feito-a<d>" (atividade adicionada)
+    const ACT_PREFIX = 'ativ-';
+    const DONE_PREFIX = 'feito-';
+    const TRIP_START = '2027-01-25', TRIP_END = '2027-02-14';
+    const WEEKDAYS = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+    let crServer = {};
+    const crPendingAdd = new Map();   // chave -> {rec, until}
+    const crPendingDel = new Map();   // chave -> until
+    const crPendingDone = new Map();  // chave feito -> {val, until}
+
+    const dayIdFromDate = (dt) => `d-${dt.slice(8, 10)}-${dt.slice(5, 7)}`;
+    const dateFromDayId = (id) => `2027-${id.slice(5, 7)}-${id.slice(2, 4)}`;
+    const actDoneKey = (rec) => `${DONE_PREFIX}a${rec.d}`;
+
+    function decodeActKey(key) {
+        try {
+            const r = JSON.parse(b64urlDecode(key.slice(ACT_PREFIX.length)));
+            return (r && /^\d{4}-\d{2}-\d{2}$/.test(r.dt) && r.t) ? r : null;
+        } catch (e) { return null; }
+    }
+
+    function isDone(key) {
+        const p = crPendingDone.get(key);
+        return p ? p.val : crServer[key] === true;
+    }
+
+    function makeCheck(key, small) {
+        const b = document.createElement('button');
+        b.className = 'cr-check' + (small ? ' small' : '');
+        b.dataset.doneKey = key;
+        b.title = 'Marcar como feito';
+        b.innerText = '✓';
+        b.onclick = (e) => { e.stopPropagation(); toggleDone(key); };
+        return b;
+    }
+
+    function addDayExtras(card) {
+        const header = card.querySelector('.day-header');
+        if (!card.dataset.dyn && header && !header.querySelector('.cr-check')) {
+            header.appendChild(makeCheck(DONE_PREFIX + card.id, false));
+        }
+        if (!card.querySelector('.cr-acts')) {
+            const acts = document.createElement('div');
+            acts.className = 'cr-acts';
+            acts.style.display = 'none';
+            card.appendChild(acts);
+            const add = document.createElement('button');
+            add.className = 'cr-add-day';
+            add.innerText = '➕ atividade neste dia';
+            add.onclick = () => openActivityForm(dateFromDayId(card.id));
+            card.appendChild(add);
+        }
+    }
+
+    function initSchedule() {
+        document.querySelectorAll('#tab-cronograma .day-card').forEach(addDayExtras);
+    }
+
+    // Dia sem card no cronograma (ex.: 30/01) ganha um card na posição certa
+    function ensureDayCard(dt) {
+        const id = dayIdFromDate(dt);
+        let card = document.getElementById(id);
+        if (card) return card;
+        card = document.createElement('div');
+        card.id = id;
+        card.className = 'day-card';
+        card.dataset.dyn = '1';
+        const wd = WEEKDAYS[new Date(dt + 'T12:00:00').getDay()];
+        card.innerHTML = `<div class="day-header"><span class="day-date">${wd}, ${dt.slice(8, 10)}/${dt.slice(5, 7)}/${dt.slice(0, 4)}</span><span class="badge c-familia">Família</span></div>`;
+        const next = Array.from(document.querySelectorAll('#tab-cronograma .day-card')).find(c => dateFromDayId(c.id) > dt);
+        if (next) next.parentNode.insertBefore(card, next); else document.getElementById('tab-cronograma').appendChild(card);
+        addDayExtras(card);
+        return card;
+    }
+
+    function renderSchedule(serverData) {
+        if (serverData) crServer = serverData;
+        const now = Date.now();
+        crPendingDone.forEach((p, k) => { if (crServer[k] === p.val || p.until < now) crPendingDone.delete(k); });
+
+        const records = {};
+        Object.keys(crServer).forEach(k => {
+            if (k.startsWith(ACT_PREFIX) && crServer[k] === true) { const r = decodeActKey(k); if (r) records[k] = r; }
+        });
+        crPendingAdd.forEach((p, k) => { if (crServer[k] === true || p.until < now) crPendingAdd.delete(k); else records[k] = p.rec; });
+        crPendingDel.forEach((until, k) => { if (crServer[k] !== true || until < now) crPendingDel.delete(k); else delete records[k]; });
+
+        // limpa o que foi desenhado antes
+        document.querySelectorAll('#tab-calendario .c-familia').forEach(el => el.remove());
+        document.querySelectorAll('#tab-cronograma .cr-acts').forEach(el => { el.innerHTML = ''; el.style.display = 'none'; });
+
+        const list = Object.entries(records).sort((a, b) => (a[1].dt + (a[1].h || '99')).localeCompare(b[1].dt + (b[1].h || '99')));
+        list.forEach(([key, r]) => {
+            const card = ensureDayCard(r.dt);
+            const acts = card.querySelector('.cr-acts');
+            acts.style.display = 'block';
+            const doneKey = actDoneKey(r);
+            const done = isDone(doneKey);
+
+            const row = document.createElement('div');
+            row.className = 'cr-act' + (done ? ' done' : '') + (crPendingAdd.has(key) ? ' fl-pending' : '');
+            row.appendChild(makeCheck(doneKey, true));
+            const time = document.createElement('span');
+            time.className = 'cr-time';
+            time.innerText = r.h || '';
+            const text = document.createElement('span');
+            text.className = 'cr-text';
+            text.innerText = r.t;
+            if (r.p) { const who = document.createElement('span'); who.className = 'fl-who'; who.innerText = ` · ${r.p}`; text.appendChild(who); }
+            const del = document.createElement('button');
+            del.className = 'fl-del';
+            del.title = 'Remover';
+            del.innerText = '×';
+            del.onclick = () => removeActivity(key, r.t);
+            row.append(time, text, del);
+            acts.appendChild(row);
+
+            // reflete no calendário
+            const td = document.querySelector(`#tab-calendario td[data-date="${r.dt}"]`);
+            if (td) {
+                const chip = document.createElement('a');
+                chip.className = 'event-chip c-familia' + (done ? ' chip-done' : '');
+                chip.href = '#';
+                chip.innerText = (r.h ? r.h + ' ' : '') + r.t;
+                chip.onclick = (e) => { e.preventDefault(); goToDay(r.dt); };
+                td.appendChild(chip);
+            }
+        });
+
+        // card criado só para atividades e que ficou vazio: some
+        document.querySelectorAll('#tab-cronograma .day-card[data-dyn]').forEach(c => {
+            if (!c.querySelector('.cr-act')) c.remove();
+        });
+
+        // estado "feito" dos dias fixos (cronograma + etiquetas do calendário)
+        document.querySelectorAll('#tab-cronograma .cr-check').forEach(b => b.classList.toggle('on', isDone(b.dataset.doneKey)));
+        document.querySelectorAll('#tab-cronograma .day-card:not([data-dyn])').forEach(card => {
+            const done = isDone(DONE_PREFIX + card.id);
+            card.classList.toggle('cr-done', done);
+            document.querySelectorAll(`#tab-calendario a[href="#${card.id}"]`).forEach(ch => ch.classList.toggle('chip-done', done));
+        });
+    }
+
+    function goToDay(dt) {
+        switchTab('tab-cronograma');
+        setTimeout(() => scrollToId(dayIdFromDate(dt)), 80);
+    }
+
+    async function toggleDone(key) {
+        const val = !isDone(key);
+        crPendingDone.set(key, { val, until: Date.now() + 120000 });
+        renderSchedule();
+        await saveChecklistState(key, val);
+    }
+
+    function openActivityForm(dt) {
+        const today = new Date().toISOString().slice(0, 10);
+        const def = (today >= TRIP_START && today <= TRIP_END) ? today : TRIP_START;
+        document.getElementById('cr-date').value = dt || def;
+        document.getElementById('cr-time').value = '';
+        document.getElementById('cr-title').value = '';
+        try { document.getElementById('cr-who').value = localStorage.getItem('fl-who') || 'Mônica'; } catch (e) {}
+        document.getElementById('cr-modal').classList.add('open');
+        setTimeout(() => document.getElementById('cr-title').focus(), 50);
+    }
+    function closeActivityForm() {
+        document.getElementById('cr-modal').classList.remove('open');
+    }
+
+    async function saveActivity() {
+        const dt = document.getElementById('cr-date').value;
+        const t = document.getElementById('cr-title').value.trim();
+        if (!dt || dt < TRIP_START || dt > TRIP_END) { alert('Escolha um dia entre 25/01 e 14/02/2027.'); return; }
+        if (!t) { alert('Escreva a atividade.'); return; }
+        const rec = { dt, h: document.getElementById('cr-time').value || '', t: t.substring(0, 60), p: document.getElementById('cr-who').value, d: Date.now() };
+        try { localStorage.setItem('fl-who', rec.p); } catch (e) {}
+        const key = ACT_PREFIX + b64urlEncode(JSON.stringify(rec));
+        crPendingAdd.set(key, { rec, until: Date.now() + 120000 });
+        closeActivityForm();
+        renderSchedule();
+        goToDay(dt);
+        await saveChecklistState(key, true);
+        flToast('Atividade salva ✔');
+        setTimeout(loadChecklistState, 2000);
+    }
+
+    async function removeActivity(key, title) {
+        if (!confirm(`Remover a atividade "${title}" para todos?`)) return;
+        crPendingAdd.delete(key);
+        crPendingDel.set(key, Date.now() + 120000);
+        renderSchedule();
+        await saveChecklistState(key, false);
+        flToast('Atividade removida');
+        setTimeout(loadChecklistState, 2000);
+    }
+
     // Quando alguém usa "Compartilhar → Alemanha 27" no celular, o app abre com ?share_url=...
     function handleSharedLink() {
         const params = new URLSearchParams(location.search);
@@ -1770,6 +2018,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         updateCountdown();
         buildFamilyLinkCards();
+        initSchedule();
         handleSharedLink();
         loadChecklistState();
         setInterval(loadChecklistState, 10000);

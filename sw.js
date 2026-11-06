@@ -1,7 +1,7 @@
 // Service worker do Alemanha 27.
 // Página: rede primeiro (as atualizações aparecem na hora); sem internet, usa a cópia guardada.
 // Dados da nuvem (Apps Script), clima e tradutor nunca passam pelo cache.
-const CACHE = 'alemanha27-v1';
+const CACHE = 'alemanha27-v2';
 const SHELL = [
   './',
   './index.html',

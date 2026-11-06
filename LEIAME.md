@@ -25,6 +25,10 @@ só funciona no Android.
 - **Links da Família:** em cada cidade há o card "🔗 Links da Família". Dá pra adicionar um link pelo
   botão ou, no Android, pelo Instagram: **Compartilhar → Alemanha 27**. O app abre com o link
   preenchido; é só escolher cidade, categoria e quem indicou. O × remove o link para todos.
+- **Cronograma:** cada dia tem um botão ✓ para marcar o que já foi feito (fica riscado também no
+  calendário). "➕ Adicionar atividade" (no topo ou em cada dia) pede dia, horário opcional e
+  atividade; ela aparece no dia do cronograma (cria o card se o dia não tinha) e como etiqueta roxa
+  "Família" no Calendário. Cada atividade tem seu próprio ✓ e o × para remover.
 
 Tudo isso é salvo na nuvem e aparece para todos em até 10 segundos.
 
@@ -55,6 +59,11 @@ offline, troque a versão do `CACHE` no `sw.js`.
   - cada link da família é gravado com os dados **dentro da chave**:
     `link-` + base64url(JSON `{c: cidade, k: categoria, t: título, u: url, p: quem, d: data}`).
     Valor `true` = visível, `false` = removido. Assim não foi preciso mexer no Apps Script.
+  - cada atividade do cronograma segue o mesmo esquema: `ativ-` + base64url(JSON
+    `{dt: 'AAAA-MM-DD', h: 'HH:MM', t: atividade, p: quem, d: criado em}`);
+  - "feito" é uma chave por item: `feito-d-27-01` (dia fixo do cronograma) ou `feito-a<d>` (atividade
+    adicionada, `d` = momento em que foi criada).
+- **2026-11-06 · Rodapé "Criado por Adora…" retirado** a pedido do Erick.
 - **Site público:** o conteúdo (endereços das hospedagens, localizador do voo) fica visível para quem
   tiver o link. O repositório já era público antes desta mudança.
 - Os links de Instagram que já estavam no HTML (Comida, Supermercado etc.) continuam fixos; só os novos
