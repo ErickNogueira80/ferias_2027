@@ -553,6 +553,24 @@
             width: 100%; padding: 9px; border: 1px solid var(--border); border-radius: 6px;
             background: var(--bg); color: var(--text); font-size: 10pt; margin-bottom: 8px;
         }
+        /* TRADUTOR: direção, letra grande e tela cheia */
+        .tr-dir { display: flex; gap: 6px; margin-bottom: 10px; }
+        .tr-dir-btn { flex: 1; padding: 10px 6px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 10pt; font-weight: bold; cursor: pointer; line-height: 1.2; }
+        .tr-dir-btn.active { background: var(--secondary); border-color: var(--secondary); color: #fff; }
+        .tr-swap { padding: 0 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--card-bg); color: var(--secondary); font-size: 14pt; cursor: pointer; }
+        .tr-hint { font-size: 10pt; margin-bottom: 8px; color: var(--text-light); }
+        .translator-box textarea#source-text { font-size: 14pt; height: 96px; font-family: inherit; }
+        .tr-go { width: 100%; justify-content: center; padding: 10px; font-size: 11pt; cursor: pointer; }
+        .tr-output { margin-top: 12px; padding: 14px; background: var(--bg); border-radius: 8px; border-left: 4px solid var(--secondary); }
+        .tr-text { font-size: var(--tr-size, 24pt); font-weight: bold; line-height: 1.3; color: var(--text); word-wrap: break-word; }
+        .tr-tools { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+        .tr-tools .audio-btn { margin-left: 0; font-size: 10pt; padding: 6px 10px; }
+        .tr-tools .tr-big-btn { background: var(--secondary); color: #fff; border-color: var(--secondary); }
+        .tr-big { position: fixed; inset: 0; background: #000; color: #fff; z-index: 1200; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 24px; text-align: center; }
+        .tr-big.open { display: flex; }
+        .tr-big-text { font-weight: bold; line-height: 1.2; width: 100%; overflow-wrap: normal; word-break: normal; hyphens: none; }
+        .tr-big-text.tr-break { overflow-wrap: anywhere; }
+        .tr-big-hint { position: absolute; bottom: 18px; font-size: 10pt; color: #888; }
         .fl-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: #111; color: #fff; padding: 9px 16px; border-radius: 20px; font-size: 9pt; z-index: 1100; display: none; }
 
         footer {
@@ -1059,16 +1077,30 @@
 
 <!-- ABA 7: ALEMÃO -->
 <div id="tab-alemao" class="tab-content">
-    <h2>Tradutor Rápido (Português → Alemão)</h2>
+    <h2>Tradutor Rápido</h2>
     <div class="translator-box">
-        <p style="font-size: 8.5pt; margin-bottom: 8px; color: var(--text-light);">Digite o que você quer dizer (ex: "Onde fica o banheiro?", "Quanto custa?"):</p>
-        <textarea id="source-text" placeholder="Digite aqui em português..."></textarea>
-        <button class="btn-link" onclick="translateText()" style="padding: 6px 14px; font-size: 8.5pt;">🌐 Traduzir para Alemão</button>
-
-        <div id="translator-output" class="translator-result" style="display: none;">
-            <span id="translated-text">...</span>
-            <button class="audio-btn" onclick="speakGerman()" title="Ouvir pronúncia">🔊 Ouvir</button>
+        <div class="tr-dir">
+            <button id="tr-dir-ptde" class="tr-dir-btn active" onclick="setTranslateDir('pt-de')">Português → Alemão</button>
+            <button class="tr-swap" onclick="setTranslateDir(trDir === 'pt-de' ? 'de-pt' : 'pt-de')" title="Inverter">⇄</button>
+            <button id="tr-dir-dept" class="tr-dir-btn" onclick="setTranslateDir('de-pt')">Alemão → Português</button>
         </div>
+        <p id="tr-hint" class="tr-hint">Digite o que você quer dizer (ex: "Onde fica o banheiro?", "Quanto custa?"):</p>
+        <textarea id="source-text" placeholder="Digite aqui em português..."></textarea>
+        <button id="tr-go" class="btn-link tr-go" onclick="translateText()">🌐 Traduzir para Alemão</button>
+
+        <div id="translator-output" class="tr-output" style="display: none;">
+            <div id="translated-text" class="tr-text">...</div>
+            <div class="tr-tools">
+                <button class="audio-btn" onclick="speakTranslation()" title="Ouvir pronúncia">🔊 Ouvir</button>
+                <button class="audio-btn" onclick="changeTrFont(-1)" title="Diminuir letra">A−</button>
+                <button class="audio-btn" onclick="changeTrFont(1)" title="Aumentar letra">A+</button>
+                <button class="audio-btn tr-big-btn" onclick="showTranslationBig()" title="Mostrar em tela cheia">⛶ Mostrar grande</button>
+            </div>
+        </div>
+    </div>
+    <div id="tr-big" class="tr-big" onclick="closeTranslationBig()">
+        <div id="tr-big-text" class="tr-big-text"></div>
+        <div class="tr-big-hint">toque para fechar</div>
     </div>
 
     <h2>Guia de Sobrevivência: Português x Alemão</h2>
@@ -1938,10 +1970,11 @@
         }
 
         translatedSpan.innerText = "Traduzindo...";
-        outputDiv.style.display = "flex";
+        outputDiv.style.display = "block";
 
         try {
-            const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=pt|de`);
+            const pair = trDir === 'pt-de' ? 'pt-BR|de' : 'de|pt-BR';  // pt-BR: "trem", não "comboio"
+            const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${pair}`);
             const data = await res.json();
             if(data && data.responseData) {
                 translatedSpan.innerText = data.responseData.translatedText;
@@ -1953,11 +1986,68 @@
         }
     }
 
-    function speakGerman() {
+    // Direção do tradutor: 'pt-de' (Português → Alemão) ou 'de-pt' (Alemão → Português)
+    let trDir = 'pt-de';
+    function setTranslateDir(dir) {
+        trDir = dir;
+        const ptde = dir === 'pt-de';
+        document.getElementById('tr-dir-ptde').classList.toggle('active', ptde);
+        document.getElementById('tr-dir-dept').classList.toggle('active', !ptde);
+        document.getElementById('source-text').placeholder = ptde ? 'Digite aqui em português...' : 'Hier auf Deutsch schreiben... (digite em alemão)';
+        document.getElementById('tr-hint').innerText = ptde
+            ? 'Digite o que você quer dizer (ex: "Onde fica o banheiro?", "Quanto custa?"):'
+            : 'Peça para a pessoa digitar em alemão, ou copie o texto de uma placa ou cardápio:';
+        document.getElementById('tr-go').innerText = ptde ? '🌐 Traduzir para Alemão' : '🌐 Traduzir para Português';
+        // inverteu com uma tradução na tela: a tradução vira o texto a traduzir
+        const out = document.getElementById('translated-text').innerText;
+        const src = document.getElementById('source-text');
+        if (document.getElementById('translator-output').style.display !== 'none' && out && !/^(Traduzindo|Erro)/.test(out)) {
+            src.value = out;
+            document.getElementById('translator-output').style.display = 'none';
+        }
+        try { localStorage.setItem('tr-dir', dir); } catch (e) {}
+    }
+
+    // Tamanho da letra da tradução (A− / A+), lembrado no aparelho
+    const TR_SIZES = [18, 24, 30, 38, 48];
+    let trSizeIdx = 1;
+    function applyTrFont() {
+        document.getElementById('translated-text').style.setProperty('--tr-size', TR_SIZES[trSizeIdx] + 'pt');
+    }
+    function changeTrFont(delta) {
+        trSizeIdx = Math.max(0, Math.min(TR_SIZES.length - 1, trSizeIdx + delta));
+        applyTrFont();
+        try { localStorage.setItem('tr-size', String(trSizeIdx)); } catch (e) {}
+    }
+
+    // Tela cheia: letra enorme, fundo preto, para mostrar a quem está longe
+    function showTranslationBig() {
         const text = document.getElementById('translated-text').innerText;
-        if(text && text !== "Traduzindo...") {
+        if (!text || /^(Traduzindo|Erro)/.test(text)) return;
+        const box = document.getElementById('tr-big');
+        const el = document.getElementById('tr-big-text');
+        el.innerText = text;
+        box.classList.add('open');
+        // maior letra que cabe na tela sem quebrar palavra no meio
+        el.classList.remove('tr-break');
+        let size = 140;
+        el.style.fontSize = size + 'px';
+        const maxH = window.innerHeight - 90;
+        while (size > 20 && (el.scrollHeight > maxH || el.scrollWidth > el.clientWidth)) {
+            size -= 4;
+            el.style.fontSize = size + 'px';
+        }
+        if (el.scrollWidth > el.clientWidth) el.classList.add('tr-break'); // palavra gigante: aí sim quebra
+    }
+    function closeTranslationBig() {
+        document.getElementById('tr-big').classList.remove('open');
+    }
+
+    function speakTranslation() {
+        const text = document.getElementById('translated-text').innerText;
+        if(text && !/^(Traduzindo|Erro)/.test(text)) {
             const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'de-DE';
+            utterance.lang = trDir === 'pt-de' ? 'de-DE' : 'pt-BR';
             window.speechSynthesis.speak(utterance);
         }
     }
@@ -2019,6 +2109,12 @@
         updateCountdown();
         buildFamilyLinkCards();
         initSchedule();
+        try {
+            const savedSize = parseInt(localStorage.getItem('tr-size'), 10);
+            if (!isNaN(savedSize)) trSizeIdx = Math.max(0, Math.min(TR_SIZES.length - 1, savedSize));
+            if (localStorage.getItem('tr-dir') === 'de-pt') setTranslateDir('de-pt');
+        } catch (e) {}
+        applyTrFont();
         handleSharedLink();
         loadChecklistState();
         setInterval(loadChecklistState, 10000);

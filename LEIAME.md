@@ -32,6 +32,14 @@ só funciona no Android.
 
 Tudo isso é salvo na nuvem e aparece para todos em até 10 segundos.
 
+## Tradutor (aba 🗣️ Alemão)
+
+- Dois sentidos: Português → Alemão e Alemão → Português (botão ⇄ inverte e reaproveita a tradução).
+  Usa a API gratuita MyMemory com `pt-BR` (sai "trem", não "comboio").
+- Tradução em letra grande, com A− / A+ (o tamanho fica guardado no aparelho) e **⛶ Mostrar grande**:
+  tela preta com a maior letra que cabe sem quebrar palavra, para mostrar a quem está longe ou a
+  pessoas mais idosas. 🔊 lê em alemão ou português conforme o sentido.
+
 ## Arquivos
 
 | Arquivo | O que é |
